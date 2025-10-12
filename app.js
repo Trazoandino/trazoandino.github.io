@@ -1,4 +1,4 @@
-﻿/* app.js — Complementos con:
+/* app.js — Complementos con:
    - tarjetas altas con media de fondo (YouTube o imagen local),
    - grilla 2×2 (CSS), scroll infinito (4 por página),
    - lazy-load de iframes YouTube de fondo (autoplay mute loop infinito),
@@ -11,14 +11,8 @@
 
 
 
-   
 
-git init
-git add.
-git commit - m "Sitio inicial"
-git branch - M main
-git remote add origin https://github.com/tu_usuario/estuche-andino.git
-git push - u origin main
+
 
 
 
@@ -334,7 +328,10 @@ document.addEventListener('click', (ev) => {
       openDetails(slug);
       break;
     case 'get': {
-      const url = `/downloads/${slug}.zip?utm_source=landing&utm_medium=cta&utm_campaign=estuche_andino`;
+           const url = new URL(
+                 `downloads/${slug}.zip?utm_source=landing&utm_medium=cta&utm_campaign=estuche_andino`,
+                 window.location.href
+               ).toString();
       window.location.href = url;
       break;
     }
