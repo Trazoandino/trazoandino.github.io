@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    Estuches Revit — styles.css (completo)
    - Mantiene tu tema (colores/fondos)
    - Tarjetas más altas para video/capturas locales
@@ -704,4 +704,3 @@ ul {
     box-shadow: 0 8px 20px rgba(0,0,0,.35);
     backdrop-filter: blur(1px); /* leve glass para legibilidad */
 }
-
