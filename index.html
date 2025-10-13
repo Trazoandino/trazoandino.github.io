@@ -8,6 +8,29 @@
     <link rel="icon" href="favicon.ico" sizes="any">
     <link rel="stylesheet" href="styles.css">
 
+    <!-- Hero: imagen estática (16:9) a la derecha -->
+    <style>
+        /* Contenedor con altura propia vía aspect-ratio */
+        #hero .media-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9; /* mismas dimensiones visuales que el video */
+            min-height: 220px; /* fallback por si algún navegador ignora aspect-ratio */
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+            #hero .media-box img {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover; /* llena el cuadro sin deformar */
+                display: block;
+            }
+    </style>
+
     <!-- Canonical + Social -->
     <link rel="canonical" href="https://trazoandino.github.io/">
     <meta property="og:type" content="website">
@@ -15,7 +38,6 @@
     <meta property="og:title" content="Estuche Andino — Complementos para Revit">
     <meta property="og:description" content="Plugins para Revit: Earth, métricas, coordinación y más.">
     <meta property="og:url" content="https://trazoandino.github.io/">
-    
     <meta property="og:image" content="https://trazoandino.github.io/og-image.png">
     <meta name="twitter:title" content="Estuche Andino — Complementos para Revit">
     <meta name="twitter:description" content="Plugins para Revit: Earth, métricas, coordinación y más.">
@@ -36,7 +58,7 @@
         }
     </script>
 
-    <!-- Schema.org: FAQ (edítalo con tus propias preguntas) -->
+    <!-- Schema.org: FAQ -->
     <script type="application/ld+json">
         {
           "@context":"https://schema.org",
@@ -63,42 +85,39 @@
         </div>
     </header>
 
-    <!-- Hero (sin cambios de tema/colores) -->
+    <!-- Hero (dos columnas: texto izq. / imagen der.) -->
     <section id="hero">
         <div class="container hero-content">
             <div>
-                <h1 class="hero-title">Complementos para profesionales  </h1>
-                <p class="hero-sub">
-                    Automatiza Arquitectura, Ingeniería, Construcción y operaciones. 
-                </p>
-                <p class="hero-sub">
-                    Compatible con Revit, Excel, Python, Etabs. Para todas las versiones.
-                </p>
+                <h1 class="hero-title">Complementos para profesionales</h1>
+                <p class="hero-sub">Automatiza Arquitectura, Ingeniería, Construcción y operaciones.</p>
+                <p class="hero-sub">Compatible con Revit, Excel, Python, Etabs. Para todas las versiones.</p>
 
                 <div class="stack row">
                     <a class="btn btn-primary" href="#plugins">Ver complementos</a>
                     <a class="btn btn-ghost" href="#faq">Cómo instalar</a>
                 </div>
             </div>
+
             <div>
-                <!-- Demo general opcional en el hero -->
-                <div class="video-embed" aria-hidden="true">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&mute=1"
-                            title="Demo rápido"
-                            loading="lazy"
-                            allow="autoplay; encrypted-media; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
+                <!-- Imagen del banner (misma área que el video) -->
+                <figure class="media-box" aria-hidden="true">
+                    <img src="banner-hero.png" alt="" loading="eager" decoding="async">
+                </figure>
             </div>
         </div>
     </section>
 
-    <!-- Complementos (CUADROS MÁS ALTOS + video/imagen local en tarjetas; YouTube solo en Detalles) -->
+    <!-- Complementos -->
     <section id="plugins" aria-labelledby="plugins-title">
         <div class="container">
             <header>
                 <h2 id="plugins-title">Complementos</h2>
-                <p class="max-w">Explora la colección. Cada tarjeta muestra una previsualización con <strong>video local</strong> o <strong>captura</strong> de fondo. El video de YouTube solo se abre al presionar <strong>Detalles</strong>.</p>
+                <p class="max-w">
+                    Explora la colección. Cada tarjeta muestra una previsualización con
+                    <strong>video local</strong> o <strong>captura</strong> de fondo. El video de YouTube solo se abre al presionar
+                    <strong>Detalles</strong>.
+                </p>
                 <div class="search" role="search" aria-label="Buscar complementos">
                     <input type="search" placeholder="Buscar complementos…">
                 </div>
@@ -130,21 +149,15 @@
         </div>
     </section>
 
-    <!-- Modal Detalles (YouTube solo aquí) -->
+    <!-- Modal Detalles -->
     <dialog id="modal">
         <div class="modal-head">
             <h3 class="modal-title" id="modal-title">Detalles</h3>
-            <form method="dialog">
-                <button class="btn" aria-label="Cerrar">Cerrar</button>
-            </form>
+            <form method="dialog"><button class="btn" aria-label="Cerrar">Cerrar</button></form>
         </div>
-        <div class="modal-body">
-            <!-- Contenido dinámico (video YouTube + texto + botones) desde app.js -->
-        </div>
+        <div class="modal-body"><!-- Contenido dinámico desde app.js --></div>
         <div class="modal-actions">
-            <form method="dialog">
-                <button class="btn">Cerrar</button>
-            </form>
+            <form method="dialog"><button class="btn">Cerrar</button></form>
         </div>
     </dialog>
 
@@ -159,10 +172,7 @@
         </div>
     </footer>
 
-    <script>
-        // año dinámico simple
-        document.getElementById('y').textContent = new Date().getFullYear();
-    </script>
+    <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
     <script src="app.js" defer></script>
 </body>
 </html>
