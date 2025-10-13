@@ -704,3 +704,31 @@ ul {
     box-shadow: 0 8px 20px rgba(0,0,0,.35);
     backdrop-filter: blur(1px); /* leve glass para legibilidad */
 }
+/* Hero: hacer el iframe intocable y bloquear interacción del mouse */
+#hero .video-embed {
+    position: relative;
+}
+
+    #hero .video-embed iframe {
+        pointer-events: none; /* no recibe clics/hover */
+    }
+
+    /* Capa invisible que captura eventos (incluye móvil / long-press) */
+    #hero .video-embed::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: transparent;
+        pointer-events: auto; /* atrapa todos los eventos */
+        cursor: default; /* sin manito ni nada */
+    }
+
+/* Importante: en el modal SÍ queremos interacción con YouTube */
+#modal .video-embed iframe {
+    pointer-events: auto;
+}
+
+#modal .video-embed::after {
+    display: none;
+}
