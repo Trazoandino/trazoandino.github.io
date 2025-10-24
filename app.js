@@ -19,7 +19,7 @@
 
 
 
-/* ============================================================
+/* ============================ ================================
    0) DATA — Usa window.PRODUCTS si ya lo defines externamente.
 ============================================================ */
 const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
@@ -32,10 +32,10 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
             tags: ["GIS", "Contexto", "Earth"],
 
             // Fondo YouTube en la tarjeta:
-            ytBgUrl: "https://www.youtube.com/watch?v=8xvi4TOuXgg", // o ytBgId: "qcG-nZaud1g"
+            ytBgUrl: "https://www.youtube.com/watch?v=KhbFADrtn7w", // o ytBgId: "qcG-nZaud1g"
             poster: "media/google-earth-revit.jpg", // imagen fallback/previa
             // Video SOLO en el modal Detalles (YouTube largo):
-            videoUrl: "https://www.youtube.com/watch?v=8xvi4TOuXgg",
+            videoUrl: "https://www.youtube.com/watch?v=KhbFADrtn7w",
             videoStart: 0
         },
         {
