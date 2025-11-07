@@ -1,0 +1,1109 @@
+﻿/* ============================
+   1. TOKENS / VARIABLES
+============================ */
+:root {
+    --bg: #050507; /* fondo casi negro (más oscuro que las tarjetas) */
+    --card-bg: #202123; /* gris oscuro tipo ChatGPT */
+    --card-bg-soft: #2b2c33; /* superficie un poco más clara */
+    --card-border: #3a3b46; /* borde gris suave */
+
+    --accent: #2563eb; /* color de acento (azul sutil) */
+    --accent-soft: rgba(37, 99, 235, 0.15);
+    --accent-green: #16a34a; /* verde más oscuro tipo terminal */
+    --text-main: #f9fafb;
+    --text-soft: #e5e7eb;
+    --text-muted: #9ca3af;
+    --radius-card: 24px;
+    --radius-pill: 999px;
+    --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.85);
+    /* Tipografía un poco más grande */
+    --fs-xs: 13px;
+    --fs-sm: 15px;
+    --fs-base: 17px;
+    --fs-md: 18px;
+    --fs-lg: 30px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --card-h: 360px;
+    /* Campo de estrellas suave tipo Atacama (ruido muy sutil) */
+    --starfield: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
+}
+
+/* ============================
+   2. GLOBAL
+============================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: var(--fs-base);
+    line-height: 1.5;
+    color: var(--text-main);
+    /* Cielo nocturno Atacama sobre fondo casi negro */
+    background-color: var(--bg);
+    background-image: radial-gradient(circle at 15% 0%, rgba(148, 163, 184, 0.12), transparent 55%), radial-gradient(circle at 80% 100%, rgba(15, 23, 42, 0.35), transparent 60%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 140% 140%;
+}
+
+    /* Capa de estrellas mínima (ruido blanco tenue) */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background-image: var(--starfield);
+        background-size: 320px 320px;
+        mix-blend-mode: screen;
+        opacity: 0.14; /* muy discreto */
+    }
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+p {
+    margin: 0;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+/* Espaciadores utilitarios */
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+    .stack.row {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+/* ============================
+   3. LAYOUT GENERAL (Estuche)
+============================ */
+header {
+    position: relative; /* no sticky, no nos sigue al hacer scroll */
+    z-index: 40;
+    background: rgba(3, 3, 5, 0.98); /* barra casi negra */
+    border-bottom: 1px solid rgba(15, 23, 42, 0.9);
+}
+
+/* Header interno de la tarjeta de Complementos:
+   sin fondo raro ni borde; solo usa el fondo del card */
+#plugins > .container > header {
+    background: transparent;
+    border-bottom: none;
+    padding: 0 0 var(--space-3);
+}
+
+.container,
+.container-narrow {
+    width: min(1240px, 100%);
+    margin-inline: auto;
+    padding-inline: var(--space-3);
+}
+
+.container-narrow {
+    max-width: 720px;
+}
+
+/* ============================
+   4. NAVBAR
+============================ */
+.nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.logo {
+    font-weight: 600;
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+    .logo:hover {
+        text-decoration: none;
+    }
+
+.nav a {
+    font-size: var(--fs-sm);
+    color: var(--text-soft);
+}
+
+    .nav a[aria-current="page"] {
+        color: var(--text-main);
+    }
+
+    .nav a:hover {
+        color: var(--text-main);
+    }
+
+/* ============================
+   5. HERO ESTUCHE ANDINO
+============================ */
+#hero {
+    padding: var(--space-6) 0 var(--space-6);
+}
+
+/* Hero como tarjeta grande */
+.hero-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: center;
+    background: var(--card-bg);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-5);
+}
+
+.hero-title {
+    font-size: 46px;
+    margin: 0;
+}
+
+.hero-sub {
+    font-size: var(--fs-sm);
+    color: var(--text-soft);
+    margin-top: 4px;
+}
+
+/* Los 3 subtítulos de texto del hero más grandes */
+#hero .hero-content > div:first-child p.hero-sub:nth-of-type(2),
+#hero .hero-content > div:first-child p.hero-sub:nth-of-type(3),
+#hero .hero-content > div:first-child p.hero-sub:nth-of-type(4) {
+    font-size: var(--fs-md);
+}
+
+.max-w {
+    max-width: 640px;
+}
+
+/* ============================
+   6. BOTONES + CHIPS (COMÚN)
+============================ */
+.btn {
+    border-radius: 16px;
+    padding: 8px 14px;
+    border: 1px solid #111827;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    background: #020617; /* base oscuro */
+    color: var(--text-soft);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+    .btn:hover {
+        background: #020617;
+        border-color: #1f2937;
+        color: var(--text-main);
+    }
+
+/* Primary (para btn-primary y btn--primary) — oscuro, sin blanco */
+.btn--primary,
+.btn-primary {
+    background: #111827;
+    color: var(--text-main);
+    border-color: #1f2937;
+}
+
+    .btn--primary:hover,
+    .btn-primary:hover {
+        background: #020617;
+        border-color: var(--accent-green);
+        color: var(--text-main);
+        box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.5);
+    }
+
+/* Ghost (para btn-ghost y btn--ghost) — contorno oscuro, relleno oscuro en hover */
+.btn--ghost,
+.btn-ghost {
+    background: transparent;
+    border-color: var(--card-border);
+    color: var(--text-soft);
+}
+
+    .btn--ghost:hover,
+    .btn-ghost:hover {
+        background: #020617;
+        border-color: var(--accent-green);
+        color: var(--text-main);
+    }
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--card-border);
+    background: var(--card-bg-soft);
+    font-size: var(--fs-xs);
+    color: var(--text-soft);
+}
+
+.chip-muted {
+    opacity: 0.8;
+}
+
+/* ============================
+   7. COMPLEMENTOS GRID
+============================ */
+#plugins {
+    padding: var(--space-6) 0;
+}
+
+    /* bloque de complementos dentro de una tarjeta grande */
+    #plugins > .container {
+        background: var(--card-bg);
+        border-radius: var(--radius-card);
+        border: 1px solid var(--card-border);
+        box-shadow: var(--shadow-soft);
+        padding-block: var(--space-5);
+    }
+
+    #plugins header h2 {
+        margin-bottom: var(--space-2);
+    }
+
+    /* Subtítulo de Complementos (texto de 7 días + gatos) más grande */
+    #plugins header p {
+        font-size: var(--fs-md);
+    }
+
+    /* Grid de complementos: 2 tarjetas por fila y 1 en pantallas pequeñas */
+    #plugins .grid {
+        margin-top: var(--space-4);
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-4);
+    }
+
+@media (max-width: 720px) {
+    #plugins .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Media en cards de complementos */
+.card-media {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #020617;
+    margin-bottom: var(--space-3);
+    aspect-ratio: 16 / 9;
+}
+
+    .card-media .poster {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+.yt-bg {
+    position: absolute;
+    inset: 0;
+}
+
+    .yt-bg iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+#plugins .card {
+    background: var(--card-bg-soft); /* gris oscuro uniforme */
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 14px;
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    display: grid;
+    align-content: end;
+    gap: 10px;
+    min-height: var(--card-h);
+    overflow: hidden;
+}
+
+    /* sin resplandor de ::before del portafolio */
+    #plugins .card::before {
+        content: none;
+    }
+
+    /* Hover tarjetas de Complementos:
+   un poco más oscuras + borde verde (sin movimiento) */
+    #plugins .card:hover {
+        border-color: var(--accent-green);
+        background: #18181b;
+    }
+
+    /* Fondo YouTube / imagen ocupando toda la tarjeta */
+    #plugins .card.has-yt,
+    #plugins .card.has-media,
+    #plugins .card.has-video {
+        position: relative;
+        overflow: hidden;
+    }
+
+        #plugins .card.has-yt .card-media,
+        #plugins .card.has-media .card-media,
+        #plugins .card.has-video .card-media {
+            position: absolute;
+            inset: -2px;
+            z-index: 0;
+            border-radius: inherit;
+            overflow: hidden;
+        }
+
+            /* Imagen de poster */
+            #plugins .card.has-media .card-media .poster,
+            #plugins .card.has-yt .card-media .poster {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+                filter: saturate(1.02) contrast(1.02);
+            }
+
+            /* Vídeo HTML5, si lo usas en el futuro */
+            #plugins .card.has-video .card-media video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0.35;
+                filter: saturate(1.05) contrast(1.05);
+            }
+
+            /* Capa YouTube como fondo */
+            #plugins .card.has-yt .card-media .yt-bg {
+                position: absolute;
+                inset: 0;
+            }
+
+            #plugins .card.has-yt .card-media iframe {
+                position: absolute;
+                inset: 0;
+                width: 120%;
+                height: 120%; /* efecto cover para evitar bandas negras */
+                left: -10%;
+                top: -10%;
+                border: 0;
+                pointer-events: none; /* sin interacción en la card, solo en el modal */
+            }
+
+        /* Veladura para legibilidad del texto (neutra, sin color azul) */
+        #plugins .card.has-yt::after,
+        #plugins .card.has-media::after,
+        #plugins .card.has-video::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: radial-gradient(600px 240px at 40% -10%, rgba(0, 0, 0, 0.4), transparent 60%), linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 45%);
+        }
+
+        /* Panel negro translúcido detrás del contenido de la tarjeta */
+        #plugins .card.has-yt .card-body,
+        #plugins .card.has-media .card-body,
+        #plugins .card.has-video .card-body {
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+            max-width: 60%;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 14px;
+            border-radius: 14px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(2px);
+        }
+
+    /* Texto más claro y con leve sombra sobre video */
+    #plugins .card .card-body p {
+        color: var(--text-main);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+    }
+
+.card-body .kicker {
+    font-size: var(--fs-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.card-body h3 {
+    margin: 0 0 2px;
+    font-size: 20px;
+}
+
+.card-body p {
+    font-size: var(--fs-sm);
+    color: var(--text-soft);
+}
+
+.card-body .badges {
+    margin-top: var(--space-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+.card-actions {
+    margin-top: var(--space-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* ============================
+   8. FAQ COMO TARJETA
+============================ */
+#faq {
+    padding: var(--space-6) 0 var(--space-6);
+}
+
+    /* Todo el bloque FAQ dentro de una tarjeta */
+    #faq .container-narrow {
+        background: var(--card-bg);
+        border-radius: var(--radius-card);
+        border: 1px solid var(--card-border);
+        box-shadow: var(--shadow-soft);
+        padding: var(--space-5);
+    }
+
+    #faq h2 {
+        margin-top: 0;
+        margin-bottom: var(--space-3);
+    }
+
+    #faq details {
+        border-radius: 16px;
+        border: 1px solid var(--card-border);
+        background: var(--card-bg-soft);
+        padding: var(--space-3);
+    }
+
+    #faq summary {
+        cursor: pointer;
+        font-size: var(--fs-sm);
+        font-weight: 500;
+    }
+
+        #faq summary::-webkit-details-marker {
+            display: none;
+        }
+
+    #faq details[open] summary {
+        margin-bottom: var(--space-2);
+    }
+
+    #faq p {
+        font-size: var(--fs-sm);
+        color: var(--text-soft);
+    }
+
+/* ============================
+   9. MODAL DETALLES
+============================ */
+#modal {
+    border-radius: 18px;
+    border: 1px solid var(--card-border);
+    padding: var(--space-4);
+    max-width: 720px;
+    width: calc(100% - 32px);
+    background: var(--card-bg);
+    color: var(--text-main);
+}
+
+    #modal::backdrop {
+        background: rgba(15, 23, 42, 0.8);
+    }
+
+.modal-head {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    align-items: center;
+    margin-bottom: var(--space-3);
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 22px;
+}
+
+.modal-body {
+    font-size: var(--fs-sm);
+    color: var(--text-soft);
+}
+
+    .modal-body ul {
+        padding-left: 1.2rem;
+    }
+
+    .modal-body li {
+        margin-bottom: 4px;
+    }
+
+.modal-actions {
+    margin-top: var(--space-3);
+}
+
+.video-embed {
+    margin-bottom: var(--space-3);
+}
+
+    .video-embed iframe {
+        width: 100%;
+        border-radius: 16px;
+    }
+
+/* ============================
+   10. FOOTER ESTUCHE
+============================ */
+footer {
+    padding: var(--space-4) var(--space-3) var(--space-5);
+}
+
+.badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* ============================
+   11. PORTAFOLIO (page, shell)
+============================ */
+.page {
+    padding: var(--space-6) var(--space-3) var(--space-6);
+    background: transparent; /* que se vea el cielo detrás */
+}
+
+.shell {
+    width: min(1240px, 100%);
+    margin-inline: auto;
+}
+
+/* Header del portafolio */
+.page-header {
+    text-align: center;
+    margin-bottom: var(--space-6);
+}
+
+.page-header__kicker {
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-1);
+}
+
+.page-header__title {
+    font-size: 38px;
+    margin: 0 0 var(--space-2);
+}
+
+.page-header__subtitle {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--text-soft);
+    font-size: var(--fs-sm);
+}
+
+/* Grid de tarjetas del portafolio */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+}
+
+/* ============================
+   12. BASE CARD (COMÚN)
+============================ */
+.card {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-soft);
+    padding: var(--space-5);
+    overflow: hidden;
+    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+    /* Quitamos la “luz” radial de hover en las tarjetas del portafolio */
+    .card::before {
+        content: none;
+    }
+
+/* Efecto orgánico tipo "hongo cordyceps" (opcional, usar .card--cordy) */
+.card--cordy::after {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(circle at 0% 10%, rgba(22, 163, 74, 0.18) 0, transparent 55%), radial-gradient(circle at 100% 80%, rgba(21, 128, 61, 0.24) 0, transparent 55%), radial-gradient(circle at 20% 110%, rgba(16, 185, 129, 0.18) 0, transparent 60%);
+    opacity: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    transform: scale(0.95);
+    transition: opacity 0.5s ease-out;
+}
+
+.card--cordy:hover::after {
+    opacity: 0.9;
+    animation: cordyceps-spread 5s ease-in-out infinite alternate;
+}
+
+@keyframes cordyceps-spread {
+    0% {
+        transform: scale(0.95) translate3d(0, 0, 0);
+        filter: blur(0);
+    }
+
+    50% {
+        transform: scale(1.02) translate3d(2px, -2px, 0);
+        filter: blur(1px);
+    }
+
+    100% {
+        transform: scale(1.05) translate3d(-1px, 1px, 0);
+        filter: blur(0.5px);
+    }
+}
+
+/* Hover general de tarjetas:
+   oscurecer un poco + borde verde (sin movimiento) */
+.card:hover {
+    border-color: var(--accent-green);
+    background: #18181b;
+}
+
+.card__title {
+    margin: 0 0 var(--space-2);
+    font-size: var(--fs-lg);
+}
+
+.card__text {
+    font-size: var(--fs-md);
+    color: var(--text-soft);
+}
+
+/* ============================
+   13. HERO CARD PORTAFOLIO
+============================ */
+.card--hero {
+    grid-column: 1 / -1;
+}
+
+.hero-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.hero-card__top {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+}
+
+.hero-card__avatar {
+    flex-shrink: 0;
+}
+
+.hero-card__avatar-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 20% 0, #f9fafb, #111827);
+    border: 2px solid #1e293b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+    .hero-card__avatar-circle img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.hero-card__avatar-fallback {
+    font-size: 32px;
+    font-weight: 700;
+    color: #020617;
+}
+
+.hero-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.hero-card__name {
+    margin: 0;
+    font-size: 28px;
+}
+
+.hero-card__role {
+    font-size: var(--fs-md);
+    color: var(--text-soft);
+}
+
+.hero-card__summary {
+    font-size: var(--fs-sm);
+    color: var(--text-soft);
+    max-width: 560px;
+}
+
+.hero-card__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+
+.hero-card__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    border-top: 1px solid rgba(15, 23, 42, 0.8);
+    padding-top: var(--space-3);
+}
+
+.hero-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    font-size: var(--fs-sm);
+    color: var(--text-soft);
+}
+
+    .hero-card__meta strong {
+        color: var(--text-main);
+    }
+
+.hero-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* Tags del portafolio */
+.tag {
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--card-border);
+    background: var(--card-bg-soft);
+    font-size: var(--fs-xs);
+    color: var(--text-soft);
+}
+
+/* ============================
+   14. LENGUAJES / HERRAMIENTAS
+============================ */
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+}
+/* Lenguajes: cuadrícula fija 2x2 (4 íconos ordenados) */
+.card--languages .icon-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+
+.icon-card {
+    text-align: center;
+}
+
+.icon-card__circle {
+    width: 92px;
+    height: 92px;
+    border-radius: 28px;
+    background: var(--card-bg-soft);
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-2);
+}
+
+    .icon-card__circle img {
+        width: 54px;
+        height: 54px;
+        object-fit: contain;
+    }
+
+.icon-card__label {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+}
+
+.icon-card__note {
+    font-size: var(--fs-xs);
+    color: var(--text-soft);
+    margin-top: 2px;
+}
+
+/* ============================
+   15. LISTAS, PASOS, TIMELINE
+============================ */
+.list {
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+}
+
+    .list li {
+        display: flex;
+        gap: var(--space-3);
+        align-items: flex-start;
+    }
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: var(--accent);
+    margin-top: 6px;
+}
+
+.list__title {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+}
+
+.list__text {
+    font-size: var(--fs-xs);
+    color: var(--text-soft);
+    margin-top: 2px;
+}
+
+.steps {
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+}
+
+    .steps li {
+        display: flex;
+        gap: var(--space-3);
+        align-items: flex-start;
+    }
+
+.steps__badge {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--fs-xs);
+}
+
+.steps__title {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+}
+
+.steps__text {
+    font-size: var(--fs-xs);
+    color: var(--text-soft);
+    margin-top: 2px;
+}
+
+.timeline {
+    list-style: none;
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-3);
+}
+
+    .timeline li {
+        position: relative;
+        padding-left: 18px;
+    }
+
+        .timeline li::before {
+            content: "";
+            position: absolute;
+            left: 4px;
+            top: 5px;
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: var(--accent);
+        }
+
+.timeline__title {
+    font-size: var(--fs-sm);
+    font-weight: 500;
+}
+
+.timeline__meta {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.timeline__text {
+    font-size: var(--fs-xs);
+    color: var(--text-soft);
+    margin-top: 2px;
+}
+
+/* ============================
+   16. CONTACTO PORTAFOLIO
+============================ */
+/* Contacto a todo el ancho, sin animaciones especiales */
+.card--contact {
+    grid-column: auto;
+}
+
+.contact-actions {
+    margin-top: var(--space-4);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* ============================
+   17. FOOTER PORTAFOLIO
+============================ */
+.page-footer {
+    border-top: 1px solid #111827;
+    background: transparent; /* que siga el cielo */
+    padding: var(--space-3) var(--space-3) var(--space-4);
+}
+
+.page-footer__inner {
+    width: min(1240px, 100%);
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2);
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
+
+.page-footer__note {
+    color: var(--text-soft);
+}
+
+/* ============================
+   18. ACCESIBILIDAD / REDUCIR MOVIMIENTO
+============================ */
+@media (prefers-reduced-motion: reduce) {
+    #plugins .card.has-yt .card-media .yt-bg {
+        display: none;
+    }
+
+    #plugins .card.has-video .card-media video {
+        display: none;
+    }
+
+    .card--cordy::after {
+        animation: none !important;
+    }
+}
+
+/* ============================
+   19. RESPONSIVE
+============================ */
+@media (max-width: 900px) {
+    .hero-content {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .card--contact,
+    .card--hero {
+        grid-column: auto;
+    }
+
+    .hero-card__top {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-card__summary {
+        max-width: none;
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        font-size: 15px; /* un pelín más grande también en mobile */
+    }
+
+    .container,
+    .container-narrow,
+    .page {
+        padding-inline: var(--space-2);
+    }
+
+    .card,
+    .hero-content,
+    #plugins > .container,
+    #faq .container-narrow {
+        padding: var(--space-4);
+        border-radius: 18px;
+    }
+
+    .page-footer__inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

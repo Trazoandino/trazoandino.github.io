@@ -1,0 +1,534 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Estuche Andino — Complementos para Revit + Portafolio</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Complementos para Revit y portafolio de un estudiante de arquitectura que programa en Python, JavaScript, API Revit y C#.">
+
+    <link rel="icon" href="favicon.ico" sizes="any">
+
+    <!-- Fuente Inter para todo el sitio -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- CSS unificado -->
+    <link rel="stylesheet" href="styles3.css">
+
+    <!-- Canonical + Social -->
+    <link rel="canonical" href="https://trazoandino.github.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Trazo Andino">
+    <meta property="og:title" content="Trazo Andino — Complementos para Revit">
+    <meta property="og:description" content="Plugins para Revit: Earth, métricas, coordinación y más.">
+    <meta property="og:url" content="https://trazoandino.github.io/">
+    <meta property="og:image" content="https://trazoandino.github.io/og-image.png">
+    <meta name="twitter:title" content="Estuche Andino — Complementos para Revit">
+    <meta name="twitter:description" content="Plugins para Revit: Earth, métricas, coordinación y más.">
+    <meta name="twitter:image" content="https://tu-dominio.example/og-image.png">
+
+    <!-- Schema.org: SoftwareApplication (colección) -->
+    <script type="application/ld+json">
+        {
+          "@context":"https://schema.org",
+          "@type":"SoftwareApplication",
+          "name":"Estuche Andino — Complementos para Revit",
+          "applicationCategory":"CAD/CAE",
+          "operatingSystem":"Windows",
+          "softwareVersion":"2025",
+          "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+          "url":"https://tu-dominio.example/",
+          "publisher":{"@type":"Organization","name":"Estuche Andino"}
+        }
+    </script>
+
+    <!-- Schema.org: FAQ -->
+    <script type="application/ld+json">
+        {
+          "@context":"https://schema.org",
+          "@type":"FAQPage",
+          "mainEntity":[
+            {"@type":"Question","name":"¿Cómo instalo los complementos?",
+             "acceptedAnswer":{"@type":"Answer","text":"Descarga el instalador y coloca el archivo .addin en %AppData%/Autodesk/Revit/Addins/20XX o %ProgramData%/Autodesk/Revit/Addins/20XX. Reinicia Revit."}},
+            {"@type":"Question","name":"¿Hay plan académico?",
+             "acceptedAnswer":{"@type":"Answer","text":"Sí, contamos con acceso académico gratuito para universidades y estudiantes con correo institucional."}}
+          ]
+        }
+    </script>
+</head>
+
+<body>
+    <!-- =======================================================
+         PARTE 1: ESTUCHE ANDINO
+    ======================================================== -->
+    <!-- Header / navegación -->
+    <header>
+        <div class="container nav" style="justify-content: space-between; padding: 14px 0;">
+            <a href="#hero" class="logo" aria-label="Inicio">
+                Trazo Andino | Arquitectura de los Andes
+            </a>
+            <nav class="nav" aria-label="Principal">
+                <a href="#plugins" aria-current="page">Complementos</a>
+                <a href="#faq">|</a>
+                <a href="#faq">Preguntas Frecuentes</a>
+                <a href="#faq">|</a>
+                <a href="#portafolio">Portafolio</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero (dos columnas: texto izq. / imagen der.) -->
+    <section id="hero">
+        <div class="container hero-content">
+            <div>
+                <h1 class="hero-title">Arquitectura</h1>
+                <h1 class="hero-title">Estructura</h1>
+                <h1 class="hero-title">Construcción</h1>
+
+                <p class="hero-sub">────────────────────────────────────────────────</p>
+
+                <p class="hero-sub">
+                    Complementos y automatizaciones para nuestros trabajos ⚒️ 🏗️
+                </p>
+                <p class="hero-sub">
+                    Optimicemos nuestra rutina 💻 restemos oficina 🐈‍
+                </p>
+                <p class="hero-sub">
+                    Programamos soluciones comunitarias 👾
+                </p>
+
+                <p class="hero-sub">────────────────────────────────────────────────</p>
+
+                <div class="stack row">
+                    <a class="btn btn-primary" href="#plugins">Ver complementos</a>
+                    <a class="btn btn-ghost" href="#faq">Cómo instalar</a>
+                </div>
+            </div>
+
+            <div>
+                <!-- Imagen del banner (misma área que el video) -->
+                <figure class="media-box" aria-hidden="true">
+                    <img src="banner-hero.png" alt="" loading="eager" decoding="async">
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Complementos (las tarjetas de video se generan con JS) -->
+    <section id="plugins" aria-labelledby="plugins-title">
+        <div class="container">
+            <header>
+                <h2 id="plugins-title">Complementos</h2>
+                <p class="max-w">
+                    Explora nuestra colección. Cada complemento tiene su versión de prueba de 7 días.
+                    Puedes ayudarnos validando la licencia Pro de tu estuches de complementos,
+                    así alimentamos un hogar de gatos.
+                </p>
+            </header>
+
+            <div class="grid" role="list" aria-live="polite" aria-busy="false"></div>
+
+            <noscript>
+                <p>Activa JavaScript para ver y filtrar los complementos.</p>
+            </noscript>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-labelledby="faq-title">
+        <div class="container-narrow">
+            <h2 id="faq-title">Preguntas frecuentes</h2>
+            <div class="stack">
+                <details>
+                    <summary>¿Cómo instalo los complementos?</summary>
+                    <p>
+                        Descarga el instalador o copia el <code>.addin</code> en
+                        <code>%AppData%/Autodesk/Revit/Addins/20XX</code> o
+                        <code>%ProgramData%/Autodesk/Revit/Addins/20XX</code>. Reinicia Revit.
+                    </p>
+                </details>
+                <details>
+                    <summary>¿Funcionan con Revit 2025?</summary>
+                    <p>
+                        Sí. Revisa la compatibilidad en la tarjeta del complemento
+                        (badge “Revit 20XX”).
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Detalles -->
+    <dialog id="modal">
+        <div class="modal-head">
+            <h3 class="modal-title" id="modal-title">Detalles</h3>
+            <form method="dialog">
+                <button class="btn" aria-label="Cerrar">Cerrar</button>
+            </form>
+        </div>
+        <div class="modal-body"><!-- Contenido dinámico desde script3.js --></div>
+        <div class="modal-actions">
+            <form method="dialog">
+                <button class="btn">Cerrar</button>
+            </form>
+        </div>
+    </dialog>
+
+    <!-- =======================================================
+         PARTE 2: PORTAFOLIO (modo oscuro con tarjetas)
+    ======================================================== -->
+
+    <main class="page" id="portafolio">
+        <div class="shell">
+            <header class="page-header">
+                <p class="page-header__kicker">Portafolio</p>
+                <h1 class="page-header__title">Arquitectura + Código</h1>
+                <p class="page-header__subtitle">
+                    Estudiante de arquitectura que desarrolla scripts y complementos para Revit,
+                    automatizando metrados, generación de elementos y procesos BIM.
+                </p>
+            </header>
+
+            <section class="cards">
+
+                <!-- 1. TARJETA DE PRESENTACIÓN / HERO -->
+                <article class="card card--hero">
+                    <div class="hero-card">
+                        <div class="hero-card__top">
+                            <div class="hero-card__avatar">
+                                <div class="hero-card__avatar-circle">
+                                    <img src="assets/icon.png">
+                                </div>
+                            </div>
+
+                            <div class="hero-card__info">
+                                <h2 class="hero-card__name">Tu Nombre Aquí</h2>
+                                <p class="hero-card__role">
+                                    Estudiante de Arquitectura · Automatización BIM en Revit
+                                </p>
+                                <p class="hero-card__summary">
+                                    Combino el diseño arquitectónico con la programación para crear
+                                    herramientas que ahorran tiempo en el modelado, los metrados y
+                                    la documentación de proyectos.
+                                </p>
+
+                                <div class="hero-card__chips">
+                                    <span class="tag">Arquitectura</span>
+                                    <span class="tag">BIM · Revit</span>
+                                    <span class="tag">Python</span>
+                                    <span class="tag">API Revit</span>
+                                    <span class="tag">C#</span>
+                                    <span class="tag">JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hero-card__bottom">
+                            <div class="hero-card__meta">
+                                <span>Ubicación: <strong>LATAM · GMT-5</strong></span>
+                                <span>Revit: <strong>2021 – 2025</strong></span>
+                            </div>
+                            <div class="hero-card__actions">
+                                <a class="btn btn--primary" href="mailto:tucorreo@example.com">
+                                    Escríbeme
+                                </a>
+                                <a class="btn btn--ghost" href="#apps-portfolio">
+                                    Ver aplicaciones
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2. FORMACIÓN (tarjeta independiente, columna izquierda) -->
+                <article class="card card--education">
+                    <section>
+                        <h2 class="card__title">Formación</h2>
+                        <p class="card__text">
+                            Estudios y cursos que conectan la arquitectura con la programación.
+                        </p>
+
+                        <ul class="timeline">
+                            <li>
+                                <p class="timeline__title">
+                                    Facultad de Arquitectura y Ambiente Construido | USACH
+                                </p>
+                                <p class="timeline__meta">|</p>
+                                <p class="timeline__text">
+                                    Enfoque en diseño arquitectónico, representación y procesos de
+                                    construcción.
+                                </p>
+                            </li>
+                            <li>
+                                <p class="timeline__title">
+                                    INSTITUTO NACIONAL JOSÉ MIGUEL CARRERA
+                                </p>
+                                <p class="timeline__meta">Liceo Emblemático</p>
+                            </li>
+                        </ul>
+                    </section>
+                </article>
+
+                <!-- 3. EXPERIENCIA (tarjeta independiente, columna derecha) -->
+                <article class="card card--experience">
+                    <section>
+                        <h2 class="card__title">Experiencia</h2>
+                        <p class="card__text">
+                            Lugares donde he aplicado estas habilidades, desde proyectos personales
+                            hasta colaboraciones.
+                        </p>
+
+                        <ul class="timeline">
+                            <li>
+                                <p class="timeline__title">Puente Lo Gallardo San Antonio</p>
+                                <p class="timeline__meta">Practicante</p>
+                                <p class="timeline__text">
+                                    Desarrollo de utilidades para uso propio y pruebas con modelos reales.
+                                </p>
+                            </li>
+                            <li>
+                                <p class="timeline__title">Colaboraciones en estudios</p>
+                                <p class="timeline__meta">Apoyo en modelado y automatización</p>
+                                <p class="timeline__text">
+                                    Implementación de pequeños scripts para acelerar tareas de
+                                    documentación y metrados.
+                                </p>
+                            </li>
+                            <li>
+                                <p class="timeline__title">Trabajo académico</p>
+                                <p class="timeline__meta">Proyectos de taller y cursos</p>
+                                <p class="timeline__text">
+                                    Uso de Revit, Dynamo y Python para entregar proyectos más ordenados
+                                    y medibles.
+                                </p>
+                            </li>
+                        </ul>
+                    </section>
+                </article>
+
+                <!-- 4. HERRAMIENTAS (ahora en la posición que antes tenía Lenguajes) -->
+                <article class="card card--tools" id="herramientas">
+                    <h2 class="card__title">Herramientas</h2>
+                    <p class="card__text">
+                        Software y entornos que uso día a día para modelar, documentar o programar.
+                    </p>
+
+                    <div class="icon-grid">
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/revit.svg" alt="Autodesk Revit">
+                            </div>
+                            <p class="icon-card__label">Autodesk Revit</p>
+                            <p class="icon-card__note">Modelado y documentación BIM.</p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/autocad.svg" alt="AutoCAD">
+                            </div>
+                            <p class="icon-card__label">AutoCAD</p>
+                            <p class="icon-card__note">Detalles 2D y planos de apoyo.</p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/vscode.svg" alt="Visual Studio">
+                            </div>
+                            <p class="icon-card__label">Visual Studio</p>
+                            <p class="icon-card__note">Edición de scripts y debugging.</p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/github.svg" alt="GitHub">
+                            </div>
+                            <p class="icon-card__label">Git &amp; GitHub</p>
+                            <p class="icon-card__note">Control de versiones y repositorios.</p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/adobe.svg" alt="Adobe Suite">
+                            </div>
+                            <p class="icon-card__label">Premiere · Photoshop · Illustrator</p>
+                            <p class="icon-card__note">
+                                Edición de láminas, renders y video–demo de complementos.
+                            </p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/etabs2022.svg" alt="ETABS 2022">
+                            </div>
+                            <p class="icon-card__label">ETABS 2022</p>
+                            <p class="icon-card__note">
+                                Análisis estructural integrado al flujo de diseño.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 5. LIBRERÍAS Y APIS (con API Revit) -->
+                <article class="card card--libraries" id="librerias-apis">
+                    <h2 class="card__title">Librerías y APIs</h2>
+                    <p class="card__text">
+                        Servicios, librerías y APIs que conecto con mis proyectos para traer clima,
+                        simular energía, acceder al modelo BIM y desplegar aplicaciones.
+                    </p>
+
+                    <div class="icon-grid">
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/energyplus.svg" alt="EnergyPlus Weather API">
+                            </div>
+                            <p class="icon-card__label">Energy Plus Weather API</p>
+                            <p class="icon-card__note">
+                                Datos climáticos para análisis solar y térmico.
+                            </p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/render.svg" alt="Render servidor">
+                            </div>
+                            <p class="icon-card__label">Render</p>
+                            <p class="icon-card__note">
+                                Despliegue como aplicación servidor, no como front renderizado.
+                            </p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/helix3d.svg" alt="Helix3D API">
+                            </div>
+                            <p class="icon-card__label">Helix3D API</p>
+                            <p class="icon-card__note">
+                                Geometrías 3D y visualización conectada al modelo.
+                            </p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/revit.svg" alt="API Revit">
+                            </div>
+                            <p class="icon-card__label">API Revit</p>
+                            <p class="icon-card__note">
+                                Acceso programático al modelo BIM y sus parámetros.
+                            </p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/flask.svg" alt="Flask">
+                            </div>
+                            <p class="icon-card__label">Flask</p>
+                            <p class="icon-card__note">
+                                Microservicios para exponer utilidades de Python vía web.
+                            </p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/excel.svg" alt="Excel">
+                            </div>
+                            <p class="icon-card__label">Excel</p>
+                            <p class="icon-card__note">
+                                Tablas de metrados, presupuestos y exportes desde Revit.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 6. LENGUAJES DE PROGRAMACIÓN (con HTML5 + CSS) -->
+                <article class="card card--languages" id="lenguajes">
+                    <h2 class="card__title">Lenguajes de programación</h2>
+                    <p class="card__text">
+                        Lenguajes que utilizo para crear scripts, paneles web y complementos
+                        que apoyan proyectos de arquitectura.
+                    </p>
+
+                    <div class="icon-grid">
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/python.png" alt="Python">
+                            </div>
+                            <p class="icon-card__label">Python</p>
+                            <p class="icon-card__note">
+                                Automatización BIM y utilidades para Revit.
+                            </p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/javascript.png" alt="JavaScript">
+                            </div>
+                            <p class="icon-card__label">JavaScript</p>
+                            <p class="icon-card__note">
+                                Interfaces web y paneles de apoyo.
+                            </p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/html5css.svg" alt="HTML5 y CSS">
+                            </div>
+                            <p class="icon-card__label">HTML5 + CSS</p>
+                            <p class="icon-card__note">
+                                Maquetación y estilos para dashboards y portafolios.
+                            </p>
+                        </div>
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/csharp.png" alt="C#">
+                            </div>
+                            <p class="icon-card__label">C#</p>
+                            <p class="icon-card__note">
+                                Complementos de escritorio para Revit.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 7. CONTACTO (se alineará a la derecha de Lenguajes en la misma fila) -->
+                <article class="card card--contact" id="contacto">
+                    <h2 class="card__title">Contacto</h2>
+                    <p class="card__text">
+                        Si quieres hablar de automatizar alguna parte de tu flujo BIM,
+                        colaborar en un proyecto o revisar un script, puedes escribirme.
+                    </p>
+
+                    <div class="contact-actions">
+                        <a class="btn btn--primary" href="mailto:tucorreo@example.com">
+                            Enviar correo
+                        </a>
+                        <button id="copyEmail"
+                                class="btn btn--ghost"
+                                type="button"
+                                data-email="tucorreo@example.com">
+                            Copiar correo
+                        </button>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer del portafolio -->
+    <footer class="page-footer">
+        <div class="shell page-footer__inner">
+            <p>© <span id="year"></span> Arquitectura + Código.</p>
+            <p class="page-footer__note">
+                Diseño en modo oscuro inspirado en dashboards de productos.
+            </p>
+        </div>
+    </footer>
+
+    <!-- JS unificado -->
+    <script src="script3.js" defer></script>
+</body>
+</html>
