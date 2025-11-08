@@ -1,4 +1,4 @@
-﻿/* app.js — Complementos con:
+/* app.js — Complementos con:
    - tarjetas altas con media de fondo (YouTube o imagen local),
    - grilla 2×2 (CSS), scroll infinito (6 por página),
    - lazy-load de iframes YouTube de fondo (autoplay mute loop infinito),
