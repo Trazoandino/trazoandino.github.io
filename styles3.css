@@ -1,13 +1,13 @@
-﻿/* ============================
+/* ============================
    1. TOKENS / VARIABLES
 ============================ */
 :root {
-    --bg: #050507; /* fondo casi negro (más oscuro que las tarjetas) */
-    --card-bg: #202123; /* gris oscuro tipo ChatGPT */
-    --card-bg-soft: #2b2c33; /* superficie un poco más clara */
-    --card-border: #3a3b46; /* borde gris suave */
+    --bg: #060606; /* fondo casi negro (más oscuro que las tarjetas) */
+    --card-bg: #181818; /* gris oscuro tipo ChatGPT */
+    --card-bg-soft: #0e0e0e; /* superficie un poco más clara */
+    --card-border: #1f1f1f; /* borde gris suave */
 
-    --accent: #2563eb; /* color de acento (azul sutil) */
+    --accent: #00b741; /* color de acento (azul sutil) */
     --accent-soft: rgba(37, 99, 235, 0.15);
     --accent-green: #16a34a; /* verde más oscuro tipo terminal */
     --text-main: #f9fafb;
@@ -107,19 +107,20 @@ a {
 /* ============================
    3. LAYOUT GENERAL (Estuche)
 ============================ */
-header {
+/* Solo el header principal (navbar) usa esta clase */
+.site-header {
     position: relative; /* no sticky, no nos sigue al hacer scroll */
     z-index: 40;
     background: rgba(3, 3, 5, 0.98); /* barra casi negra */
     border-bottom: 1px solid rgba(15, 23, 42, 0.9);
 }
 
-/* Header interno de la tarjeta de Complementos:
-   sin fondo raro ni borde; solo usa el fondo del card */
+/* Header interno de la tarjeta de Complementos */
 #plugins > .container > header {
     background: transparent;
     border-bottom: none;
-    padding: 0 0 var(--space-3);
+    padding-bottom: var(--space-3);
+    padding-left: clamp(15px, 1vw, 64px); /* mueve título + texto a la derecha */
 }
 
 .container,
@@ -232,11 +233,11 @@ header {
         color: var(--text-main);
     }
 
-/* Primary (para btn-primary y btn--primary) — oscuro, sin blanco */
+/* Primary (btn-primary y btn--primary) */
 .btn--primary,
 .btn-primary {
     background: #111827;
-    color: var(--text-main);
+    color: #f9fafb;
     border-color: #1f2937;
 }
 
@@ -248,7 +249,7 @@ header {
         box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.5);
     }
 
-/* Ghost (para btn-ghost y btn--ghost) — contorno oscuro, relleno oscuro en hover */
+/* Ghost */
 .btn--ghost,
 .btn-ghost {
     background: transparent;
@@ -292,19 +293,19 @@ header {
         border-radius: var(--radius-card);
         border: 1px solid var(--card-border);
         box-shadow: var(--shadow-soft);
-        padding-block: var(--space-5);
+        padding-block: var(--space-5); /* sólo vertical; horizontal viene de .container */
     }
 
     #plugins header h2 {
         margin-bottom: var(--space-2);
     }
 
-    /* Subtítulo de Complementos (texto de 7 días + gatos) más grande */
+    /* Subtítulo de Complementos más grande */
     #plugins header p {
         font-size: var(--fs-md);
     }
 
-    /* Grid de complementos: 2 tarjetas por fila y 1 en pantallas pequeñas */
+    /* Grid de complementos: 2 tarjetas por fila */
     #plugins .grid {
         margin-top: var(--space-4);
         display: grid;
@@ -349,7 +350,7 @@ header {
     }
 
 #plugins .card {
-    background: var(--card-bg-soft); /* gris oscuro uniforme */
+    background: var(--card-bg-soft);
     border: 1px solid var(--card-border);
     border-radius: 18px;
     padding: 14px;
@@ -362,13 +363,12 @@ header {
     overflow: hidden;
 }
 
-    /* sin resplandor de ::before del portafolio */
+    /* sin resplandor ::before en estas tarjetas */
     #plugins .card::before {
         content: none;
     }
 
-    /* Hover tarjetas de Complementos:
-   un poco más oscuras + borde verde (sin movimiento) */
+    /* Hover tarjetas de Complementos */
     #plugins .card:hover {
         border-color: var(--accent-green);
         background: #18181b;
@@ -402,7 +402,7 @@ header {
                 filter: saturate(1.02) contrast(1.02);
             }
 
-            /* Vídeo HTML5, si lo usas en el futuro */
+            /* Vídeo HTML5 */
             #plugins .card.has-video .card-media video {
                 width: 100%;
                 height: 100%;
@@ -411,7 +411,7 @@ header {
                 filter: saturate(1.05) contrast(1.05);
             }
 
-            /* Capa YouTube como fondo */
+            /* Capa YouTube */
             #plugins .card.has-yt .card-media .yt-bg {
                 position: absolute;
                 inset: 0;
@@ -421,14 +421,14 @@ header {
                 position: absolute;
                 inset: 0;
                 width: 120%;
-                height: 120%; /* efecto cover para evitar bandas negras */
+                height: 120%;
                 left: -10%;
                 top: -10%;
                 border: 0;
-                pointer-events: none; /* sin interacción en la card, solo en el modal */
+                pointer-events: none;
             }
 
-        /* Veladura para legibilidad del texto (neutra, sin color azul) */
+        /* Veladura para legibilidad del texto */
         #plugins .card.has-yt::after,
         #plugins .card.has-media::after,
         #plugins .card.has-video::after {
@@ -439,7 +439,7 @@ header {
             background: radial-gradient(600px 240px at 40% -10%, rgba(0, 0, 0, 0.4), transparent 60%), linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 45%);
         }
 
-        /* Panel negro translúcido detrás del contenido de la tarjeta */
+        /* Panel oscuro detrás del contenido */
         #plugins .card.has-yt .card-body,
         #plugins .card.has-media .card-body,
         #plugins .card.has-video .card-body {
@@ -454,7 +454,7 @@ header {
             backdrop-filter: blur(2px);
         }
 
-    /* Texto más claro y con leve sombra sobre video */
+    /* Texto más claro sobre vídeo */
     #plugins .card .card-body p {
         color: var(--text-main);
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
@@ -499,7 +499,7 @@ header {
     padding: var(--space-6) 0 var(--space-6);
 }
 
-    /* Todo el bloque FAQ dentro de una tarjeta */
+    /* Bloque FAQ en tarjeta */
     #faq .container-narrow {
         background: var(--card-bg);
         border-radius: var(--radius-card);
@@ -625,6 +625,20 @@ footer {
 .page-header {
     text-align: center;
     margin-bottom: var(--space-6);
+    background: transparent;
+    border: none;
+    padding: 0;
+}
+
+/* Tarjeta compacta alrededor del texto de Portafolio */
+.page-header__card {
+    display: inline-block;
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-card);
+    background: #020617;
+    border: 1px solid var(--card-border);
+    box-shadow: var(--shadow-soft);
+    text-align: center;
 }
 
 .page-header__kicker {
@@ -668,12 +682,12 @@ footer {
     transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-    /* Quitamos la “luz” radial de hover en las tarjetas del portafolio */
+    /* Quitamos luz radial de hover global */
     .card::before {
         content: none;
     }
 
-/* Efecto orgánico tipo "hongo cordyceps" (opcional, usar .card--cordy) */
+/* Efecto orgánico opcional (.card--cordy) */
 .card--cordy::after {
     content: "";
     position: absolute;
@@ -708,11 +722,10 @@ footer {
     }
 }
 
-/* Hover general de tarjetas:
-   oscurecer un poco + borde verde (sin movimiento) */
+/* Hover general de tarjetas */
 .card:hover {
     border-color: var(--accent-green);
-    background: #18181b;
+    background: #131313;
 }
 
 .card__title {
@@ -730,6 +743,8 @@ footer {
 ============================ */
 .card--hero {
     grid-column: 1 / -1;
+    max-width: 880px; /* hero más angosta en desktop */
+    justify-self: center; /* centrada en la grilla */
 }
 
 .hero-card {
@@ -748,9 +763,10 @@ footer {
     flex-shrink: 0;
 }
 
+/* FOTO DE PERFIL AÚN MÁS GRANDE */
 .hero-card__avatar-circle {
-    width: 110px;
-    height: 110px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background: radial-gradient(circle at 20% 0, #f9fafb, #111827);
     border: 2px solid #1e293b;
@@ -767,7 +783,7 @@ footer {
     }
 
 .hero-card__avatar-fallback {
-    font-size: 32px;
+    font-size: 52px;
     font-weight: 700;
     color: #020617;
 }
@@ -778,18 +794,20 @@ footer {
     gap: var(--space-2);
 }
 
+/* Tamaños grandes en la tarjeta de presentación */
 .hero-card__name {
     margin: 0;
-    font-size: 28px;
+    font-size: 40px;
 }
 
 .hero-card__role {
-    font-size: var(--fs-md);
+    font-size: 24px;
     color: var(--text-soft);
 }
 
 .hero-card__summary {
-    font-size: var(--fs-sm);
+    font-size: 18px;
+    line-height: 1.6;
     color: var(--text-soft);
     max-width: 560px;
 }
@@ -800,6 +818,12 @@ footer {
     gap: var(--space-2);
     margin-top: var(--space-2);
 }
+
+    /* Chips solo en la hero más grandes */
+    .hero-card__chips .tag {
+        font-size: var(--fs-sm);
+        padding: 6px 12px;
+    }
 
 .hero-card__bottom {
     display: flex;
@@ -815,7 +839,7 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-3);
-    font-size: var(--fs-sm);
+    font-size: var(--fs-md);
     color: var(--text-soft);
 }
 
@@ -829,7 +853,7 @@ footer {
     gap: var(--space-2);
 }
 
-/* Tags del portafolio */
+/* Tags del resto de tarjetas */
 .tag {
     padding: 4px 10px;
     border-radius: var(--radius-pill);
@@ -837,6 +861,13 @@ footer {
     background: var(--card-bg-soft);
     font-size: var(--fs-xs);
     color: var(--text-soft);
+}
+
+/* >>> Layout de Librerías centrado <<< */
+.card--libraries {
+    grid-column: 1 / -1; /* ocupa la fila completa */
+    max-width: 980px; /* un poco más ancha que la hero */
+    justify-self: center; /* centrada en la grilla */
 }
 
 /* ============================
@@ -848,20 +879,27 @@ footer {
     gap: var(--space-4);
     margin-top: var(--space-4);
 }
-/* Lenguajes: cuadrícula fija 2x2 (4 íconos ordenados) */
-.card--languages .icon-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+/* Herramientas y Librerías: 3 columnas x 2 filas en desktop */
+.card--tools .icon-grid,
+.card--libraries .icon-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* Lenguajes: 3 columnas en desktop (5 íconos → 3 arriba y 2 abajo) */
+.card--languages .icon-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
 
 .icon-card {
     text-align: center;
 }
 
+/* Iconos (contenedor) */
 .icon-card__circle {
-    width: 92px;
-    height: 92px;
-    border-radius: 28px;
+    width: 112px;
+    height: 112px;
+    border-radius: 32px;
     background: var(--card-bg-soft);
     border: 1px solid var(--card-border);
     display: flex;
@@ -870,19 +908,21 @@ footer {
     margin: 0 auto var(--space-2);
 }
 
+    /* IMAGEN más grande dentro del círculo */
     .icon-card__circle img {
-        width: 54px;
-        height: 54px;
+        width: 80px;
+        height: 80px;
         object-fit: contain;
     }
 
+/* Texto bajo cada icono */
 .icon-card__label {
-    font-size: var(--fs-sm);
+    font-size: var(--fs-md);
     font-weight: 600;
 }
 
 .icon-card__note {
-    font-size: var(--fs-xs);
+    font-size: var(--fs-sm);
     color: var(--text-soft);
     margin-top: 2px;
 }
@@ -960,6 +1000,7 @@ footer {
     margin-top: 2px;
 }
 
+/* Timeline genérico */
 .timeline {
     list-style: none;
     margin: var(--space-4) 0 0;
@@ -970,7 +1011,7 @@ footer {
 
     .timeline li {
         position: relative;
-        padding-left: 18px;
+        padding-left: 13px;
     }
 
         .timeline li::before {
@@ -984,33 +1025,105 @@ footer {
             background: var(--accent);
         }
 
-.timeline__title {
-    font-size: var(--fs-sm);
-    font-weight: 500;
+/* Cabecera de cada ítem: label + título */
+.timeline__item-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 6px;
 }
 
-.timeline__meta {
+@media (min-width: 768px) {
+    .timeline__item-header {
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+    }
+}
+
+/* Formación y Experiencia SIEMPRE en columna */
+.card--education .timeline__item-header,
+.card--experience .timeline__item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2px;
+}
+
+/* Label pequeño en versalitas */
+.timeline__label {
     font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
     color: var(--text-muted);
-    margin-top: 2px;
 }
 
-.timeline__text {
-    font-size: var(--fs-xs);
+/* Título principal */
+.timeline__title {
+    font-size: var(--fs-md);
+    font-weight: 600;
+}
+
+/* Meta secundaria */
+.timeline__meta {
+    font-size: var(--fs-sm);
     color: var(--text-soft);
     margin-top: 2px;
 }
 
+/* Texto descriptivo principal */
+.timeline__text {
+    font-size: var(--fs-sm);
+    color: var(--text-soft);
+    margin-top: 4px;
+}
+
+/* Línea adicional (ej. “Software BIM.”) */
+.timeline__tagline {
+    font-size: var(--fs-sm);
+    color: var(--text-soft);
+    margin-top: 2px;
+    opacity: 0.9;
+}
+
+/* Más aire en Formación y Experiencia */
+.card--education .timeline,
+.card--experience .timeline {
+    gap: var(--space-4);
+}
+
+    .card--education .timeline li,
+    .card--experience .timeline li {
+        padding-left: 20px;
+    }
+
 /* ============================
    16. CONTACTO PORTAFOLIO
 ============================ */
-/* Contacto a todo el ancho, sin animaciones especiales */
 .card--contact {
-    grid-column: auto;
+    grid-column: 1 / -1; /* ocupa también la fila completa */
+    max-width: 420px; /* más pequeña y discreta */
+    justify-self: center; /* centrada bajo Librerías */
+    padding: var(--space-4); /* un pelín más compacta */
 }
 
+    .card--contact .card__title {
+        font-size: 22px; /* título más pequeño */
+    }
+
+    .card--contact .card__text {
+        font-size: var(--fs-sm);
+        color: var(--text-soft);
+    }
+
+    .card--contact .btn {
+        font-size: var(--fs-xs); /* botones mini */
+        padding: 6px 12px;
+    }
+
 .contact-actions {
-    margin-top: var(--space-4);
+    margin-top: var(--space-3);
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
@@ -1069,7 +1182,8 @@ footer {
     }
 
     .card--contact,
-    .card--hero {
+    .card--hero,
+    .card--libraries {
         grid-column: auto;
     }
 
@@ -1081,11 +1195,25 @@ footer {
     .hero-card__summary {
         max-width: none;
     }
+
+    /* En móvil hero, Librerías y Contacto ocupan todo el ancho */
+    .card--hero,
+    .card--libraries,
+    .card--contact {
+        max-width: none;
+        justify-self: stretch;
+    }
+
+        /* Herramientas y Librerías: 2 columnas en pantallas medianas */
+        .card--tools .icon-grid,
+        .card--libraries .icon-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
 }
 
 @media (max-width: 640px) {
     body {
-        font-size: 15px; /* un pelín más grande también en mobile */
+        font-size: 15px;
     }
 
     .container,
