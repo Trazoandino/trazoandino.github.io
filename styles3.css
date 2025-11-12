@@ -2,21 +2,21 @@
    1. TOKENS / VARIABLES
 ============================ */
 :root {
-    --bg: #060606; /* fondo casi negro (más oscuro que las tarjetas) */
+    --bg: #090909; /* fondo casi negro (más oscuro que las tarjetas) */
     --card-bg: #181818; /* gris oscuro tipo ChatGPT */
-    --card-bg-soft: #0e0e0e; /* superficie un poco más clara */
+    --card-bg-soft: #0a0a0a; /* superficie un poco más clara */
     --card-border: #1f1f1f; /* borde gris suave */
 
     --accent: #00b741; /* color de acento (azul sutil) */
     --accent-soft: rgba(37, 99, 235, 0.15);
-    --accent-green: #16a34a; /* verde más oscuro tipo terminal */
+    --accent-green: #00c047; /* verde más oscuro tipo terminal */
     --text-main: #f9fafb;
     --text-soft: #e5e7eb;
     --text-muted: #9ca3af;
     --radius-card: 24px;
     --radius-pill: 999px;
     --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.85);
-    /* Tipografía un poco más grande */
+    /* Tipografía global ORIGINAL */
     --fs-xs: 13px;
     --fs-sm: 15px;
     --fs-base: 17px;
@@ -29,8 +29,10 @@
     --space-5: 24px;
     --space-6: 32px;
     --card-h: 360px;
-    /* Campo de estrellas suave tipo Atacama (ruido muy sutil) */
+    /* Campo de estrellas (ya no lo usamos como capa extra, pero lo dejamos por si acaso) */
     --starfield: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
+    /* Ruido fino de alta resolución para tarjetas / fondo (más tenue, más oscuro) */
+    --card-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='4' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.14'/%3E%3C/svg%3E");
 }
 
 /* ============================
@@ -53,25 +55,17 @@ body {
     font-size: var(--fs-base);
     line-height: 1.5;
     color: var(--text-main);
-    /* Cielo nocturno Atacama sobre fondo casi negro */
-    background-color: var(--bg);
-    background-image: radial-gradient(circle at 15% 0%, rgba(148, 163, 184, 0.12), transparent 55%), radial-gradient(circle at 80% 100%, rgba(15, 23, 42, 0.35), transparent 60%);
-    background-repeat: no-repeat;
+    /* Fondo granulado MUY oscuro, igual lenguaje visual que las tarjetas */
+    background-color: #000000;
+    background-image: var(--card-noise);
+    background-repeat: repeat;
     background-attachment: fixed;
-    background-size: 140% 140%;
+    background-size: 260px 260px;
 }
 
-    /* Capa de estrellas mínima (ruido blanco tenue) */
+    /* Sin capa de estrellas, dejamos solo el granulado oscuro */
     body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: -1;
-        background-image: var(--starfield);
-        background-size: 320px 320px;
-        mix-blend-mode: screen;
-        opacity: 0.14; /* muy discreto */
+        content: none;
     }
 
 img {
@@ -167,24 +161,200 @@ a {
     }
 
 /* ============================
+   4.1 MINI NAVEGADOR LATERAL
+   (minimalista, líneas simples, a la DERECHA)
+============================ */
+.side-nav {
+    position: fixed;
+    right: 18px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 4px 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+    /* columna vertical tenue al lado derecho */
+    .side-nav::before {
+        content: "";
+        position: absolute;
+        right: 8px;
+        top: 4px;
+        bottom: 4px;
+        width: 1px;
+        border-radius: 999px;
+        background: rgba(226, 232, 240, 0.35); /* blanco no tan blanco */
+    }
+
+.side-nav__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 4px 22px 4px 10px; /* más aire hacia la derecha */
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(226, 232, 240, 0.75);
+    border: none;
+    text-decoration: none;
+    white-space: nowrap;
+    background: transparent;
+    cursor: pointer;
+    transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+}
+
+    /* pequeña línea horizontal que se anima en hover/activo (alineada a la derecha) */
+    .side-nav__item::before {
+        content: "";
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        width: 14px;
+        height: 1px;
+        border-radius: 999px;
+        background: rgba(226, 232, 240, 0.55);
+        transform-origin: right center;
+        transform: scaleX(0.25);
+        opacity: 0.8;
+        transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
+    }
+
+    .side-nav__item:hover {
+        color: var(--text-main);
+        background: transparent;
+        transform: translateX(-2px);
+    }
+
+        .side-nav__item:hover::before {
+            transform: scaleX(1);
+            opacity: 1;
+            background: rgba(226, 232, 240, 0.9);
+        }
+
+    .side-nav__item:focus-visible {
+        outline: 2px solid rgba(226, 232, 240, 0.7);
+        outline-offset: 2px;
+    }
+
+    /* estado activo: solo refuerzo de texto + línea, sin fondo */
+    .side-nav__item[aria-current="page"] {
+        color: rgba(249, 250, 251, 0.95);
+        font-weight: 600;
+        background: transparent;
+    }
+
+        .side-nav__item[aria-current="page"]::before {
+            transform: scaleX(1);
+            opacity: 1;
+            background: rgba(226, 232, 240, 0.95);
+        }
+
+/* Mini nav adaptado a móvil */
+@media (max-width: 768px) {
+    .side-nav {
+        top: auto;
+        bottom: 16px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        flex-direction: row;
+        padding: 6px 10px;
+        border-radius: var(--radius-pill);
+        background: transparent;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        box-shadow: var(--shadow-soft);
+    }
+
+        .side-nav::before {
+            display: none;
+        }
+
+    .side-nav__item {
+        padding: 4px 10px;
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        background: transparent;
+    }
+
+        .side-nav__item::before {
+            right: 50%;
+            left: 50%;
+            top: auto;
+            bottom: -2px;
+            width: 18px;
+            transform-origin: center;
+            transform: scaleX(0);
+        }
+
+        .side-nav__item:hover,
+        .side-nav__item[aria-current="page"] {
+            background: transparent;
+        }
+
+            .side-nav__item:hover::before,
+            .side-nav__item[aria-current="page"]::before {
+                transform: scaleX(1);
+            }
+}
+
+/* ============================
    5. HERO ESTUCHE ANDINO
 ============================ */
 #hero {
     padding: var(--space-6) 0 var(--space-6);
 }
 
-/* Hero como tarjeta grande */
+/* Layout del hero: grilla 2 columnas */
 .hero-content {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     gap: var(--space-5);
     align-items: center;
-    background: var(--card-bg);
+}
+
+/* Tarjeta compacta de texto a la izquierda: AHORA con granulado moderno */
+#hero .hero-content > div:first-child {
+    background-color: #000000;
+    background-image: var(--card-noise);
+    background-repeat: repeat;
+    background-size: 260px 260px;
+    background-blend-mode: normal;
     border-radius: var(--radius-card);
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow-soft);
     padding: var(--space-5);
+    max-width: min(520px, 50vw);
 }
+
+/* Columna de la imagen a la derecha */
+#hero .hero-content > div:last-child {
+    display: flex;
+    justify-content: center;
+}
+
+/* Tarjeta visual para la imagen del banner */
+.media-box {
+    width: 100%;
+    max-width: 520px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    background: radial-gradient(circle at 0 0, #111827, #020617);
+    box-shadow: var(--shadow-soft);
+}
+
+    .media-box img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
 
 .hero-title {
     font-size: 46px;
@@ -233,7 +403,7 @@ a {
         color: var(--text-main);
     }
 
-/* Primary (btn-primary y btn--primary) */
+/* Primary */
 .btn--primary,
 .btn-primary {
     background: #111827;
@@ -287,31 +457,109 @@ a {
     padding: var(--space-6) 0;
 }
 
-    /* bloque de complementos dentro de una tarjeta grande */
+    /* bloque de complementos dentro de una tarjeta grande
+   → ahora también con granulado moderno */
     #plugins > .container {
-        background: var(--card-bg);
+        background-color: #000000;
+        background-image: var(--card-noise);
+        background-repeat: repeat;
+        background-size: 260px 260px;
+        background-blend-mode: normal;
         border-radius: var(--radius-card);
         border: 1px solid var(--card-border);
         box-shadow: var(--shadow-soft);
-        padding-block: var(--space-5); /* sólo vertical; horizontal viene de .container */
+        padding-block: var(--space-5);
     }
 
     #plugins header h2 {
         margin-bottom: var(--space-2);
     }
 
-    /* Subtítulo de Complementos más grande */
+    /* Subtítulo de Complementos más grande (base) */
     #plugins header p {
         font-size: var(--fs-md);
     }
 
-    /* Grid de complementos: 2 tarjetas por fila */
-    #plugins .grid {
-        margin-top: var(--space-4);
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: var(--space-4);
+    /* Estilo general de los párrafos bajo "Aplicaciones" */
+    #plugins header .max-w {
+        font-size: var(--fs-md);
+        color: var(--text-soft);
+        margin-top: 4px;
+        max-width: 48rem;
     }
+
+        /* Primer párrafo: frase principal */
+        #plugins header .max-w:nth-of-type(1) {
+            font-size: var(--fs-md);
+            font-weight: 500;
+            color: var(--text-main);
+            margin-top: 0;
+        }
+
+        /* Tercer párrafo (gatos/perros) con más aire */
+        #plugins header .max-w:nth-of-type(3) {
+            margin-bottom: var(--space-2);
+        }
+
+    /* Contenedor de los botones de Aplicaciones */
+    #plugins .apps-actions {
+        margin-top: var(--space-3);
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+    }
+
+    /* Botones dentro del bloque Aplicaciones */
+    #plugins .apps-actions__btn {
+        font-size: var(--fs-md);
+        padding: 8px 16px;
+        border-radius: var(--radius-pill);
+    }
+
+        /* Botón principal: Validar Licencia Pro */
+        #plugins .apps-actions__btn.btn--primary {
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            border-color: rgba(34, 197, 94, 0.7);
+            color: #ecfdf5;
+            box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.35);
+        }
+
+            #plugins .apps-actions__btn.btn--primary:hover {
+                background: linear-gradient(135deg, #15803d, #22c55e);
+            }
+
+        /* Botones secundarios */
+        #plugins .apps-actions__btn:not(.btn--primary) {
+            background: #020617;
+            border-color: #1f2937;
+            color: var(--text-soft);
+        }
+
+            #plugins .apps-actions__btn:not(.btn--primary):hover {
+                border-color: var(--accent-green);
+                color: var(--text-main);
+            }
+
+/* En móvil los botones ocupan todo el ancho */
+@media (max-width: 720px) {
+    #plugins .apps-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #plugins .apps-actions__btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Grid de complementos: 2 tarjetas por fila */
+#plugins .grid {
+    margin-top: var(--space-4);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+}
 
 @media (max-width: 720px) {
     #plugins .grid {
@@ -324,7 +572,7 @@ a {
     position: relative;
     border-radius: 16px;
     overflow: hidden;
-    background: #020617;
+    background: #000311;
     margin-bottom: var(--space-3);
     aspect-ratio: 16 / 9;
 }
@@ -349,13 +597,17 @@ a {
         border: 0;
     }
 
+/* Tarjetas de complementos con granulado sutil, pero sin luces */
 #plugins .card {
-    background: var(--card-bg-soft);
+    background-color: var(--card-bg-soft);
+    background-image: var(--card-noise);
+    background-blend-mode: normal;
+    background-size: 260px 260px;
     border: 1px solid var(--card-border);
     border-radius: 18px;
     padding: 14px;
     box-shadow: var(--shadow-soft);
-    transition: box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
     display: grid;
     align-content: end;
     gap: 10px;
@@ -368,10 +620,10 @@ a {
         content: none;
     }
 
-    /* Hover tarjetas de Complementos */
+    /* Hover tarjetas de Complementos (mantiene ruido, solo un poco más claro) */
     #plugins .card:hover {
         border-color: var(--accent-green);
-        background: #18181b;
+        background-color: #18181b;
     }
 
     /* Fondo YouTube / imagen ocupando toda la tarjeta */
@@ -428,7 +680,7 @@ a {
                 pointer-events: none;
             }
 
-        /* Veladura para legibilidad del texto */
+        /* Veladura uniforme oscura para legibilidad del texto */
         #plugins .card.has-yt::after,
         #plugins .card.has-media::after,
         #plugins .card.has-video::after {
@@ -436,7 +688,7 @@ a {
             position: absolute;
             inset: 0;
             z-index: 1;
-            background: radial-gradient(600px 240px at 40% -10%, rgba(0, 0, 0, 0.4), transparent 60%), linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 45%);
+            background: rgba(0, 0, 0, 0.75);
         }
 
         /* Panel oscuro detrás del contenido */
@@ -499,9 +751,13 @@ a {
     padding: var(--space-6) 0 var(--space-6);
 }
 
-    /* Bloque FAQ en tarjeta */
+    /* Bloque FAQ en tarjeta: ahora también granulado moderno */
     #faq .container-narrow {
-        background: var(--card-bg);
+        background-color: #000000;
+        background-image: var(--card-noise);
+        background-repeat: repeat;
+        background-size: 260px 260px;
+        background-blend-mode: normal;
         border-radius: var(--radius-card);
         border: 1px solid var(--card-border);
         box-shadow: var(--shadow-soft);
@@ -613,7 +869,7 @@ footer {
 ============================ */
 .page {
     padding: var(--space-6) var(--space-3) var(--space-6);
-    background: transparent; /* que se vea el cielo detrás */
+    background: transparent; /* se ve el fondo granulado global */
 }
 
 .shell {
@@ -673,13 +929,18 @@ footer {
 ============================ */
 .card {
     position: relative;
-    background: var(--card-bg);
+    /* Fondo base oscuro + granulado */
+    background-color: var(--card-bg);
+    background-image: var(--card-noise);
+    background-blend-mode: normal;
+    background-size: 260px 260px;
     border-radius: var(--radius-card);
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow-soft);
+    background-color: #000000; /* aún más oscuro */
     padding: var(--space-5);
     overflow: hidden;
-    transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
     /* Quitamos luz radial de hover global */
@@ -687,24 +948,25 @@ footer {
         content: none;
     }
 
-/* Efecto orgánico opcional (.card--cordy) */
+/* Efecto orgánico opcional (.card--cordy) — luces desactivadas */
 .card--cordy::after {
     content: "";
     position: absolute;
     inset: -20%;
-    background: radial-gradient(circle at 0% 10%, rgba(22, 163, 74, 0.18) 0, transparent 55%), radial-gradient(circle at 100% 80%, rgba(21, 128, 61, 0.24) 0, transparent 55%), radial-gradient(circle at 20% 110%, rgba(16, 185, 129, 0.18) 0, transparent 60%);
+    background: none;
     opacity: 0;
     pointer-events: none;
-    mix-blend-mode: screen;
+    mix-blend-mode: normal;
     transform: scale(0.95);
     transition: opacity 0.5s ease-out;
 }
 
 .card--cordy:hover::after {
-    opacity: 0.9;
-    animation: cordyceps-spread 5s ease-in-out infinite alternate;
+    opacity: 0;
+    animation: none;
 }
 
+/* (keyframes quedan por si los quieres revivir algún día) */
 @keyframes cordyceps-spread {
     0% {
         transform: scale(0.95) translate3d(0, 0, 0);
@@ -713,7 +975,7 @@ footer {
 
     50% {
         transform: scale(1.02) translate3d(2px, -2px, 0);
-        filter: blur(1px);
+        filter: blur(1);
     }
 
     100% {
@@ -722,10 +984,11 @@ footer {
     }
 }
 
-/* Hover general de tarjetas */
+/* Hover general de tarjetas (manteniendo el grano) */
 .card:hover {
     border-color: var(--accent-green);
-    background: #131313;
+    background-color: #000000;
+    transform: translateY(-1px);
 }
 
 .card__title {
@@ -763,12 +1026,12 @@ footer {
     flex-shrink: 0;
 }
 
-/* FOTO DE PERFIL AÚN MÁS GRANDE */
+/* FOTO DE PERFIL oscura, sin halo de luz */
 .hero-card__avatar-circle {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    background: radial-gradient(circle at 20% 0, #f9fafb, #111827);
+    background: var(--card-bg-soft);
     border: 2px solid #1e293b;
     display: flex;
     align-items: center;
@@ -866,8 +1129,8 @@ footer {
 /* >>> Layout de Librerías centrado <<< */
 .card--libraries {
     grid-column: 1 / -1; /* ocupa la fila completa */
-    max-width: 980px; /* un poco más ancha que la hero */
-    justify-self: center; /* centrada en la grilla */
+    max-width: 900px; /* un poco más pequeña que el ancho total */
+    justify-self: center;
 }
 
 /* ============================
@@ -880,13 +1143,17 @@ footer {
     margin-top: var(--space-4);
 }
 
-/* Herramientas y Librerías: 3 columnas x 2 filas en desktop */
-.card--tools .icon-grid,
-.card--libraries .icon-grid {
+/* Herramientas: 3 columnas en desktop */
+.card--tools .icon-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* Lenguajes: 3 columnas en desktop (5 íconos → 3 arriba y 2 abajo) */
+/* Librerías: 4 columnas en desktop */
+.card--libraries .icon-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Lenguajes: 3 columnas en desktop */
 .card--languages .icon-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -910,8 +1177,8 @@ footer {
 
     /* IMAGEN más grande dentro del círculo */
     .icon-card__circle img {
-        width: 80px;
-        height: 80px;
+        width: 70px;
+        height: 70px;
         object-fit: contain;
     }
 
@@ -1104,12 +1371,12 @@ footer {
 .card--contact {
     grid-column: 1 / -1; /* ocupa también la fila completa */
     max-width: 420px; /* más pequeña y discreta */
-    justify-self: center; /* centrada bajo Librerías */
-    padding: var(--space-4); /* un pelín más compacta */
+    justify-self: center;
+    padding: var(--space-4);
 }
 
     .card--contact .card__title {
-        font-size: 22px; /* título más pequeño */
+        font-size: 22px;
     }
 
     .card--contact .card__text {
@@ -1134,7 +1401,7 @@ footer {
 ============================ */
 .page-footer {
     border-top: 1px solid #111827;
-    background: transparent; /* que siga el cielo */
+    background: transparent;
     padding: var(--space-3) var(--space-3) var(--space-4);
 }
 
@@ -1173,8 +1440,18 @@ footer {
    19. RESPONSIVE
 ============================ */
 @media (max-width: 900px) {
+    /* Hero en una columna, tarjeta a pantalla completa */
     .hero-content {
         grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-4);
+    }
+
+    #hero .hero-content > div:first-child {
+        max-width: 100%;
+    }
+
+    #hero .hero-content > div:last-child {
+        justify-content: flex-start;
     }
 
     .cards {
@@ -1230,8 +1507,26 @@ footer {
         border-radius: 18px;
     }
 
-    .page-footer__inner {
-        flex-direction: column;
-        align-items: flex-start;
+    .page-header__card {
+        padding: var(--space-4);
+    }
+
+    .hero-card__avatar-circle {
+        width: 160px;
+        height: 160px;
+    }
+
+    .card__title {
+        font-size: 26px;
+    }
+
+    .page-header__title {
+        font-size: 30px;
+    }
+
+    .card--tools .icon-grid,
+    .card--libraries .icon-grid,
+    .card--languages .icon-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
