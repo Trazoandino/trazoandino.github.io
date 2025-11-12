@@ -1,12 +1,13 @@
-/* app.js — Complementos con:
+/* script3.js — Complementos con:
    - tarjetas altas con media de fondo (YouTube o imagen local),
    - grilla 2×2 (CSS), scroll infinito (6 por página),
    - lazy-load de iframes YouTube de fondo (autoplay mute loop infinito),
    - autoplay/pause de videos HTML5 locales (si usas alguno),
    - “Detalles” abre modal con YouTube (solo ahí),
    - deep-link #p=slug y limpieza de hash al cerrar,
-   - CTA “Obtener” con UTM. */
-
+   - CTA “Obtener” con UTM,
+   - mini navegador lateral: resalta sección visible y smooth scroll.
+*/
 
 /* ============================ ================================
    0) DATA — Usa window.PRODUCTS si ya lo defines externamente.
@@ -17,7 +18,8 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
         {
             slug: "google-earth-revit",
             title: "Earth en Revit",
-            blurb: "Abre Earth en Revit. Superpone mapa satelital en vistas 2D o 3D y úsalo para calcar",
+            blurb:
+                "Abre Earth en Revit. Superpone mapa satelital en vistas 2D o 3D y úsalo para calcar",
             tags: ["GIS", "Contexto", "Earth"],
             // Fondo YouTube en la tarjeta:
             ytBgUrl: "https://www.youtube.com/watch?v=KhbFADrtn7w",
@@ -109,8 +111,7 @@ function youtubeIdFromUrl(u) {
 }
 
 function renderYouTube(id, title = "", start = 0) {
-    const s =
-        Number.isFinite(start) && start > 0 ? `&start=${Math.floor(start)}` : "";
+    const s = Number.isFinite(start) && start > 0 ? `&start=${Math.floor(start)}` : "";
     return `
     <div class="video-embed" role="group" aria-label="Demo en video">
       <iframe
@@ -152,13 +153,11 @@ function openDetails(slug) {
             : ""
         }
     <div class="stack row" style="gap:.5rem;margin-top:.5rem;">
-      <button class="btn btn-primary" data-action="get" data-slug="${p.slug
-        }">Obtener</button>
+      <button class="btn btn-primary" data-action="get" data-slug="${p.slug}">Obtener</button>
       <button class="btn" id="btn-share" aria-label="Compartir">Compartir</button>
     </div>
     <p class="mono" style="opacity:.8;margin-top:.5rem;">
-      Compatibilidad: ${p.badges?.filter((b) => b.startsWith("Revit")).join(", ") || "Revit"
-        }.
+      Compatibilidad: ${p.badges?.filter((b) => b.startsWith("Revit")).join(", ") || "Revit"}.
     </p>
   `;
 
@@ -211,15 +210,11 @@ function buildCardHTML(p) {
       <h3>${p.title}</h3>
       <p>${p.blurb || ""}</p>
       <div class="badges">
-        ${(p.badges || [])
-            .map((b) => `<span class="chip chip-muted">${b}</span>`)
-            .join("")}
+        ${(p.badges || []).map((b) => `<span class="chip chip-muted">${b}</span>`).join("")}
       </div>
       <div class="card-actions">
-        <button class="btn btn-ghost" data-action="details" data-slug="${p.slug
-        }">Detalles</button>
-        <button class="btn btn-primary" data-action="get" data-slug="${p.slug
-        }">Obtener</button>
+        <button class="btn btn-ghost" data-action="details" data-slug="${p.slug}">Detalles</button>
+        <button class="btn btn-primary" data-action="get" data-slug="${p.slug}">Obtener</button>
       </div>
     </div>
   `;
@@ -261,9 +256,7 @@ function observeYouTubeBGs() {
                     if (!host.dataset.hydrated) {
                         const id = host.dataset.ytId;
                         const start = parseInt(host.dataset.start || "0", 10);
-                        const end = host.dataset.end
-                            ? parseInt(host.dataset.end, 10)
-                            : null;
+                        const end = host.dataset.end ? parseInt(host.dataset.end, 10) : null;
                         const base = `https://www.youtube.com/embed/${id}`;
                         const qs = new URLSearchParams({
                             autoplay: "1",
@@ -373,8 +366,7 @@ function renderCards(filter = "") {
             !q ||
             p.title.toLowerCase().includes(q) ||
             (p.blurb || "").toLowerCase().includes(q) ||
-            (Array.isArray(p.tags) &&
-                p.tags.join(" ").toLowerCase().includes(q))
+            (Array.isArray(p.tags) && p.tags.join(" ").toLowerCase().includes(q))
     );
 
     if (state.filtered.length === 0) {
@@ -411,12 +403,8 @@ document.addEventListener("click", (ev) => {
     }
 });
 
-const searchInput = $(
-    '#plugins input[type="search"], #plugins .search input'
-);
-searchInput?.addEventListener("input", (e) =>
-    renderCards(e.target.value)
-);
+const searchInput = $('#plugins input[type="search"], #plugins .search input');
+searchInput?.addEventListener("input", (e) => renderCards(e.target.value));
 
 function openFromHash() {
     const slug = parseHash();
@@ -479,3 +467,100 @@ document.addEventListener("DOMContentLoaded", () => {
     setupCopyEmail();
     setupYears();
 });
+
+/* ============================================================
+   8) MINI NAVEGADOR LATERAL
+   - Resalta el link según la sección visible.
+   - Smooth scroll y actualización de aria-current.
+============================================================ */
+function setupSideNav() {
+    const links = $$(".side-nav__item");
+    if (!links.length) return;
+
+    // Mapea cada link a su sección destino
+    const targets = links
+        .map((a) => {
+            const href = a.getAttribute("href") || "";
+            const id = href.startsWith("#") ? href.slice(1) : null;
+            const el = id ? document.getElementById(id) : null;
+            return el ? { id, el, a } : null;
+        })
+        .filter(Boolean);
+
+    const setActive = (id) => {
+        links.forEach((l) => l.removeAttribute("aria-current"));
+        const found = links.find((l) => (l.getAttribute("href") || "").endsWith(`#${id}`));
+        if (found) found.setAttribute("aria-current", "page");
+    };
+
+    // IntersectionObserver: activa el link de la sección más visible
+    let currentId = null;
+    const io = new IntersectionObserver(
+        (entries) => {
+            // Seleccionamos la sección con mayor intersección dentro del viewport
+            const visible = entries
+                .filter((e) => e.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+            if (visible.length) {
+                const top = visible[0].target.id;
+                if (top && top !== currentId) {
+                    currentId = top;
+                    setActive(top);
+                }
+            }
+        },
+        {
+            // El bottom margin negativo hace que “cuente” cuando la cabecera del bloque
+            // entra en la mitad superior de la pantalla, evitando saltos.
+            rootMargin: "0px 0px -45% 0px",
+            threshold: [0.2, 0.4, 0.6, 0.8],
+        }
+    );
+
+    targets.forEach(({ el }) => io.observe(el));
+
+    // Smooth scroll + foco accesible al presionar los enlaces del mini nav
+    links.forEach((l) =>
+        l.addEventListener("click", (ev) => {
+            const href = l.getAttribute("href") || "";
+            if (!href.startsWith("#")) return;
+            ev.preventDefault();
+            const id = href.slice(1);
+            const el = document.getElementById(id);
+            if (!el) return;
+
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            // Marca activo inmediatamente para feedback, luego el IO lo corrige si hace falta
+            setActive(id);
+
+            // Tras el scroll, mueve el foco al primer heading del bloque (si existe)
+            const h = el.querySelector("h1, h2, h3, [tabindex], a, button, input, textarea");
+            if (h) {
+                setTimeout(() => h.focus?.(), 400);
+            }
+            // Actualiza el hash sin romper el deep-link de #p=slug (modal)
+            history.replaceState(null, "", `#${id}`);
+        })
+    );
+
+    // Estado inicial
+    const initial = location.hash.replace("#", "");
+    if (initial && targets.some((t) => t.id === initial)) {
+        setActive(initial);
+    } else {
+        // Por defecto “Inicio”
+        setActive(targets[0]?.id || "hero");
+    }
+
+    // Si cambia el hash a #p= (modal), no tocamos el estado del mini nav
+    window.addEventListener("hashchange", () => {
+        const slug = parseHash();
+        if (slug) return; // es deep-link del modal
+        const id = location.hash.replace("#", "");
+        if (id) setActive(id);
+    });
+}
+
+// Tercer init: mini navegador
+document.addEventListener("DOMContentLoaded", setupSideNav);
