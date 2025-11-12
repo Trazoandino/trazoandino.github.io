@@ -105,7 +105,11 @@ a {
 .site-header {
     position: relative; /* no sticky, no nos sigue al hacer scroll */
     z-index: 40;
-    background: rgba(3, 3, 5, 0.98); /* barra casi negra */
+    /* 🔹 Fondo granulado moderno, mismo lenguaje que el resto */
+    background-color: #000000;
+    background-image: var(--card-noise);
+    background-repeat: repeat;
+    background-size: 260px 260px;
     border-bottom: 1px solid rgba(15, 23, 42, 0.9);
 }
 
@@ -451,7 +455,7 @@ a {
 }
 
 /* ============================
-   7. COMPLEMENTOS GRID
+   7. COMPLEMENTOS GRID (APLICACIONES)
 ============================ */
 #plugins {
     padding: var(--space-6) 0;
@@ -471,8 +475,10 @@ a {
         padding-block: var(--space-5);
     }
 
+    /* Título “Aplicaciones” un poco más grande + más aire */
     #plugins header h2 {
-        margin-bottom: var(--space-2);
+        margin-bottom: var(--space-3);
+        font-size: 32px;
     }
 
     /* Subtítulo de Complementos más grande (base) */
@@ -496,14 +502,16 @@ a {
             margin-top: 0;
         }
 
-        /* Tercer párrafo (gatos/perros) con más aire */
+        /* Tercer párrafo (gatos/perros) con un pelín más de aire
+   antes de los botones */
         #plugins header .max-w:nth-of-type(3) {
-            margin-bottom: var(--space-2);
+            margin-bottom: var(--space-3);
         }
 
-    /* Contenedor de los botones de Aplicaciones */
+    /* Contenedor de los botones de Aplicaciones
+   → un poquito más separado del texto */
     #plugins .apps-actions {
-        margin-top: var(--space-3);
+        margin-top: var(--space-4);
         display: flex;
         flex-wrap: wrap;
         gap: var(--space-2);
