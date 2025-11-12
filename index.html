@@ -19,6 +19,142 @@
     <!-- CSS unificado -->
     <link rel="stylesheet" href="styles3.css">
 
+    <!-- Mini navegador lateral (derecha, discreto, sin fondo) -->
+    <style>
+        .side-nav {
+            position: fixed;
+            right: 16px; /* 👉 a la derecha */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 60;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 4px 0;
+            background: transparent; /* sin panel de fondo */
+            border-radius: 0;
+            border: 0;
+            box-shadow: none;
+        }
+
+            /* Línea vertical más gruesa al borde derecho */
+            .side-nav::before {
+                content: "";
+                position: absolute;
+                right: 8px;
+                top: 4px;
+                bottom: 4px;
+                width: 2px; /* antes 1px */
+                border-radius: 999px;
+                background: rgba(226, 232, 240, 0.35); /* blanco no tan blanco */
+            }
+
+        .side-nav__item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 4px 22px 4px 10px;
+            border-radius: var(--radius-pill);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: rgba(226, 232, 240, 0.75);
+            border: none;
+            text-decoration: none;
+            white-space: nowrap;
+            background: transparent;
+            cursor: pointer;
+            transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+        }
+
+            /* Línea horizontal más gruesa que se anima en hover/activo */
+            .side-nav__item::before {
+                content: "";
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                width: 14px;
+                height: 2px; /* antes 1px */
+                border-radius: 999px;
+                background: rgba(226, 232, 240, 0.55);
+                transform-origin: right center;
+                transform: scaleX(0.25);
+                opacity: 0.8;
+                transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
+            }
+
+            .side-nav__item:hover {
+                color: var(--text-main);
+                background: transparent; /* sin bloque de color */
+                transform: translateX(-2px);
+            }
+
+                .side-nav__item:hover::before {
+                    transform: scaleX(1);
+                    opacity: 1;
+                    background: rgba(226, 232, 240, 0.9);
+                }
+
+            .side-nav__item:focus-visible {
+                outline: 2px solid rgba(226, 232, 240, 0.7);
+                outline-offset: 2px;
+            }
+
+            /* Estado activo: solo refuerzo de texto + línea, sin fondo sólido */
+            .side-nav__item[aria-current="page"] {
+                color: rgba(249, 250, 251, 0.95);
+                font-weight: 600;
+                background: transparent;
+            }
+
+                .side-nav__item[aria-current="page"]::before {
+                    transform: scaleX(1);
+                    opacity: 1;
+                    background: rgba(226, 232, 240, 0.95);
+                }
+
+        @media (max-width: 768px) {
+            .side-nav {
+                top: auto;
+                bottom: 16px;
+                left: 50%;
+                right: auto;
+                transform: translateX(-50%);
+                flex-direction: row;
+                padding: 4px 8px;
+                border-radius: var(--radius-pill);
+                background: transparent; /* sin fondo en móvil también */
+                border: 0;
+                box-shadow: none;
+            }
+
+                .side-nav::before {
+                    display: none; /* sin línea vertical en horizontal */
+                }
+
+            .side-nav__item {
+                padding: 4px 10px;
+                font-size: 10px;
+                letter-spacing: 0.1em;
+            }
+
+                .side-nav__item::before {
+                    right: 50%;
+                    top: auto;
+                    bottom: -2px;
+                    width: 18px;
+                    height: 2px; /* también más gruesa en móvil */
+                    transform-origin: center;
+                    transform: scaleX(0);
+                }
+
+                .side-nav__item:hover::before,
+                .side-nav__item[aria-current="page"]::before {
+                    transform: scaleX(1);
+                }
+        }
+    </style>
+
     <!-- Canonical + Social -->
     <link rel="canonical" href="https://trazoandino.github.io/">
     <meta property="og:type" content="website">
@@ -67,13 +203,25 @@
     ======================================================== -->
     <!-- Header / navegación -->
     <header class="site-header">
-        <div class="container nav" style="justify-content: space-between; padding: 14px 0;">
+        <div class="container nav"
+             style="
+                justify-content: space-between;
+                padding: 14px 0;
+                padding-left: calc(var(--space-3) + var(--space-5));
+            ">
             <a href="#hero" class="logo" aria-label="Inicio">
                 Trazo Andino | Arquitectura de los Andes
             </a>
-
         </div>
     </header>
+
+    <!-- Mini navegador lateral -->
+    <nav class="side-nav" aria-label="Navegación rápida">
+        <a href="#hero" class="side-nav__item" aria-current="page">Inicio</a>
+        <a href="#plugins" class="side-nav__item">Programas</a>
+        <!-- Apunta a la franja "¿Quién construye estos complementos?" -->
+        <a href="#sobre-nosotros" class="side-nav__item">Sobre nosotros</a>
+    </nav>
 
     <!-- Hero (dos columnas: texto izq. / imagen der.) -->
     <section id="hero">
@@ -83,7 +231,7 @@
                 <h1 class="hero-title">Estructura</h1>
                 <h1 class="hero-title">Construcción</h1>
 
-                <p class="hero-sub">────────────────────────────────────────────────</p>
+                <p class="hero-sub">────────────────────────────────────</p>
 
                 <p class="hero-sub">
                     Complementos y automatizaciones para nuestros trabajos ⚒️ 🏗️
@@ -93,12 +241,9 @@
                 </p>
                 <p class="hero-sub">
                     Programamos soluciones comunitarias 👾
-             
                 </p>
 
-                <p class="hero-sub">────────────────────────────────────────────────</p>
-
-
+                <p class="hero-sub">────────────────────────────────────</p>
             </div>
 
             <div>
@@ -116,30 +261,38 @@
             <header>
                 <h2 id="plugins-title">Aplicaciones</h2>
                 <p class="max-w">
-                    Todas las aplicaciones están disponibles para la comunidad.
-
-
+                    Obtén un único instalador para todos los programas.
                 </p>
                 <p class="max-w">
-
-
-                    Cuentan con versión de prueba de más o menos 3 semanas e igualmente puedes volver
-                    a descargar licencias para ti y tus colegas
+                    Cuentan con licencia activada e igualmente puedes volver
+                    a descargar licencias para ti y tus colegas.
                 </p>
                 <p class="max-w">
                     Ayúdanos por favor validando la Licencia Pro de tu estuche de complementos,
-                    así alimentamos un hogar de felices gatos y perros.
+                    así alimentamos un hogar de felices y hambrientos gatos y perros.
                 </p>
 
-                <p class="max-w">
-                    Valida acá la licencia :
-                </p>
-                </p>
+                <!-- BOTONES DE ACCIÓN -->
+                <div class="apps-actions">
+                    <!-- Cambia los href por tus enlaces reales -->
+                    <a class="btn btn--primary apps-actions__btn"
+                       href="https://ejemplo.com/licencia-pro"
+                       target="_blank" rel="noopener">
+                        Validar Licencia Pro
+                    </a>
 
-                <p class="max-w">
-                https://earth-lic-server.onrender.com/trial
+                    <a class="btn apps-actions__btn"
+                       href="https://ejemplo.com/instalador-estuche"
+                       target="_blank" rel="noopener">
+                        Descargar instalador (Licencia activada hasta 29/11)
+                    </a>
 
-                </p>
+                    <a class="btn apps-actions__btn"
+                       href="https://earth-lic-server.onrender.com/trial"
+                       target="_blank" rel="noopener">
+                        Descargar licencia de prueba (7 días)
+                    </a>
+                </div>
             </header>
 
             <div class="grid" role="list" aria-live="polite" aria-busy="false"></div>
@@ -191,13 +344,13 @@
     </dialog>
 
     <!-- Franja puente -->
-    <section aria-label="Sobre quién construye estos complementos">
+    <section id="sobre-nosotros" aria-label="Sobre quién construye estos complementos">
         <div class="shell" style="text-align:center; padding:16px 0 24px; color:var(--text-soft);">
             <p style="font-size:15px; margin-bottom:4px;">
                 ¿Quién construye estos complementos?
             </p>
             <p style="font-size:14px;">
-                Conoce mi trabajo ↓
+                Conoce nuestro trabajo ↓
             </p>
         </div>
     </section>
@@ -208,9 +361,7 @@
 
     <main class="page" id="portafolio">
         <div class="shell">
-            <header class="page-header">
-            
-            </header>
+            <header class="page-header"></header>
 
             <section class="cards">
 
@@ -227,7 +378,7 @@
                             <div class="hero-card__info">
                                 <h2 class="hero-card__name">Daniel</h2>
                                 <p class="hero-card__role">
-                                    Estudiante de Arquitectura · Código · Automatización
+                                    Estudiante de Arquitectura · Código
                                 </p>
 
                                 <div class="hero-card__info">
@@ -237,10 +388,9 @@
                                 </div>
 
                                 <p class="hero-card__summary">
-                                    Combino el diseño arquitectónico con la programación para crear
-                                    herramientas que ahorran tiempo en el modelado, generación y
-                                    la documentación de proyectos.
+
                                 </p>
+
                                 <div class="hero-card__chips">
                                     <span class="tag">Software BIM</span>
                                     <span class="tag">Python</span>
@@ -248,7 +398,6 @@
                                 </div>
 
                                 <div class="hero-card__chips">
-                                    <span class="tag">Cleopatra</span>
                                     <span class="tag">Ludwig Wittgenstein</span>
                                     <span class="tag">Immanuel Kant</span>
                                     <span class="tag">Fiódor Dostoyevski</span>
@@ -257,13 +406,12 @@
                                 <div class="hero-card__chips">
                                     <span class="tag">Soda Stereo</span>
                                     <span class="tag">Rock latinoamericano</span>
+                                    <span class="tag">Cleopatra</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </article>
-
-               
 
                 <!-- 4. HERRAMIENTAS -->
                 <article class="card card--tools" id="herramientas">
@@ -297,12 +445,15 @@
                             <p class="icon-card__note">Edición de scripts y debugging.</p>
                         </div>
 
+                        <!-- Excel movido desde Librerías a Herramientas -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/github.png" alt="GitHub">
+                                <img src="assets/excel.svg" alt="Excel">
                             </div>
-                            <p class="icon-card__label">GitHub</p>
-                            <p class="icon-card__note">Control de versiones y repositorios.</p>
+                            <p class="icon-card__label">Excel</p>
+                            <p class="icon-card__note">
+                                Tablas de metrados, presupuestos y exportes desde Revit.
+                            </p>
                         </div>
 
                         <div class="icon-card">
@@ -380,27 +531,27 @@
 
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <!-- Usa el recurso que tengas disponible: .svg o .png -->
-                                <img src="assets/xaml.png">
+                                <img src="assets/xaml.png" alt="XAML">
                             </div>
                             <p class="icon-card__label">XAML</p>
                             <p class="icon-card__note">
                                 Interfaces de usuario declarativa para apps C#, .NET (WPF/MAUI).
-
                             </p>
                         </div>
                     </div>
                 </article>
 
-                <!-- 6. LIBRERÍAS Y APIS (centrado en su fila) -->
+                <!-- 6. SERVICIOS, LIBRERÍAS Y APIS -->
                 <article class="card card--libraries" id="librerias-apis">
-                    <h2 class="card__title">Librerías, APIs</h2>
+                    <h2 class="card__title">Servicios, APIs y librerías</h2>
                     <p class="card__text">
                         Servicios que conecto con mis proyectos para traer clima,
-                        simular energía, acceder al modelo BIM, ejecutar comandos y desplegar aplicaciones.
+                        simular energía, acceder al modelo BIM, ejecutar comandos,
+                        desplegar aplicaciones y procesar texto / imágenes con IA.
                     </p>
 
                     <div class="icon-grid">
+                        <!-- fila 1 -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/energyplus.svg" alt="Energy Plus Weather API">
@@ -441,6 +592,7 @@
                             </p>
                         </div>
 
+                        <!-- fila 2 -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/flask.png" alt="Flask">
@@ -451,13 +603,36 @@
                             </p>
                         </div>
 
+                        <!-- GitHub movido aquí desde Herramientas -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/excel.svg" alt="Excel">
+                                <img src="assets/github.png" alt="GitHub">
                             </div>
-                            <p class="icon-card__label">Excel</p>
+                            <p class="icon-card__label">GitHub</p>
                             <p class="icon-card__note">
-                                Tablas de metrados, presupuestos y exportes desde Revit.
+                                Control de versiones y repositorios.
+                            </p>
+                        </div>
+
+                        <!-- Visión por computadora (texto / imagen) -->
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/computer-vision.svg" alt="Visión por computadora">
+                            </div>
+                            <p class="icon-card__label">Visión por computadora</p>
+                            <p class="icon-card__note">
+                                Procesamiento de texto e imagen con modelos de IA.
+                            </p>
+                        </div>
+
+                        <!-- NumPy como librería científica -->
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/numpy.svg" alt="NumPy">
+                            </div>
+                            <p class="icon-card__label">NumPy</p>
+                            <p class="icon-card__note">
+                                Cálculo numérico y análisis de datos en Python.
                             </p>
                         </div>
                     </div>
@@ -502,16 +677,3 @@
     <script src="script3.js" defer></script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
