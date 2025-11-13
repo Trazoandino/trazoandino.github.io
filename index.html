@@ -19,148 +19,6 @@
     <!-- CSS unificado -->
     <link rel="stylesheet" href="styles3.css">
 
-    <!-- Mini navegador lateral (derecha, discreto, sin fondo) -->
-    <style>
-        .side-nav {
-            position: fixed;
-            right: 18px; /* navegador pegado a la derecha */
-            left: auto;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 60;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            padding: 4px 0;
-            background: transparent;
-            border-radius: 0;
-            border: 0;
-            box-shadow: none;
-        }
-
-            /* Línea vertical tenue a la IZQUIERDA del texto */
-            .side-nav::before {
-                content: "";
-                position: absolute;
-                left: 8px; /* línea a la izquierda */
-                right: auto;
-                top: 4px;
-                bottom: 4px;
-                width: 2px;
-                border-radius: 999px;
-                background: rgba(226, 232, 240, 0.35);
-            }
-
-        /* Ítems con MÁS aire a la izquierda (texto más a la derecha) */
-        .side-nav__item {
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding: 4px 10px 4px 44px; /* antes 4px 22px 4px 10px → ahora texto más a la derecha */
-            border-radius: var(--radius-pill);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: rgba(226, 232, 240, 0.75);
-            border: none;
-            text-decoration: none;
-            white-space: nowrap;
-            background: transparent;
-            cursor: pointer;
-            transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
-        }
-
-            /* Rayita horizontal animada a la IZQUIERDA del texto */
-            .side-nav__item::before {
-                content: "";
-                position: absolute;
-                left: 8px; /* nace desde la línea vertical */
-                right: auto;
-                top: 50%;
-                width: 14px;
-                height: 2px;
-                border-radius: 999px;
-                background: rgba(226, 232, 240, 0.55);
-                transform-origin: left center; /* crece hacia la derecha */
-                transform: scaleX(0.25);
-                opacity: 0.8;
-                transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
-            }
-
-            .side-nav__item:hover {
-                color: var(--text-main);
-                background: transparent;
-                transform: translateX(2px); /* leve empuje hacia la derecha */
-            }
-
-                .side-nav__item:hover::before {
-                    transform: scaleX(1);
-                    opacity: 1;
-                    background: rgba(226, 232, 240, 0.9);
-                }
-
-            .side-nav__item:focus-visible {
-                outline: 2px solid rgba(226, 232, 240, 0.7);
-                outline-offset: 2px;
-            }
-
-            /* Estado activo: refuerzo de texto + línea */
-            .side-nav__item[aria-current="page"] {
-                color: rgba(249, 250, 251, 0.95);
-                font-weight: 600;
-                background: transparent;
-            }
-
-                .side-nav__item[aria-current="page"]::before {
-                    transform: scaleX(1);
-                    opacity: 1;
-                    background: rgba(226, 232, 240, 0.95);
-                }
-
-        /* Mini nav en móvil (horizontal centrado) */
-        @media (max-width: 768px) {
-            .side-nav {
-                top: auto;
-                bottom: 16px;
-                left: 50%;
-                right: auto;
-                transform: translateX(-50%);
-                flex-direction: row;
-                padding: 6px 10px;
-                border-radius: var(--radius-pill);
-                background: transparent;
-                border: 1px solid rgba(148, 163, 184, 0.35);
-                box-shadow: var(--shadow-soft);
-            }
-
-                .side-nav::before {
-                    display: none; /* sin línea vertical en horizontal */
-                }
-
-            .side-nav__item {
-                padding: 4px 10px;
-                font-size: 10px;
-                letter-spacing: 0.1em;
-            }
-
-                .side-nav__item::before {
-                    left: 50%;
-                    right: 50%;
-                    top: auto;
-                    bottom: -2px;
-                    width: 18px;
-                    height: 2px;
-                    transform-origin: center;
-                    transform: scaleX(0);
-                }
-
-                .side-nav__item:hover::before,
-                .side-nav__item[aria-current="page"]::before {
-                    transform: scaleX(1);
-                }
-        }
-    </style>
-
     <!-- Canonical + Social -->
     <link rel="canonical" href="https://trazoandino.github.io/">
     <meta property="og:type" content="website">
@@ -207,7 +65,7 @@
     <!-- =======================================================
          PARTE 1: ESTUCHE ANDINO
     ======================================================== -->
-    <!-- Header / navegación -->
+    <!-- Header / navegación principal de la marca -->
     <header class="site-header">
         <div class="container nav"
              style="
@@ -220,14 +78,6 @@
             </a>
         </div>
     </header>
-
-    <!-- Mini navegador lateral -->
-    <nav class="side-nav" aria-label="Navegación rápida">
-        <a href="#hero" class="side-nav__item" aria-current="page">Inicio</a>
-        <a href="#plugins" class="side-nav__item">Programas</a>
-        <!-- Apunta a la franja "¿Quién construye estos complementos?" -->
-        <a href="#sobre-nosotros" class="side-nav__item">Sobre nosotros</a>
-    </nav>
 
     <!-- Hero (dos columnas: texto izq. / imagen der.) -->
     <section id="hero">
@@ -246,7 +96,7 @@
                     Optimicemos nuestra rutina 💻 🐈‍
                 </p>
                 <p class="hero-sub">
-                    Programamos soluciones comunitarias libres 👾
+                    Aportes comunitarios libres 👾
                 </p>
 
                 <p class="hero-sub"></p>
@@ -376,8 +226,10 @@
                     <div class="hero-card">
                         <div class="hero-card__top">
                             <div class="hero-card__avatar">
-                                <div class="hero-card__avatar-circle">
-                                    <img src="assets/icon.jpg" alt="">
+                                <div class="hero-card__avatar-circle"
+                                    data-avatars="assets/icon-1.png, assets/icon-2.png, assets/icon-3.jpg, assets/icon-4.jpeg, 
+                                     assets/icon-5.jpeg">
+                                    <img src="assets/icon-1.jpeg" alt="">
                                 </div>
                             </div>
 
@@ -454,9 +306,9 @@
                         <!-- Excel movido desde Librerías a Herramientas -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/excel.svg" alt="Excel">
+                                <img src="assets/excel.png" alt="Excel">
                             </div>
-                            <p class="icon-card__label">Excel</p>
+                            <p class="icon-card__label">Excel</p>   
                             <p class="icon-card__note">
                                 Tablas de metrados, presupuestos y exportes desde Revit.
                             </p>
@@ -474,7 +326,7 @@
 
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/etabs2022.svg" alt="ETABS 2022">
+                                <img src="assets/etabs.png" alt="ETABS 2022">
                             </div>
                             <p class="icon-card__label">ETABS 2022</p>
                             <p class="icon-card__note">
@@ -559,34 +411,23 @@
                         <!-- fila 1 -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/energyplus.svg" alt="Energy Plus Weather API">
+                                <img src="assets/energyplus.png" alt="Energy Plus Weather API">
                             </div>
                             <p class="icon-card__label">Energy Plus Weather API</p>
                             <p class="icon-card__note">
                                 Datos climáticos para análisis solar y térmico.
                             </p>
                         </div>
-
+                        <!-- NumPy como librería científica -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/render.svg" alt="Render servidor">
+                                <img src="assets/Numpy.png" alt="NumPy">
                             </div>
-                            <p class="icon-card__label">Render</p>
+                            <p class="icon-card__label">NumPy</p>
                             <p class="icon-card__note">
-                                Despliegue como aplicación servidor, no como front renderizado.
+                                Cálculo numérico y análisis de datos en Python.
                             </p>
                         </div>
-
-                        <div class="icon-card">
-                            <div class="icon-card__circle">
-                                <img src="assets/helix3d.svg" alt="Helix3D API">
-                            </div>
-                            <p class="icon-card__label">Helix3D API</p>
-                            <p class="icon-card__note">
-                                Geometrías 3D y visualización conectada al modelo.
-                            </p>
-                        </div>
-
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/revit.svg" alt="API Revit">
@@ -596,15 +437,38 @@
                                 Acceso programático al modelo BIM y sus parámetros.
                             </p>
                         </div>
+                        <!-- Visión por computadora (texto / imagen) -->
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/plv.png" alt="Visión por computadora">
+                            </div>
+                            <p class="icon-card__label">pvlib</p>
+                            <p class="icon-card__note">
+                                Funciones y clases para simular el rendimiento fotovoltaico sistemas energéticos    .
+                            </p>
+                        </div>
+
+
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/helix3d.png" alt="Helix3D API">
+                            </div>
+                            <p class="icon-card__label">Helix3D API</p>
+                            <p class="icon-card__note">
+                                Geometrías 3D y visualización conectada al modelo.
+                            </p>
+                        </div>
+
+
 
                         <!-- fila 2 -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/flask.png" alt="Flask">
+                                <img src="assets/pandas.png" alt="Flask">
                             </div>
-                            <p class="icon-card__label">Flask</p>
+                            <p class="icon-card__label">Pandas</p>
                             <p class="icon-card__note">
-                                Microservicios para exponer utilidades de Python vía web.
+                                Análisis y manipulación de datos.
                             </p>
                         </div>
 
@@ -618,28 +482,18 @@
                                 Control de versiones y repositorios.
                             </p>
                         </div>
-
-                        <!-- Visión por computadora (texto / imagen) -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/computer-vision.svg" alt="Visión por computadora">
+                                <img src="assets/render.svg" alt="Render servidor">
                             </div>
-                            <p class="icon-card__label">Visión por computadora</p>
+                            <p class="icon-card__label">Render</p>
                             <p class="icon-card__note">
-                                Procesamiento de texto e imagen con modelos de IA.
+                                Despliegue como aplicación servidor, no como front renderizado.
                             </p>
                         </div>
 
-                        <!-- NumPy como librería científica -->
-                        <div class="icon-card">
-                            <div class="icon-card__circle">
-                                <img src="assets/numpy.svg" alt="NumPy">
-                            </div>
-                            <p class="icon-card__label">NumPy</p>
-                            <p class="icon-card__note">
-                                Cálculo numérico y análisis de datos en Python.
-                            </p>
-                        </div>
+
+
                     </div>
                 </article>
 
@@ -671,9 +525,8 @@
     <!-- Footer del portafolio -->
     <footer class="page-footer">
         <div class="shell page-footer__inner">
-            
             <p class="page-footer__note">
-                
+                <!-- puedes agregar texto de footer aquí si quieres -->
             </p>
         </div>
     </footer>
