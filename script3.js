@@ -1,13 +1,12 @@
-/* script3.js — Complementos con:
-   - tarjetas altas con media de fondo (YouTube o imagen local),
-   - grilla 2×2 (CSS), scroll infinito (6 por página),
-   - lazy-load de iframes YouTube de fondo (autoplay mute loop infinito),
-   - autoplay/pause de videos HTML5 locales (si usas alguno),
-   - “Detalles” abre modal con YouTube (solo ahí),
-   - deep-link #p=slug y limpieza de hash al cerrar,
-   - CTA “Obtener” con UTM,
-   - mini navegador lateral: resalta sección visible y smooth scroll.
-*/
+/* app.js — Complementos con:
+  - tarjetas altas con media de fondo (YouTube o imagen local),
+  - grilla 2×2 (CSS), scroll infinito (6 por página),
+  - lazy-load de iframes YouTube de fondo (autoplay mute loop infinito),
+  - autoplay/pause de videos HTML5 locales (si usas alguno),
+  - “Detalles” abre modal con YouTube (solo ahí),
+  - deep-link #p=slug y limpieza de hash al cerrar,
+  - CTA “Obtener” con UTM. */
+
 
 /* ============================ ================================
    0) DATA — Usa window.PRODUCTS si ya lo defines externamente.
@@ -18,8 +17,7 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
         {
             slug: "google-earth-revit",
             title: "Earth en Revit",
-            blurb:
-                "Abre Earth en Revit. Superpone mapa satelital en vistas 2D o 3D y úsalo para calcar",
+            blurb: "Abre Earth en Revit. Superpone mapa satelital en vistas 2D o 3D y úsalo para calcar",
             tags: ["GIS", "Contexto", "Earth"],
             // Fondo YouTube en la tarjeta:
             ytBgUrl: "https://www.youtube.com/watch?v=KhbFADrtn7w",
@@ -59,7 +57,7 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
         },
     ];
 
-// Añadir nuevas cartas al FINAL (pinceles + deep seek)
+// Añadir nuevas cartas al FINAL (pinceles + libreta)
 PRODUCTS.push(
     {
         slug: "pinceles",
@@ -71,15 +69,115 @@ PRODUCTS.push(
         badges: ["Revit 2021–2025"],
     },
     {
-        slug: "deep-seek",
-        title: "Deep seek",
+        slug: "libreta",
+        title: "Libreta",
         blurb:
-            "Asistente IA para buscar, resumir y generar acciones rápidas dentro del flujo AEC.",
+            "Libreta asistente para cada una de las vistas del proyecto.",
         tags: ["IA", "Asistente", "Productividad"],
         poster: "media/deep-seek.jpg",
         badges: ["Beta", "Windows"],
     }
 );
+
+/* ============================================================
+   0.1) DOCUMENTACIÓN POR APP (mini README para el modal)
+============================================================ */
+const DOCS = {
+    "google-earth-revit": {
+        overview:
+            "Conecta tu modelo de Revit con el contexto real usando imágenes satelitales. Úsalo para ubicar proyectos, calcar vialidad y entender medianeros.",
+        usage: [
+            "Abre una vista 3D o de planta en Revit donde quieras trabajar con el contexto.",
+            "En la pestaña \"Complementos\" o \"│ Estuche │\", ejecuta \"Earth en Revit\".",
+            "Busca la ubicación de tu proyecto y ajusta la escala usando una medida conocida (por ejemplo el ancho de una calle).",
+            "Bloquea la imagen y úsala como base para calcar topografía, platabandas, veredas y edificaciones vecinas."
+        ],
+        tips: [
+            "Trabaja primero en una vista de trabajo para no sobrecargar tus planos de impresión.",
+            "Mantén el área capturada acotada al entorno relevante para evitar que el archivo crezca demasiado."
+        ]
+    },
+    "metrados-express": {
+        overview:
+            "Automatiza la cubicación de muros, losas y otros elementos del modelo y exporta los resultados a una planilla lista para presupuestar.",
+        usage: [
+            "Abre el modelo que quieras medir y verifica que los tipos y parámetros estén ordenados.",
+            "Ejecuta \"Presupuestos Automáticos\" desde la pestaña de complementos.",
+            "Elige las categorías a medir (muros, losas, vigas, etc.) y configura los filtros básicos.",
+            "Genera la tabla de metrados y expórtala a Excel para vincularla con tu APU."
+        ],
+        tips: [
+            "Define una plantilla de tipos (nombres consistentes) antes de medir para facilitar el resumen por partidas.",
+            "Revisa las unidades del modelo (m, m², m³) para que coincidan con las de tu hoja de cálculo."
+        ]
+    },
+    "coordina-views": {
+        overview:
+            "Crea pilares automáticos a partir de perímetros o grillas, con vista previa rápida para iterar alternativas estructurales.",
+        usage: [
+            "En planta, dibuja el perímetro o polígono base donde necesitas pilares.",
+            "Ejecuta \"Pilares automáticos\" y selecciona el modo de generación: por perímetro, por grilla o mixto.",
+            "Elige la familia de pilar, niveles de inicio y término y la separación deseada.",
+            "Revisa la vista previa y confirma para que el complemento cree los pilares en el modelo."
+        ],
+        tips: [
+            "Prueba primero en un modelo de prueba o en una copia de la vista para ajustar densidades.",
+            "Usa filtros de vista para distinguir los pilares generados por el complemento del resto del modelo."
+        ]
+    },
+    "analisis-solar": {
+        overview:
+            "Explora la incidencia solar y el comportamiento térmico aproximado de tu proyecto usando datos climáticos y visualizaciones sobre el modelo.",
+        usage: [
+            "Configura correctamente la ubicación, orientación y zona horaria del proyecto en Revit.",
+            "Ejecuta \"Análisis Solar + Térmico\" sobre una vista 3D simplificada (masas o volúmenes).",
+            "Selecciona el periodo de estudio (por ejemplo, solsticio de verano o invierno) y la franja horaria.",
+            "Analiza el mapa de radiación relativa para tomar decisiones de aperturas, aleros y protecciones solares."
+        ],
+        tips: [
+            "Utiliza modelos simplificados (masas o volúmenes) para iterar más rápido en etapas tempranas.",
+            "Complementa estos resultados con un modelo energético detallado cuando estés en fase de diseño avanzado."
+        ]
+    },
+    "pinceles": {
+        overview:
+            "Guarda combinaciones de estilos de vista (colores, grosores, patrones) como pinceles y aplícalas a otras vistas con un clic.",
+        usage: [
+            "En una vista base, ajusta gráficos, grosores de línea y colores hasta lograr el estilo que quieres.",
+            "Abre \"Pinceles\" y crea un nuevo pincel a partir de esa vista.",
+            "En otras vistas 2D o 3D, selecciona el pincel guardado y aplícalo para unificar el estilo.",
+            "Ajusta y guarda variaciones para láminas de presentación, coordinación y revisión técnica."
+        ],
+        tips: [
+            "Crea pinceles diferentes para cada fase (estudio preliminar, anteproyecto, ejecución).",
+            "Evita aplicar demasiados filtros en un solo pincel para mantener los tiempos de regeneración razonables."
+        ]
+    },
+    "libreta": {
+        overview:
+            "Asistente de IA enfocado en flujos AEC que te ayuda a buscar información, resumir documentos y proponer acciones dentro de tus proyectos.",
+        install: [
+            "Descarga el archivo .zip desde el botón \"Obtener\".",
+            "Descomprime el contenido en una carpeta de tu elección.",
+            "Ejecuta la aplicación de Deep seek o sigue las instrucciones del archivo README incluido.",
+            "Si se ofrece integración con Revit u otras herramientas, sigue los pasos adicionales descritos en el README."
+        ],
+        usage: [
+            "Abre Deep seek y vincula, si corresponde, las carpetas o proyectos con los que quieres trabajar.",
+            "Formula preguntas concretas sobre tu modelo, normativa o documentación de proyecto.",
+            "Usa las respuestas como apoyo para tomar decisiones, revisar criterios o generar documentación más rápido."
+        ],
+        tips: [
+            "Cuanto más contexto le proporciones (planillas, PDFs, modelos), más útil será el asistente.",
+            "Valida siempre los resultados frente a normativa y criterios profesionales antes de aplicar cambios en obra."
+        ],
+        requirements: [
+            "Windows 10 u 11.",
+            "Conexión estable a internet para las funciones de IA.",
+            "Se recomienda al menos 8 GB de RAM."
+        ]
+    }
+};
 
 /* ============================================================
    1) SELECTORES
@@ -111,7 +209,8 @@ function youtubeIdFromUrl(u) {
 }
 
 function renderYouTube(id, title = "", start = 0) {
-    const s = Number.isFinite(start) && start > 0 ? `&start=${Math.floor(start)}` : "";
+    const s =
+        Number.isFinite(start) && start > 0 ? `&start=${Math.floor(start)}` : "";
     return `
     <div class="video-embed" role="group" aria-label="Demo en video">
       <iframe
@@ -132,7 +231,7 @@ function parseHash() {
 }
 
 /* ============================================================
-   3) MODAL DETALLES (YouTube solo aquí)
+   3) MODAL DETALLES (YouTube + documentación)
 ============================================================ */
 function openDetails(slug) {
     const p = PRODUCTS.find((x) => x.slug === slug);
@@ -144,24 +243,93 @@ function openDetails(slug) {
         null;
     const start = Number.isFinite(p.videoStart) ? p.videoStart : 0;
 
+    const docs = DOCS[p.slug] || {};
+
+    const overviewHTML = docs.overview
+        ? `<section class="doc-block">
+             <h4>¿Qué hace ${p.title}?</h4>
+             <p>${docs.overview}</p>
+           </section>`
+        : "";
+
+    const defaultInstallSteps = [
+        "Descarga el archivo .zip desde el botón “Obtener”.",
+        "Descomprime la carpeta en una ubicación accesible.",
+        "Sigue el archivo README incluido para copiar los archivos a la carpeta de complementos (Addins) de Revit.",
+        "Reinicia Revit y verifica que aparezca la pestaña correspondiente."
+    ];
+    const installSteps =
+        Array.isArray(docs.install) && docs.install.length
+            ? docs.install
+            : defaultInstallSteps;
+    const installHTML = `
+        <section class="doc-block">
+            <h4>Instalación</h4>
+            <ol>${installSteps.map((s) => `<li>${s}</li>`).join("")}</ol>
+        </section>
+    `;
+
+    const defaultUsageSteps = [
+        "Abre Revit y carga un proyecto de ejemplo.",
+        `En la pestaña "Complementos", ejecuta "${p.title}".`,
+        "Prueba el flujo en un modelo pequeño antes de usarlo en producción."
+    ];
+    const usageSteps =
+        Array.isArray(docs.usage) && docs.usage.length
+            ? docs.usage
+            : defaultUsageSteps;
+    const usageHTML = `
+        <section class="doc-block">
+            <h4>Uso rápido</h4>
+            <ol>${usageSteps.map((s) => `<li>${s}</li>`).join("")}</ol>
+        </section>
+    `;
+
+    const tipsHTML =
+        Array.isArray(docs.tips) && docs.tips.length
+            ? `
+        <section class="doc-block">
+            <h4>Tips</h4>
+            <ul>${docs.tips.map((s) => `<li>${s}</li>`).join("")}</ul>
+        </section>`
+            : "";
+
+    const defaultReqItems = [
+        "Windows 10 o superior.",
+        "Revit instalado (según versión indicada en el README del complemento)."
+    ];
+    const reqItems =
+        Array.isArray(docs.requirements) && docs.requirements.length
+            ? docs.requirements
+            : defaultReqItems;
+    const reqHTML = `
+        <section class="doc-block">
+            <h4>Requisitos</h4>
+            <ul>${reqItems.map((s) => `<li>${s}</li>`).join("")}</ul>
+        </section>
+    `;
+
     if (modalTitle) modalTitle.textContent = p.title;
     modalBody.innerHTML = `
-    ${vid ? renderYouTube(vid, p.title, start) : ""}
-    <p>${p.blurb || ""}</p>
-    ${Array.isArray(p.features)
-            ? `<ul>${p.features.map((f) => `<li>${f}</li>`).join("")}</ul>`
-            : ""
-        }
-    <div class="stack row" style="gap:.5rem;margin-top:.5rem;">
-      <button class="btn btn-primary" data-action="get" data-slug="${p.slug}">Obtener</button>
-      <button class="btn" id="btn-share" aria-label="Compartir">Compartir</button>
-    </div>
-    <p class="mono" style="opacity:.8;margin-top:.5rem;">
-      Compatibilidad: ${p.badges?.filter((b) => b.startsWith("Revit")).join(", ") || "Revit"}.
-    </p>
-  `;
+        ${vid ? renderYouTube(vid, p.title, start) : ""}
+        <div class="modal-doc">
+            <p class="modal-intro">${p.blurb || ""}</p>
+            ${overviewHTML}
+            ${installHTML}
+            ${usageHTML}
+            ${tipsHTML}
+            ${reqHTML}
+        </div>
+        <div class="stack row modal-actions" style="gap:.5rem;margin-top:.75rem;">
+            <button class="btn btn-primary" data-action="get" data-slug="${p.slug}">Obtener</button>
+            <button class="btn" id="btn-share" aria-label="Compartir">Compartir</button>
+        </div>
+        <p class="mono" style="opacity:.8;margin-top:.5rem;">
+            Compatibilidad: ${p.badges?.filter((b) => b.startsWith("Revit")).join(", ") || "Revit"}.
+        </p>
+    `;
 
-    modal.showModal();
+    modal.showDialog?.() ?? modal.showModal();
     history.replaceState(null, "", `#p=${slug}`);
 
     const share = $("#btn-share", modal);
@@ -173,6 +341,7 @@ function openDetails(slug) {
             setTimeout(() => (share.textContent = "Compartir"), 1200);
         } catch {
             // fallback clásico
+            // eslint-disable-next-line no-alert
             prompt("Copia este enlace:", url);
         }
     });
@@ -462,105 +631,40 @@ function setupYears() {
     if (span2) span2.textContent = year;
 }
 
+/* ============================================================
+   8) PORTAFOLIO: carrusel de fotos de perfil
+============================================================ */
+function setupAvatarCarousel() {
+    const circle = document.querySelector(".hero-card__avatar-circle");
+    if (!circle) return;
+
+    const img = circle.querySelector("img");
+    if (!img) return;
+
+    // Lee las rutas desde data-avatars en el HTML
+    const raw = circle.dataset.avatars || "";
+    const photos = raw
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0);
+
+    // Si no hay al menos 2 fotos, no tiene sentido rotar
+    if (photos.length <= 1) return;
+
+    let index = 0;
+    img.src = photos[index];
+
+    const INTERVAL = 4000; // 4 segundos entre fotos
+
+    setInterval(() => {
+        index = (index + 1) % photos.length;
+        img.src = photos[index];
+    }, INTERVAL);
+}
+
 // Segundo listener de DOMContentLoaded solo para el portafolio
 document.addEventListener("DOMContentLoaded", () => {
     setupCopyEmail();
     setupYears();
+    setupAvatarCarousel();
 });
-
-/* ============================================================
-   8) MINI NAVEGADOR LATERAL
-   - Resalta el link según la sección visible.
-   - Smooth scroll y actualización de aria-current.
-============================================================ */
-function setupSideNav() {
-    const links = $$(".side-nav__item");
-    if (!links.length) return;
-
-    // Mapea cada link a su sección destino
-    const targets = links
-        .map((a) => {
-            const href = a.getAttribute("href") || "";
-            const id = href.startsWith("#") ? href.slice(1) : null;
-            const el = id ? document.getElementById(id) : null;
-            return el ? { id, el, a } : null;
-        })
-        .filter(Boolean);
-
-    const setActive = (id) => {
-        links.forEach((l) => l.removeAttribute("aria-current"));
-        const found = links.find((l) => (l.getAttribute("href") || "").endsWith(`#${id}`));
-        if (found) found.setAttribute("aria-current", "page");
-    };
-
-    // IntersectionObserver: activa el link de la sección más visible
-    let currentId = null;
-    const io = new IntersectionObserver(
-        (entries) => {
-            // Seleccionamos la sección con mayor intersección dentro del viewport
-            const visible = entries
-                .filter((e) => e.isIntersecting)
-                .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-            if (visible.length) {
-                const top = visible[0].target.id;
-                if (top && top !== currentId) {
-                    currentId = top;
-                    setActive(top);
-                }
-            }
-        },
-        {
-            // El bottom margin negativo hace que “cuente” cuando la cabecera del bloque
-            // entra en la mitad superior de la pantalla, evitando saltos.
-            rootMargin: "0px 0px -45% 0px",
-            threshold: [0.2, 0.4, 0.6, 0.8],
-        }
-    );
-
-    targets.forEach(({ el }) => io.observe(el));
-
-    // Smooth scroll + foco accesible al presionar los enlaces del mini nav
-    links.forEach((l) =>
-        l.addEventListener("click", (ev) => {
-            const href = l.getAttribute("href") || "";
-            if (!href.startsWith("#")) return;
-            ev.preventDefault();
-            const id = href.slice(1);
-            const el = document.getElementById(id);
-            if (!el) return;
-
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
-            // Marca activo inmediatamente para feedback, luego el IO lo corrige si hace falta
-            setActive(id);
-
-            // Tras el scroll, mueve el foco al primer heading del bloque (si existe)
-            const h = el.querySelector("h1, h2, h3, [tabindex], a, button, input, textarea");
-            if (h) {
-                setTimeout(() => h.focus?.(), 400);
-            }
-            // Actualiza el hash sin romper el deep-link de #p=slug (modal)
-            history.replaceState(null, "", `#${id}`);
-        })
-    );
-
-    // Estado inicial
-    const initial = location.hash.replace("#", "");
-    if (initial && targets.some((t) => t.id === initial)) {
-        setActive(initial);
-    } else {
-        // Por defecto “Inicio”
-        setActive(targets[0]?.id || "hero");
-    }
-
-    // Si cambia el hash a #p= (modal), no tocamos el estado del mini nav
-    window.addEventListener("hashchange", () => {
-        const slug = parseHash();
-        if (slug) return; // es deep-link del modal
-        const id = location.hash.replace("#", "");
-        if (id) setActive(id);
-    });
-}
-
-// Tercer init: mini navegador
-document.addEventListener("DOMContentLoaded", setupSideNav);
