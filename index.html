@@ -23,7 +23,8 @@
     <style>
         .side-nav {
             position: fixed;
-            right: 16px; /* 👉 a la derecha */
+            right: 18px; /* navegador pegado a la derecha */
+            left: auto;
             top: 50%;
             transform: translateY(-50%);
             z-index: 60;
@@ -31,29 +32,31 @@
             flex-direction: column;
             gap: 6px;
             padding: 4px 0;
-            background: transparent; /* sin panel de fondo */
+            background: transparent;
             border-radius: 0;
             border: 0;
             box-shadow: none;
         }
 
-            /* Línea vertical más gruesa al borde derecho */
+            /* Línea vertical tenue a la IZQUIERDA del texto */
             .side-nav::before {
                 content: "";
                 position: absolute;
-                right: 8px;
+                left: 8px; /* línea a la izquierda */
+                right: auto;
                 top: 4px;
                 bottom: 4px;
-                width: 2px; /* antes 1px */
+                width: 2px;
                 border-radius: 999px;
-                background: rgba(226, 232, 240, 0.35); /* blanco no tan blanco */
+                background: rgba(226, 232, 240, 0.35);
             }
 
+        /* Ítems con MÁS aire a la izquierda (texto más a la derecha) */
         .side-nav__item {
             position: relative;
             display: flex;
             align-items: center;
-            padding: 4px 22px 4px 10px;
+            padding: 4px 10px 4px 44px; /* antes 4px 22px 4px 10px → ahora texto más a la derecha */
             border-radius: var(--radius-pill);
             font-size: 11px;
             text-transform: uppercase;
@@ -67,17 +70,18 @@
             transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
         }
 
-            /* Línea horizontal más gruesa que se anima en hover/activo */
+            /* Rayita horizontal animada a la IZQUIERDA del texto */
             .side-nav__item::before {
                 content: "";
                 position: absolute;
-                right: 8px;
+                left: 8px; /* nace desde la línea vertical */
+                right: auto;
                 top: 50%;
                 width: 14px;
-                height: 2px; /* antes 1px */
+                height: 2px;
                 border-radius: 999px;
                 background: rgba(226, 232, 240, 0.55);
-                transform-origin: right center;
+                transform-origin: left center; /* crece hacia la derecha */
                 transform: scaleX(0.25);
                 opacity: 0.8;
                 transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
@@ -85,8 +89,8 @@
 
             .side-nav__item:hover {
                 color: var(--text-main);
-                background: transparent; /* sin bloque de color */
-                transform: translateX(-2px);
+                background: transparent;
+                transform: translateX(2px); /* leve empuje hacia la derecha */
             }
 
                 .side-nav__item:hover::before {
@@ -100,7 +104,7 @@
                 outline-offset: 2px;
             }
 
-            /* Estado activo: solo refuerzo de texto + línea, sin fondo sólido */
+            /* Estado activo: refuerzo de texto + línea */
             .side-nav__item[aria-current="page"] {
                 color: rgba(249, 250, 251, 0.95);
                 font-weight: 600;
@@ -113,6 +117,7 @@
                     background: rgba(226, 232, 240, 0.95);
                 }
 
+        /* Mini nav en móvil (horizontal centrado) */
         @media (max-width: 768px) {
             .side-nav {
                 top: auto;
@@ -121,11 +126,11 @@
                 right: auto;
                 transform: translateX(-50%);
                 flex-direction: row;
-                padding: 4px 8px;
+                padding: 6px 10px;
                 border-radius: var(--radius-pill);
-                background: transparent; /* sin fondo en móvil también */
-                border: 0;
-                box-shadow: none;
+                background: transparent;
+                border: 1px solid rgba(148, 163, 184, 0.35);
+                box-shadow: var(--shadow-soft);
             }
 
                 .side-nav::before {
@@ -139,11 +144,12 @@
             }
 
                 .side-nav__item::before {
+                    left: 50%;
                     right: 50%;
                     top: auto;
                     bottom: -2px;
                     width: 18px;
-                    height: 2px; /* también más gruesa en móvil */
+                    height: 2px;
                     transform-origin: center;
                     transform: scaleX(0);
                 }
@@ -234,16 +240,16 @@
                 <p class="hero-sub">────────────────────────────────────</p>
 
                 <p class="hero-sub">
-                    Complementos y automatizaciones para nuestros trabajos ⚒️ 🏗️
+                    Automatizaciones, generación y documentación para nuestros trabajos ⚒️ 🏗️
                 </p>
                 <p class="hero-sub">
-                    Optimicemos nuestra rutina 💻 restemos oficina 🐈‍
+                    Optimicemos nuestra rutina 💻 🐈‍
                 </p>
                 <p class="hero-sub">
-                    Programamos soluciones comunitarias 👾
+                    Programamos soluciones comunitarias libres 👾
                 </p>
 
-                <p class="hero-sub">────────────────────────────────────</p>
+                <p class="hero-sub"></p>
             </div>
 
             <div>
@@ -441,7 +447,7 @@
                             <div class="icon-card__circle">
                                 <img src="assets/vscode.png" alt="Visual Studio">
                             </div>
-                            <p class="icon-card__label">Visual Studio</p>
+                            <p class="icon-card__label">Visual Studio / Code</p>
                             <p class="icon-card__note">Edición de scripts y debugging.</p>
                         </div>
 
@@ -494,7 +500,7 @@
                             </div>
                             <p class="icon-card__label">Python</p>
                             <p class="icon-card__note">
-                                Automatización BIM y utilidades para Revit.
+                                Generación, automatización BIM. Librerías libres y personales.
                             </p>
                         </div>
 
@@ -514,7 +520,7 @@
                             </div>
                             <p class="icon-card__label">C#</p>
                             <p class="icon-card__note">
-                                Complementos de escritorio para Revit.
+                                Complementos de escritorio .exe ejecutable y para Revit.
                             </p>
                         </div>
 
@@ -545,9 +551,8 @@
                 <article class="card card--libraries" id="librerias-apis">
                     <h2 class="card__title">Servicios, APIs y librerías</h2>
                     <p class="card__text">
-                        Servicios que conecto con mis proyectos para traer clima,
-                        simular energía, acceder al modelo BIM, ejecutar comandos,
-                        desplegar aplicaciones y procesar texto / imágenes con IA.
+                        Que conectamos al proyecto para traer clima,
+                        acceder al modelo BIM, ejecutar comandos con tecnologías open source actuales
                     </p>
 
                     <div class="icon-grid">
@@ -666,9 +671,9 @@
     <!-- Footer del portafolio -->
     <footer class="page-footer">
         <div class="shell page-footer__inner">
-            <p>© <span id="year"></span> Arquitectura + Código.</p>
+            
             <p class="page-footer__note">
-                Diseño
+                
             </p>
         </div>
     </footer>
