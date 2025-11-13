@@ -94,7 +94,6 @@ a {
 .site-header {
     position: relative;
     z-index: 40;
-    /* Fondo granulado moderno */
     background-color: #000;
     background-image: var(--card-noise);
     background-repeat: repeat;
@@ -137,17 +136,18 @@ a {
     color: var(--text-soft);
 }
 
-    .nav a[aria-current="page"], .nav a:hover {
+    .nav a[aria-current="page"],
+    .nav a:hover {
         color: var(--text-main);
     }
 
 /* ============================
    4.1 MINI NAVEGADOR LATERAL
-   (anclado a la derecha, líneas a la IZQUIERDA del texto)
+   (versión base, luego la sobrescribes en index3)
 ============================ */
 .side-nav {
     position: fixed;
-    right: 4px; /* ⬅️ más pegado al borde derecho */
+    right: 0px;
     left: auto;
     top: 50%;
     transform: translateY(-50%);
@@ -161,25 +161,25 @@ a {
     box-shadow: none;
 }
 
-    /* Línea vertical TENUE a la IZQUIERDA */
+    /* Línea vertical tenue a la izquierda */
     .side-nav::before {
         content: "";
         position: absolute;
-        left: 8px; /* línea a la izquierda */
-        right: auto;
+        left: 9px;
+        right: 5px;
         top: 4px;
-        bottom: 4px;
-        width: 2px; /* trazo un poco más grueso */
+        bottom: 6px;
+        width: 6px;
         border-radius: 999px;
         background: rgba(226, 232, 240, 0.35);
     }
 
-/* Ítems con MÁS aire a la izquierda (texto más a la derecha) */
+/* Ítems con más aire a la izquierda (texto más a la derecha) */
 .side-nav__item {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 4px 10px 4px 44px; /* texto aún más a la derecha */
+    padding: 4px 10px 4px 44px;
     border-radius: var(--radius-pill);
     font-size: 11px;
     text-transform: uppercase;
@@ -193,18 +193,18 @@ a {
     transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
 }
 
-    /* Rayita animada a la IZQUIERDA del texto */
+    /* Rayita animada a la izquierda del texto */
     .side-nav__item::before {
         content: "";
         position: absolute;
-        left: 8px; /* nace a la izquierda */
+        left: 8px;
         right: auto;
         top: 50%;
         width: 14px;
-        height: 2px; /* rayita más gruesa */
+        height: 2px;
         border-radius: 999px;
         background: rgba(226, 232, 240, 0.55);
-        transform-origin: left center; /* crece hacia la derecha */
+        transform-origin: left center;
         transform: scaleX(0.25);
         opacity: 0.8;
         transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
@@ -213,7 +213,7 @@ a {
     .side-nav__item:hover {
         color: var(--text-main);
         background: transparent;
-        transform: translateX(2px); /* suave empuje a la derecha */
+        transform: translateX(2px);
     }
 
         .side-nav__item:hover::before {
@@ -306,7 +306,7 @@ a {
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow-soft);
     padding: var(--space-5);
-    max-width: min(520px, 50vw); /* ocupa menos de la mitad */
+    max-width: min(520px, 50vw);
 }
 
 #hero .hero-content > div:last-child {
@@ -376,26 +376,30 @@ a {
         color: var(--text-main);
     }
 
-.btn--primary, .btn-primary {
+.btn--primary,
+.btn-primary {
     background: #111827;
     color: #f9fafb;
     border-color: #1f2937;
 }
 
-    .btn--primary:hover, .btn-primary:hover {
+    .btn--primary:hover,
+    .btn-primary:hover {
         background: #020617;
         border-color: var(--accent-green);
         color: var(--text-main);
         box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.5);
     }
 
-.btn--ghost, .btn-ghost {
+.btn--ghost,
+.btn-ghost {
     background: transparent;
     border-color: var(--card-border);
     color: var(--text-soft);
 }
 
-    .btn--ghost:hover, .btn-ghost:hover {
+    .btn--ghost:hover,
+    .btn-ghost:hover {
         background: #020617;
         border-color: var(--accent-green);
         color: var(--text-main);
@@ -435,31 +439,35 @@ a {
         padding-block: var(--space-5);
     }
 
-    #plugins header h2 {
-        margin-bottom: var(--space-3);
-        font-size: 32px;
+    #plugins header {
+        padding-left: var(--space-5); /* alinea 'Aplicaciones' con el texto del banner */
     }
 
-    #plugins header p {
-        font-size: var(--fs-md);
-    }
-
-    #plugins header .max-w {
-        font-size: var(--fs-md);
-        color: var(--text-soft);
-        margin-top: 4px;
-        max-width: 48rem;
-    }
-
-        #plugins header .max-w:nth-of-type(1) {
-            font-weight: 500;
-            color: var(--text-main);
-            margin-top: 0;
-        }
-
-        #plugins header .max-w:nth-of-type(3) {
+        #plugins header h2 {
             margin-bottom: var(--space-3);
+            font-size: 32px;
         }
+
+        #plugins header p {
+            font-size: var(--fs-md);
+        }
+
+        #plugins header .max-w {
+            font-size: var(--fs-md);
+            color: var(--text-soft);
+            margin-top: 4px;
+            max-width: 48rem;
+        }
+
+            #plugins header .max-w:nth-of-type(1) {
+                font-weight: 500;
+                color: var(--text-main);
+                margin-top: 0;
+            }
+
+            #plugins header .max-w:nth-of-type(3) {
+                margin-bottom: var(--space-3);
+            }
 
     #plugins .apps-actions {
         margin-top: var(--space-4);
@@ -575,7 +583,9 @@ a {
         background-color: #18181b;
     }
 
-    #plugins .card.has-yt, #plugins .card.has-media, #plugins .card.has-video {
+    #plugins .card.has-yt,
+    #plugins .card.has-media,
+    #plugins .card.has-video {
         position: relative;
         overflow: hidden;
     }
@@ -843,6 +853,14 @@ footer {
     gap: var(--space-4);
 }
 
+/* Tarjeta de Servicios, APIs y librerías más ancha y alineada a la derecha */
+.card--libraries {
+    grid-column: 1 / -1;
+    max-width: 760px; /* un poco más que la mitad de la shell (~60%) */
+    justify-self: flex-start;
+    padding-left: calc(var(--space-5) + 15px); /* contenido un poco más a la derecha */
+}
+
 /* ============================
    12. BASE CARD
 ============================ */
@@ -1022,8 +1040,9 @@ footer {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+/* Texto alineado a la izquierda en icon cards */
 .icon-card {
-    text-align: center;
+    text-align: left;
 }
 
 .icon-card__circle {
@@ -1035,12 +1054,12 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto var(--space-2);
+    margin: 0 0 var(--space-2);
 }
 
     .icon-card__circle img {
-        width: 70px;
-        height: 70px;
+        width: 80px;
+        height: 80px;
         object-fit: contain;
     }
 
@@ -1095,51 +1114,27 @@ footer {
     list-style: none;
     margin: var(--space-4) 0 0;
     padding: 0;
-    display: grid;
-    gap: var(--space-3);
+    border-left: 1px solid rgba(148, 163, 184, 0.4);
 }
 
     .timeline li {
         position: relative;
-        padding-left: 26px;
+        padding-left: var(--space-4);
+        padding-bottom: var(--space-3);
     }
 
         .timeline li::before {
             content: "";
             position: absolute;
-            left: 4px;
+            left: -5px;
             top: 5px;
-            width: 6px;
-            height: 6px;
+            width: 9px;
+            height: 9px;
             border-radius: 999px;
-            background: var(--accent);
+            background: var(--accent-green);
         }
 
-.timeline__item-header {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    margin-bottom: 6px;
-}
-
-@media (min-width: 768px) {
-    .timeline__item-header {
-        flex-direction: row;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 8px;
-    }
-}
-
-.card--education .timeline__item-header,
-.card--experience .timeline__item-header {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 2px;
-}
-
-.timeline__label {
+.timeline__year {
     font-size: var(--fs-xs);
     text-transform: uppercase;
     letter-spacing: .16em;
@@ -1147,124 +1142,93 @@ footer {
 }
 
 .timeline__title {
-    font-size: var(--fs-md);
-    font-weight: 600;
-}
-
-.timeline__meta {
     font-size: var(--fs-sm);
-    color: var(--text-soft);
+    font-weight: 500;
     margin-top: 2px;
 }
 
 .timeline__text {
-    font-size: var(--fs-sm);
-    color: var(--text-soft);
-    margin-top: 4px;
-}
-
-.timeline__tagline {
-    font-size: var(--fs-sm);
+    font-size: var(--fs-xs);
     color: var(--text-soft);
     margin-top: 2px;
-    opacity: .9;
 }
-
-.card--education .timeline, .card--experience .timeline {
-    gap: var(--space-4);
-}
-
-    .card--education .timeline li, .card--experience .timeline li {
-        padding-left: 30px;
-    }
 
 /* ============================
    16. CONTACTO
 ============================ */
 .card--contact {
     grid-column: 1 / -1;
-    max-width: 420px;
+    max-width: 620px;
     justify-self: center;
-    padding: var(--space-4);
+    text-align: center;
 }
-
-    .card--contact .card__title {
-        font-size: 22px;
-    }
-
-    .card--contact .card__text {
-        font-size: var(--fs-sm);
-        color: var(--text-soft);
-    }
-
-    .card--contact .btn {
-        font-size: var(--fs-xs);
-        padding: 6px 12px;
-    }
 
 .contact-actions {
     margin-top: var(--space-3);
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-2);
+    flex-wrap: wrap;
 }
 
 /* ============================
-   17. FOOTER (página)
+   17. FOOTER PORTAFOLIO
 ============================ */
 .page-footer {
-    border-top: 1px solid #111827;
+    border-top: 1px solid rgba(15, 23, 42, 0.8);
     background: transparent;
-    padding: var(--space-3) var(--space-3) var(--space-4);
+    padding-top: var(--space-3);
 }
 
 .page-footer__inner {
-    width: min(1240px, 100%);
-    margin-inline: auto;
     display: flex;
     justify-content: space-between;
-    gap: var(--space-2);
-    font-size: var(--fs-xs);
-    color: var(--text-muted);
+    align-items: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
 }
 
 .page-footer__note {
+    font-size: var(--fs-xs);
     color: var(--text-soft);
 }
 
 /* ============================
-   18. REDUCIR MOVIMIENTO
+   18. TAGS
 ============================ */
-@media (prefers-reduced-motion: reduce) {
-    #plugins .card.has-yt .card-media .yt-bg,
-    #plugins .card.has-video .card-media video {
-        display: none;
-    }
+.tag--outline {
+    background: transparent;
+    border-style: dashed;
 }
 
 /* ============================
-   19. RESPONSIVE
+   19. MEDIA QUERIES
 ============================ */
-@media (max-width: 900px) {
+@media (max-width: 960px) {
     .hero-content {
         grid-template-columns: minmax(0, 1fr);
-        gap: var(--space-4);
     }
 
     #hero .hero-content > div:first-child {
         max-width: 100%;
     }
 
-    #hero .hero-content > div:last-child {
-        justify-content: flex-start;
+    #hero {
+        padding-top: var(--space-4);
     }
 
+    .card--hero {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 840px) {
     .cards {
         grid-template-columns: 1fr;
     }
 
-    .card--contact, .card--hero, .card--libraries {
-        grid-column: auto;
+    .card--hero {
+        max-width: 100%;
     }
 
     .hero-card__top {
@@ -1272,52 +1236,45 @@ footer {
         align-items: flex-start;
     }
 
-    .hero-card__summary {
-        max-width: none;
+    .hero-card__avatar-circle {
+        width: 140px;
+        height: 140px;
     }
 
-    .card--hero, .card--libraries, .card--contact {
-        max-width: none;
+    .hero-card__name {
+        font-size: 32px;
+    }
+
+    .hero-card__role {
+        font-size: 20px;
+    }
+
+    /* En pantallas pequeñas, la tarjeta de Servicios ocupa todo el ancho y se centra */
+    .card--libraries {
+        max-width: 100%;
         justify-self: stretch;
     }
 
-        .card--tools .icon-grid, .card--libraries .icon-grid {
+        .card--libraries .icon-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 }
 
-@media (max-width: 640px) {
-    body {
-        font-size: 15px;
+@media (max-width: 720px) {
+    .page {
+        padding-inline: var(--space-3);
     }
 
-    .container, .container-narrow, .page {
-        padding-inline: var(--space-2);
-    }
-
-    .card, .hero-content, #plugins > .container, #faq .container-narrow {
-        padding: var(--space-4);
-        border-radius: 18px;
-    }
-
-    .page-header__card {
+    .card {
         padding: var(--space-4);
     }
 
-    .hero-card__avatar-circle {
-        width: 160px;
-        height: 160px;
+    .card--tools .icon-grid,
+    .card--languages .icon-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .card__title {
-        font-size: 26px;
-    }
-
-    .page-header__title {
-        font-size: 30px;
-    }
-
-    .card--tools .icon-grid, .card--libraries .icon-grid, .card--languages .icon-grid {
+    .card--libraries .icon-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
