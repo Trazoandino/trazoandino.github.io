@@ -7,16 +7,15 @@
     --card-bg-soft: #0a0a0a; /* superficie un poco más clara */
     --card-border: #1f1f1f; /* borde gris suave */
 
-    --accent: #00b741; /* color de acento (azul sutil) */
+    --accent: #00b741;
     --accent-soft: rgba(37, 99, 235, 0.15);
-    --accent-green: #00c047; /* verde más oscuro tipo terminal */
+    --accent-green: #00c047;
     --text-main: #f9fafb;
     --text-soft: #e5e7eb;
     --text-muted: #9ca3af;
     --radius-card: 24px;
     --radius-pill: 999px;
     --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.85);
-    /* Tipografía global ORIGINAL */
     --fs-xs: 13px;
     --fs-sm: 15px;
     --fs-base: 17px;
@@ -29,9 +28,7 @@
     --space-5: 24px;
     --space-6: 32px;
     --card-h: 360px;
-    /* Campo de estrellas (ya no lo usamos como capa extra, pero lo dejamos por si acaso) */
-    --starfield: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.3'/%3E%3C/svg%3E");
-    /* Ruido fino de alta resolución para tarjetas / fondo (más tenue, más oscuro) */
+    /* Ruido fino de alta resolución para fondo/tarjetas */
     --card-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260' viewBox='0 0 260 260'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.8' numOctaves='4' stitchTiles='noStitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='0.14'/%3E%3C/svg%3E");
 }
 
@@ -55,18 +52,12 @@ body {
     font-size: var(--fs-base);
     line-height: 1.5;
     color: var(--text-main);
-    /* Fondo granulado MUY oscuro, igual lenguaje visual que las tarjetas */
-    background-color: #000000;
+    background-color: #000;
     background-image: var(--card-noise);
     background-repeat: repeat;
     background-attachment: fixed;
     background-size: 260px 260px;
 }
-
-    /* Sin capa de estrellas, dejamos solo el granulado oscuro */
-    body::before {
-        content: none;
-    }
 
 img {
     max-width: 100%;
@@ -86,7 +77,6 @@ a {
         text-decoration: underline;
     }
 
-/* Espaciadores utilitarios */
 .stack {
     display: flex;
     flex-direction: column;
@@ -99,26 +89,17 @@ a {
     }
 
 /* ============================
-   3. LAYOUT GENERAL (Estuche)
+   3. LAYOUT GENERAL
 ============================ */
-/* Solo el header principal (navbar) usa esta clase */
 .site-header {
-    position: relative; /* no sticky, no nos sigue al hacer scroll */
+    position: relative;
     z-index: 40;
-    /* 🔹 Fondo granulado moderno, mismo lenguaje que el resto */
-    background-color: #000000;
+    /* Fondo granulado moderno */
+    background-color: #000;
     background-image: var(--card-noise);
     background-repeat: repeat;
     background-size: 260px 260px;
     border-bottom: 1px solid rgba(15, 23, 42, 0.9);
-}
-
-/* Header interno de la tarjeta de Complementos */
-#plugins > .container > header {
-    background: transparent;
-    border-bottom: none;
-    padding-bottom: var(--space-3);
-    padding-left: clamp(15px, 1vw, 64px); /* mueve título + texto a la derecha */
 }
 
 .container,
@@ -156,21 +137,17 @@ a {
     color: var(--text-soft);
 }
 
-    .nav a[aria-current="page"] {
-        color: var(--text-main);
-    }
-
-    .nav a:hover {
+    .nav a[aria-current="page"], .nav a:hover {
         color: var(--text-main);
     }
 
 /* ============================
    4.1 MINI NAVEGADOR LATERAL
-   (minimalista, líneas simples, a la DERECHA)
+   (anclado a la derecha, líneas a la IZQUIERDA del texto)
 ============================ */
 .side-nav {
     position: fixed;
-    right: 18px;
+    right: 4px; /* ⬅️ más pegado al borde derecho */
     left: auto;
     top: 50%;
     transform: translateY(-50%);
@@ -184,23 +161,25 @@ a {
     box-shadow: none;
 }
 
-    /* columna vertical tenue al lado derecho */
+    /* Línea vertical TENUE a la IZQUIERDA */
     .side-nav::before {
         content: "";
         position: absolute;
-        right: 8px;
+        left: 8px; /* línea a la izquierda */
+        right: auto;
         top: 4px;
         bottom: 4px;
-        width: 1px;
+        width: 2px; /* trazo un poco más grueso */
         border-radius: 999px;
-        background: rgba(226, 232, 240, 0.35); /* blanco no tan blanco */
+        background: rgba(226, 232, 240, 0.35);
     }
 
+/* Ítems con MÁS aire a la izquierda (texto más a la derecha) */
 .side-nav__item {
     position: relative;
     display: flex;
     align-items: center;
-    padding: 4px 22px 4px 10px; /* más aire hacia la derecha */
+    padding: 4px 10px 4px 44px; /* texto aún más a la derecha */
     border-radius: var(--radius-pill);
     font-size: 11px;
     text-transform: uppercase;
@@ -214,17 +193,18 @@ a {
     transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
 }
 
-    /* pequeña línea horizontal que se anima en hover/activo (alineada a la derecha) */
+    /* Rayita animada a la IZQUIERDA del texto */
     .side-nav__item::before {
         content: "";
         position: absolute;
-        right: 8px;
+        left: 8px; /* nace a la izquierda */
+        right: auto;
         top: 50%;
         width: 14px;
-        height: 1px;
+        height: 2px; /* rayita más gruesa */
         border-radius: 999px;
         background: rgba(226, 232, 240, 0.55);
-        transform-origin: right center;
+        transform-origin: left center; /* crece hacia la derecha */
         transform: scaleX(0.25);
         opacity: 0.8;
         transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
@@ -233,7 +213,7 @@ a {
     .side-nav__item:hover {
         color: var(--text-main);
         background: transparent;
-        transform: translateX(-2px);
+        transform: translateX(2px); /* suave empuje a la derecha */
     }
 
         .side-nav__item:hover::before {
@@ -247,7 +227,6 @@ a {
         outline-offset: 2px;
     }
 
-    /* estado activo: solo refuerzo de texto + línea, sin fondo */
     .side-nav__item[aria-current="page"] {
         color: rgba(249, 250, 251, 0.95);
         font-weight: 600;
@@ -260,7 +239,7 @@ a {
             background: rgba(226, 232, 240, 0.95);
         }
 
-/* Mini nav adaptado a móvil */
+/* Mini nav en móvil (horizontal centrado) */
 @media (max-width: 768px) {
     .side-nav {
         top: auto;
@@ -284,38 +263,32 @@ a {
         padding: 4px 10px;
         font-size: 10px;
         letter-spacing: 0.1em;
-        background: transparent;
     }
 
         .side-nav__item::before {
-            right: 50%;
             left: 50%;
+            right: 50%;
             top: auto;
             bottom: -2px;
             width: 18px;
+            height: 2px;
             transform-origin: center;
             transform: scaleX(0);
         }
 
-        .side-nav__item:hover,
-        .side-nav__item[aria-current="page"] {
-            background: transparent;
+        .side-nav__item:hover::before,
+        .side-nav__item[aria-current="page"]::before {
+            transform: scaleX(1);
         }
-
-            .side-nav__item:hover::before,
-            .side-nav__item[aria-current="page"]::before {
-                transform: scaleX(1);
-            }
 }
 
 /* ============================
-   5. HERO ESTUCHE ANDINO
+   5. HERO
 ============================ */
 #hero {
     padding: var(--space-6) 0 var(--space-6);
 }
 
-/* Layout del hero: grilla 2 columnas */
 .hero-content {
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
@@ -323,27 +296,24 @@ a {
     align-items: center;
 }
 
-/* Tarjeta compacta de texto a la izquierda: AHORA con granulado moderno */
+/* Tarjeta de texto del banner con granulado */
 #hero .hero-content > div:first-child {
-    background-color: #000000;
+    background-color: #000;
     background-image: var(--card-noise);
     background-repeat: repeat;
     background-size: 260px 260px;
-    background-blend-mode: normal;
     border-radius: var(--radius-card);
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow-soft);
     padding: var(--space-5);
-    max-width: min(520px, 50vw);
+    max-width: min(520px, 50vw); /* ocupa menos de la mitad */
 }
 
-/* Columna de la imagen a la derecha */
 #hero .hero-content > div:last-child {
     display: flex;
     justify-content: center;
 }
 
-/* Tarjeta visual para la imagen del banner */
 .media-box {
     width: 100%;
     max-width: 520px;
@@ -371,7 +341,6 @@ a {
     margin-top: 4px;
 }
 
-/* Los 3 subtítulos de texto del hero más grandes */
 #hero .hero-content > div:first-child p.hero-sub:nth-of-type(2),
 #hero .hero-content > div:first-child p.hero-sub:nth-of-type(3),
 #hero .hero-content > div:first-child p.hero-sub:nth-of-type(4) {
@@ -383,7 +352,7 @@ a {
 }
 
 /* ============================
-   6. BOTONES + CHIPS (COMÚN)
+   6. BOTONES + CHIPS
 ============================ */
 .btn {
     border-radius: 16px;
@@ -396,9 +365,9 @@ a {
     justify-content: center;
     cursor: pointer;
     text-decoration: none;
-    background: #020617; /* base oscuro */
+    background: #020617;
     color: var(--text-soft);
-    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    transition: background .15s, border-color .15s, color .15s, box-shadow .15s;
 }
 
     .btn:hover {
@@ -407,32 +376,26 @@ a {
         color: var(--text-main);
     }
 
-/* Primary */
-.btn--primary,
-.btn-primary {
+.btn--primary, .btn-primary {
     background: #111827;
     color: #f9fafb;
     border-color: #1f2937;
 }
 
-    .btn--primary:hover,
-    .btn-primary:hover {
+    .btn--primary:hover, .btn-primary:hover {
         background: #020617;
         border-color: var(--accent-green);
         color: var(--text-main);
         box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.5);
     }
 
-/* Ghost */
-.btn--ghost,
-.btn-ghost {
+.btn--ghost, .btn-ghost {
     background: transparent;
     border-color: var(--card-border);
     color: var(--text-soft);
 }
 
-    .btn--ghost:hover,
-    .btn-ghost:hover {
+    .btn--ghost:hover, .btn-ghost:hover {
         background: #020617;
         border-color: var(--accent-green);
         color: var(--text-main);
@@ -451,42 +414,36 @@ a {
 }
 
 .chip-muted {
-    opacity: 0.8;
+    opacity: .8;
 }
 
 /* ============================
-   7. COMPLEMENTOS GRID (APLICACIONES)
+   7. APLICACIONES (Plugins)
 ============================ */
 #plugins {
     padding: var(--space-6) 0;
 }
 
-    /* bloque de complementos dentro de una tarjeta grande
-   → ahora también con granulado moderno */
     #plugins > .container {
-        background-color: #000000;
+        background-color: #000;
         background-image: var(--card-noise);
         background-repeat: repeat;
         background-size: 260px 260px;
-        background-blend-mode: normal;
         border-radius: var(--radius-card);
         border: 1px solid var(--card-border);
         box-shadow: var(--shadow-soft);
         padding-block: var(--space-5);
     }
 
-    /* Título “Aplicaciones” un poco más grande + más aire */
     #plugins header h2 {
         margin-bottom: var(--space-3);
         font-size: 32px;
     }
 
-    /* Subtítulo de Complementos más grande (base) */
     #plugins header p {
         font-size: var(--fs-md);
     }
 
-    /* Estilo general de los párrafos bajo "Aplicaciones" */
     #plugins header .max-w {
         font-size: var(--fs-md);
         color: var(--text-soft);
@@ -494,22 +451,16 @@ a {
         max-width: 48rem;
     }
 
-        /* Primer párrafo: frase principal */
         #plugins header .max-w:nth-of-type(1) {
-            font-size: var(--fs-md);
             font-weight: 500;
             color: var(--text-main);
             margin-top: 0;
         }
 
-        /* Tercer párrafo (gatos/perros) con un pelín más de aire
-   antes de los botones */
         #plugins header .max-w:nth-of-type(3) {
             margin-bottom: var(--space-3);
         }
 
-    /* Contenedor de los botones de Aplicaciones
-   → un poquito más separado del texto */
     #plugins .apps-actions {
         margin-top: var(--space-4);
         display: flex;
@@ -517,14 +468,12 @@ a {
         gap: var(--space-2);
     }
 
-    /* Botones dentro del bloque Aplicaciones */
     #plugins .apps-actions__btn {
         font-size: var(--fs-md);
         padding: 8px 16px;
         border-radius: var(--radius-pill);
     }
 
-        /* Botón principal: Validar Licencia Pro */
         #plugins .apps-actions__btn.btn--primary {
             background: linear-gradient(135deg, #16a34a, #22c55e);
             border-color: rgba(34, 197, 94, 0.7);
@@ -536,7 +485,6 @@ a {
                 background: linear-gradient(135deg, #15803d, #22c55e);
             }
 
-        /* Botones secundarios */
         #plugins .apps-actions__btn:not(.btn--primary) {
             background: #020617;
             border-color: #1f2937;
@@ -548,7 +496,6 @@ a {
                 color: var(--text-main);
             }
 
-/* En móvil los botones ocupan todo el ancho */
 @media (max-width: 720px) {
     #plugins .apps-actions {
         flex-direction: column;
@@ -561,7 +508,6 @@ a {
     }
 }
 
-/* Grid de complementos: 2 tarjetas por fila */
 #plugins .grid {
     margin-top: var(--space-4);
     display: grid;
@@ -575,7 +521,6 @@ a {
     }
 }
 
-/* Media en cards de complementos */
 .card-media {
     position: relative;
     border-radius: 16px;
@@ -605,17 +550,15 @@ a {
         border: 0;
     }
 
-/* Tarjetas de complementos con granulado sutil, pero sin luces */
 #plugins .card {
     background-color: var(--card-bg-soft);
     background-image: var(--card-noise);
-    background-blend-mode: normal;
     background-size: 260px 260px;
     border: 1px solid var(--card-border);
     border-radius: 18px;
     padding: 14px;
     box-shadow: var(--shadow-soft);
-    transition: box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+    transition: box-shadow .2s, border-color .2s, background-color .2s;
     display: grid;
     align-content: end;
     gap: 10px;
@@ -623,21 +566,16 @@ a {
     overflow: hidden;
 }
 
-    /* sin resplandor ::before en estas tarjetas */
     #plugins .card::before {
         content: none;
     }
 
-    /* Hover tarjetas de Complementos (mantiene ruido, solo un poco más claro) */
     #plugins .card:hover {
         border-color: var(--accent-green);
         background-color: #18181b;
     }
 
-    /* Fondo YouTube / imagen ocupando toda la tarjeta */
-    #plugins .card.has-yt,
-    #plugins .card.has-media,
-    #plugins .card.has-video {
+    #plugins .card.has-yt, #plugins .card.has-media, #plugins .card.has-video {
         position: relative;
         overflow: hidden;
     }
@@ -652,7 +590,6 @@ a {
             overflow: hidden;
         }
 
-            /* Imagen de poster */
             #plugins .card.has-media .card-media .poster,
             #plugins .card.has-yt .card-media .poster {
                 width: 100%;
@@ -662,7 +599,6 @@ a {
                 filter: saturate(1.02) contrast(1.02);
             }
 
-            /* Vídeo HTML5 */
             #plugins .card.has-video .card-media video {
                 width: 100%;
                 height: 100%;
@@ -671,24 +607,6 @@ a {
                 filter: saturate(1.05) contrast(1.05);
             }
 
-            /* Capa YouTube */
-            #plugins .card.has-yt .card-media .yt-bg {
-                position: absolute;
-                inset: 0;
-            }
-
-            #plugins .card.has-yt .card-media iframe {
-                position: absolute;
-                inset: 0;
-                width: 120%;
-                height: 120%;
-                left: -10%;
-                top: -10%;
-                border: 0;
-                pointer-events: none;
-            }
-
-        /* Veladura uniforme oscura para legibilidad del texto */
         #plugins .card.has-yt::after,
         #plugins .card.has-media::after,
         #plugins .card.has-video::after {
@@ -699,7 +617,6 @@ a {
             background: rgba(0, 0, 0, 0.75);
         }
 
-        /* Panel oscuro detrás del contenido */
         #plugins .card.has-yt .card-body,
         #plugins .card.has-media .card-body,
         #plugins .card.has-video .card-body {
@@ -707,22 +624,21 @@ a {
             z-index: 2;
             display: inline-block;
             max-width: 60%;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0,0,0,0.4);
             padding: 12px 14px;
             border-radius: 14px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.35);
             backdrop-filter: blur(2px);
         }
 
-    /* Texto más claro sobre vídeo */
     #plugins .card .card-body p {
         color: var(--text-main);
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+        text-shadow: 0 1px 2px rgba(0,0,0,0.45);
     }
 
 .card-body .kicker {
     font-size: var(--fs-xs);
-    letter-spacing: 0.14em;
+    letter-spacing: .14em;
     text-transform: uppercase;
     color: var(--text-muted);
     margin-bottom: 4px;
@@ -753,19 +669,17 @@ a {
 }
 
 /* ============================
-   8. FAQ COMO TARJETA
+   8. FAQ (como tarjeta)
 ============================ */
 #faq {
     padding: var(--space-6) 0 var(--space-6);
 }
 
-    /* Bloque FAQ en tarjeta: ahora también granulado moderno */
     #faq .container-narrow {
-        background-color: #000000;
+        background-color: #000;
         background-image: var(--card-noise);
         background-repeat: repeat;
         background-size: 260px 260px;
-        background-blend-mode: normal;
         border-radius: var(--radius-card);
         border: 1px solid var(--card-border);
         box-shadow: var(--shadow-soft);
@@ -804,7 +718,7 @@ a {
     }
 
 /* ============================
-   9. MODAL DETALLES
+   9. MODAL
 ============================ */
 #modal {
     border-radius: 18px;
@@ -860,7 +774,7 @@ a {
     }
 
 /* ============================
-   10. FOOTER ESTUCHE
+   10. FOOTER
 ============================ */
 footer {
     padding: var(--space-4) var(--space-3) var(--space-5);
@@ -873,11 +787,11 @@ footer {
 }
 
 /* ============================
-   11. PORTAFOLIO (page, shell)
+   11. PORTAFOLIO
 ============================ */
 .page {
     padding: var(--space-6) var(--space-3) var(--space-6);
-    background: transparent; /* se ve el fondo granulado global */
+    background: transparent;
 }
 
 .shell {
@@ -885,7 +799,6 @@ footer {
     margin-inline: auto;
 }
 
-/* Header del portafolio */
 .page-header {
     text-align: center;
     margin-bottom: var(--space-6);
@@ -894,7 +807,6 @@ footer {
     padding: 0;
 }
 
-/* Tarjeta compacta alrededor del texto de Portafolio */
 .page-header__card {
     display: inline-block;
     padding: var(--space-4) var(--space-6);
@@ -908,7 +820,7 @@ footer {
 .page-header__kicker {
     font-size: var(--fs-xs);
     text-transform: uppercase;
-    letter-spacing: 0.16em;
+    letter-spacing: .16em;
     color: var(--text-muted);
     margin-bottom: var(--space-1);
 }
@@ -925,7 +837,6 @@ footer {
     font-size: var(--fs-sm);
 }
 
-/* Grid de tarjetas del portafolio */
 .cards {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -933,71 +844,30 @@ footer {
 }
 
 /* ============================
-   12. BASE CARD (COMÚN)
+   12. BASE CARD
 ============================ */
 .card {
     position: relative;
-    /* Fondo base oscuro + granulado */
-    background-color: var(--card-bg);
+    background-color: #000; /* más oscuro y consistente */
     background-image: var(--card-noise);
-    background-blend-mode: normal;
     background-size: 260px 260px;
     border-radius: var(--radius-card);
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow-soft);
-    background-color: #000000; /* aún más oscuro */
     padding: var(--space-5);
     overflow: hidden;
-    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    transition: background-color .2s, border-color .2s, box-shadow .2s, transform .2s;
 }
 
-    /* Quitamos luz radial de hover global */
     .card::before {
         content: none;
     }
 
-/* Efecto orgánico opcional (.card--cordy) — luces desactivadas */
-.card--cordy::after {
-    content: "";
-    position: absolute;
-    inset: -20%;
-    background: none;
-    opacity: 0;
-    pointer-events: none;
-    mix-blend-mode: normal;
-    transform: scale(0.95);
-    transition: opacity 0.5s ease-out;
-}
-
-.card--cordy:hover::after {
-    opacity: 0;
-    animation: none;
-}
-
-/* (keyframes quedan por si los quieres revivir algún día) */
-@keyframes cordyceps-spread {
-    0% {
-        transform: scale(0.95) translate3d(0, 0, 0);
-        filter: blur(0);
+    .card:hover {
+        border-color: var(--accent-green);
+        background-color: #000;
+        transform: translateY(-1px);
     }
-
-    50% {
-        transform: scale(1.02) translate3d(2px, -2px, 0);
-        filter: blur(1);
-    }
-
-    100% {
-        transform: scale(1.05) translate3d(-1px, 1px, 0);
-        filter: blur(0.5px);
-    }
-}
-
-/* Hover general de tarjetas (manteniendo el grano) */
-.card:hover {
-    border-color: var(--accent-green);
-    background-color: #000000;
-    transform: translateY(-1px);
-}
 
 .card__title {
     margin: 0 0 var(--space-2);
@@ -1014,8 +884,8 @@ footer {
 ============================ */
 .card--hero {
     grid-column: 1 / -1;
-    max-width: 880px; /* hero más angosta en desktop */
-    justify-self: center; /* centrada en la grilla */
+    max-width: 880px;
+    justify-self: center;
 }
 
 .hero-card {
@@ -1034,7 +904,6 @@ footer {
     flex-shrink: 0;
 }
 
-/* FOTO DE PERFIL oscura, sin halo de luz */
 .hero-card__avatar-circle {
     width: 200px;
     height: 200px;
@@ -1065,7 +934,6 @@ footer {
     gap: var(--space-2);
 }
 
-/* Tamaños grandes en la tarjeta de presentación */
 .hero-card__name {
     margin: 0;
     font-size: 40px;
@@ -1090,7 +958,6 @@ footer {
     margin-top: var(--space-2);
 }
 
-    /* Chips solo en la hero más grandes */
     .hero-card__chips .tag {
         font-size: var(--fs-sm);
         padding: 6px 12px;
@@ -1124,7 +991,6 @@ footer {
     gap: var(--space-2);
 }
 
-/* Tags del resto de tarjetas */
 .tag {
     padding: 4px 10px;
     border-radius: var(--radius-pill);
@@ -1132,13 +998,6 @@ footer {
     background: var(--card-bg-soft);
     font-size: var(--fs-xs);
     color: var(--text-soft);
-}
-
-/* >>> Layout de Librerías centrado <<< */
-.card--libraries {
-    grid-column: 1 / -1; /* ocupa la fila completa */
-    max-width: 900px; /* un poco más pequeña que el ancho total */
-    justify-self: center;
 }
 
 /* ============================
@@ -1151,17 +1010,14 @@ footer {
     margin-top: var(--space-4);
 }
 
-/* Herramientas: 3 columnas en desktop */
 .card--tools .icon-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* Librerías: 4 columnas en desktop */
 .card--libraries .icon-grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-/* Lenguajes: 3 columnas en desktop */
 .card--languages .icon-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
@@ -1170,7 +1026,6 @@ footer {
     text-align: center;
 }
 
-/* Iconos (contenedor) */
 .icon-card__circle {
     width: 112px;
     height: 112px;
@@ -1183,14 +1038,12 @@ footer {
     margin: 0 auto var(--space-2);
 }
 
-    /* IMAGEN más grande dentro del círculo */
     .icon-card__circle img {
         width: 70px;
         height: 70px;
         object-fit: contain;
     }
 
-/* Texto bajo cada icono */
 .icon-card__label {
     font-size: var(--fs-md);
     font-weight: 600;
@@ -1203,7 +1056,7 @@ footer {
 }
 
 /* ============================
-   15. LISTAS, PASOS, TIMELINE
+   15. LISTAS / TIMELINE
 ============================ */
 .list {
     list-style: none;
@@ -1238,44 +1091,6 @@ footer {
     margin-top: 2px;
 }
 
-.steps {
-    list-style: none;
-    margin: var(--space-4) 0 0;
-    padding: 0;
-    display: grid;
-    gap: var(--space-3);
-}
-
-    .steps li {
-        display: flex;
-        gap: var(--space-3);
-        align-items: flex-start;
-    }
-
-.steps__badge {
-    width: 22px;
-    height: 22px;
-    border-radius: 999px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--fs-xs);
-}
-
-.steps__title {
-    font-size: var(--fs-sm);
-    font-weight: 500;
-}
-
-.steps__text {
-    font-size: var(--fs-xs);
-    color: var(--text-soft);
-    margin-top: 2px;
-}
-
-/* Timeline genérico */
 .timeline {
     list-style: none;
     margin: var(--space-4) 0 0;
@@ -1286,7 +1101,7 @@ footer {
 
     .timeline li {
         position: relative;
-        padding-left: 13px;
+        padding-left: 26px;
     }
 
         .timeline li::before {
@@ -1300,7 +1115,6 @@ footer {
             background: var(--accent);
         }
 
-/* Cabecera de cada ítem: label + título */
 .timeline__item-header {
     display: flex;
     flex-direction: column;
@@ -1317,7 +1131,6 @@ footer {
     }
 }
 
-/* Formación y Experiencia SIEMPRE en columna */
 .card--education .timeline__item-header,
 .card--experience .timeline__item-header {
     flex-direction: column;
@@ -1326,59 +1139,51 @@ footer {
     gap: 2px;
 }
 
-/* Label pequeño en versalitas */
 .timeline__label {
     font-size: var(--fs-xs);
     text-transform: uppercase;
-    letter-spacing: 0.16em;
+    letter-spacing: .16em;
     color: var(--text-muted);
 }
 
-/* Título principal */
 .timeline__title {
     font-size: var(--fs-md);
     font-weight: 600;
 }
 
-/* Meta secundaria */
 .timeline__meta {
     font-size: var(--fs-sm);
     color: var(--text-soft);
     margin-top: 2px;
 }
 
-/* Texto descriptivo principal */
 .timeline__text {
     font-size: var(--fs-sm);
     color: var(--text-soft);
     margin-top: 4px;
 }
 
-/* Línea adicional (ej. “Software BIM.”) */
 .timeline__tagline {
     font-size: var(--fs-sm);
     color: var(--text-soft);
     margin-top: 2px;
-    opacity: 0.9;
+    opacity: .9;
 }
 
-/* Más aire en Formación y Experiencia */
-.card--education .timeline,
-.card--experience .timeline {
+.card--education .timeline, .card--experience .timeline {
     gap: var(--space-4);
 }
 
-    .card--education .timeline li,
-    .card--experience .timeline li {
-        padding-left: 20px;
+    .card--education .timeline li, .card--experience .timeline li {
+        padding-left: 30px;
     }
 
 /* ============================
-   16. CONTACTO PORTAFOLIO
+   16. CONTACTO
 ============================ */
 .card--contact {
-    grid-column: 1 / -1; /* ocupa también la fila completa */
-    max-width: 420px; /* más pequeña y discreta */
+    grid-column: 1 / -1;
+    max-width: 420px;
     justify-self: center;
     padding: var(--space-4);
 }
@@ -1393,7 +1198,7 @@ footer {
     }
 
     .card--contact .btn {
-        font-size: var(--fs-xs); /* botones mini */
+        font-size: var(--fs-xs);
         padding: 6px 12px;
     }
 
@@ -1405,7 +1210,7 @@ footer {
 }
 
 /* ============================
-   17. FOOTER PORTAFOLIO
+   17. FOOTER (página)
 ============================ */
 .page-footer {
     border-top: 1px solid #111827;
@@ -1428,19 +1233,12 @@ footer {
 }
 
 /* ============================
-   18. ACCESIBILIDAD / REDUCIR MOVIMIENTO
+   18. REDUCIR MOVIMIENTO
 ============================ */
 @media (prefers-reduced-motion: reduce) {
-    #plugins .card.has-yt .card-media .yt-bg {
-        display: none;
-    }
-
+    #plugins .card.has-yt .card-media .yt-bg,
     #plugins .card.has-video .card-media video {
         display: none;
-    }
-
-    .card--cordy::after {
-        animation: none !important;
     }
 }
 
@@ -1448,7 +1246,6 @@ footer {
    19. RESPONSIVE
 ============================ */
 @media (max-width: 900px) {
-    /* Hero en una columna, tarjeta a pantalla completa */
     .hero-content {
         grid-template-columns: minmax(0, 1fr);
         gap: var(--space-4);
@@ -1466,9 +1263,7 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .card--contact,
-    .card--hero,
-    .card--libraries {
+    .card--contact, .card--hero, .card--libraries {
         grid-column: auto;
     }
 
@@ -1481,17 +1276,12 @@ footer {
         max-width: none;
     }
 
-    /* En móvil hero, Librerías y Contacto ocupan todo el ancho */
-    .card--hero,
-    .card--libraries,
-    .card--contact {
+    .card--hero, .card--libraries, .card--contact {
         max-width: none;
         justify-self: stretch;
     }
 
-        /* Herramientas y Librerías: 2 columnas en pantallas medianas */
-        .card--tools .icon-grid,
-        .card--libraries .icon-grid {
+        .card--tools .icon-grid, .card--libraries .icon-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 }
@@ -1501,16 +1291,11 @@ footer {
         font-size: 15px;
     }
 
-    .container,
-    .container-narrow,
-    .page {
+    .container, .container-narrow, .page {
         padding-inline: var(--space-2);
     }
 
-    .card,
-    .hero-content,
-    #plugins > .container,
-    #faq .container-narrow {
+    .card, .hero-content, #plugins > .container, #faq .container-narrow {
         padding: var(--space-4);
         border-radius: 18px;
     }
@@ -1532,9 +1317,7 @@ footer {
         font-size: 30px;
     }
 
-    .card--tools .icon-grid,
-    .card--libraries .icon-grid,
-    .card--languages .icon-grid {
+    .card--tools .icon-grid, .card--libraries .icon-grid, .card--languages .icon-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
