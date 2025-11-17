@@ -143,7 +143,6 @@ a {
 
 /* ============================
    4.1 MINI NAVEGADOR LATERAL
-   (versión base, luego la sobrescribes en index3)
 ============================ */
 .side-nav {
     position: fixed;
@@ -161,7 +160,6 @@ a {
     box-shadow: none;
 }
 
-    /* Línea vertical tenue a la izquierda */
     .side-nav::before {
         content: "";
         position: absolute;
@@ -174,7 +172,6 @@ a {
         background: rgba(226, 232, 240, 0.35);
     }
 
-/* Ítems con más aire a la izquierda (texto más a la derecha) */
 .side-nav__item {
     position: relative;
     display: flex;
@@ -193,7 +190,6 @@ a {
     transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
 }
 
-    /* Rayita animada a la izquierda del texto */
     .side-nav__item::before {
         content: "";
         position: absolute;
@@ -239,7 +235,6 @@ a {
             background: rgba(226, 232, 240, 0.95);
         }
 
-/* Mini nav en móvil (horizontal centrado) */
 @media (max-width: 768px) {
     .side-nav {
         top: auto;
@@ -286,7 +281,7 @@ a {
    5. HERO
 ============================ */
 #hero {
-    padding: var(--space-6) 0 var(--space-6);
+    padding: var(--space-5) 0 var(--space-3);
 }
 
 .hero-content {
@@ -306,7 +301,7 @@ a {
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow-soft);
     padding: var(--space-5);
-    max-width: min(520px, 50vw);
+    max-width: min(530px, 50vw);
 }
 
 #hero .hero-content > div:last-child {
@@ -348,7 +343,7 @@ a {
 }
 
 .max-w {
-    max-width: 640px;
+    max-width: 600px;
 }
 
 /* ============================
@@ -425,7 +420,7 @@ a {
    7. APLICACIONES (Plugins)
 ============================ */
 #plugins {
-    padding: var(--space-6) 0;
+    padding: var(--space-3) 0;
 }
 
     #plugins > .container {
@@ -440,7 +435,7 @@ a {
     }
 
     #plugins header {
-        padding-left: var(--space-5); /* alinea 'Aplicaciones' con el texto del banner */
+        padding-left: var(--space-5);
     }
 
         #plugins header h2 {
@@ -456,7 +451,7 @@ a {
             font-size: var(--fs-md);
             color: var(--text-soft);
             margin-top: 4px;
-            max-width: 48rem;
+            max-width: 35rem;
         }
 
             #plugins header .max-w:nth-of-type(1) {
@@ -476,33 +471,44 @@ a {
         gap: var(--space-2);
     }
 
+    /* SOLO estos tres botones: fondo negro con granulado moderno */
     #plugins .apps-actions__btn {
+        position: relative;
+        overflow: hidden;
         font-size: var(--fs-md);
         padding: 8px 16px;
         border-radius: var(--radius-pill);
+        background: #000;
+        border: 1px solid #1f2937;
+        color: var(--text-soft);
+        box-shadow: var(--shadow-soft);
     }
 
+        #plugins .apps-actions__btn::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: var(--card-noise);
+            background-size: 260px 260px;
+            background-repeat: repeat;
+            opacity: 0.6; /* intensidad del grano */
+            mix-blend-mode: soft-light; /* se integra con el color base del botón */
+            pointer-events: none;
+        }
+
         #plugins .apps-actions__btn.btn--primary {
-            background: linear-gradient(135deg, #16a34a, #22c55e);
-            border-color: rgba(34, 197, 94, 0.7);
-            color: #ecfdf5;
-            box-shadow: 0 0 0 1px rgba(22, 163, 74, 0.35);
+            background: #000;
+            color: var(--text-main);
+            border-color: #27272a;
+            box-shadow: 0 0 0 1px rgba(0, 192, 71, 0.35);
         }
 
-            #plugins .apps-actions__btn.btn--primary:hover {
-                background: linear-gradient(135deg, #15803d, #22c55e);
-            }
-
-        #plugins .apps-actions__btn:not(.btn--primary) {
+        #plugins .apps-actions__btn:hover {
             background: #020617;
-            border-color: #1f2937;
-            color: var(--text-soft);
+            border-color: var(--accent-green);
+            color: var(--text-main);
+            box-shadow: 0 0 0 1px rgba(0, 192, 71, 0.45);
         }
-
-            #plugins .apps-actions__btn:not(.btn--primary):hover {
-                border-color: var(--accent-green);
-                color: var(--text-main);
-            }
 
 @media (max-width: 720px) {
     #plugins .apps-actions {
@@ -679,7 +685,7 @@ a {
 }
 
 /* ============================
-   8. FAQ (como tarjeta)
+   8. FAQ
 ============================ */
 #faq {
     padding: var(--space-6) 0 var(--space-6);
@@ -853,12 +859,13 @@ footer {
     gap: var(--space-4);
 }
 
-/* Tarjeta de Servicios, APIs y librerías más ancha y alineada a la derecha */
+/* Tarjeta de Servicios, APIs y librerías más ancha */
 .card--libraries {
     grid-column: 1 / -1;
-    max-width: 760px; /* un poco más que la mitad de la shell (~60%) */
-    justify-self: flex-start;
-    padding-left: calc(var(--space-5) + 15px); /* contenido un poco más a la derecha */
+    max-width: 1040px;
+    justify-self: center; /* centra la tarjeta en la grilla */
+    margin-inline: auto; /* asegura centrado horizontal */
+    padding-left: var(--space-5); /* padding normal, sin empujar a la izquierda */
 }
 
 /* ============================
@@ -866,7 +873,7 @@ footer {
 ============================ */
 .card {
     position: relative;
-    background-color: #000; /* más oscuro y consistente */
+    background-color: #000;
     background-image: var(--card-noise);
     background-size: 260px 260px;
     border-radius: var(--radius-card);
@@ -895,6 +902,7 @@ footer {
 .card__text {
     font-size: var(--fs-md);
     color: var(--text-soft);
+    max-width: 480px;
 }
 
 /* ============================
@@ -1030,17 +1038,18 @@ footer {
 
 .card--tools .icon-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+
 }
 
+/* 2 filas x 5 columnas */
 .card--libraries .icon-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .card--languages .icon-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-/* Texto alineado a la izquierda en icon cards */
 .icon-card {
     text-align: left;
 }
@@ -1249,7 +1258,6 @@ footer {
         font-size: 20px;
     }
 
-    /* En pantallas pequeñas, la tarjeta de Servicios ocupa todo el ancho y se centra */
     .card--libraries {
         max-width: 100%;
         justify-self: stretch;
