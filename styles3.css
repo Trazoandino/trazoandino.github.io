@@ -853,9 +853,13 @@ footer {
     font-size: var(--fs-sm);
 }
 
+/* 🟩 Nueva grilla 8 columnas:
+   - Daniel: 5/8
+   - Formación/Experiencia: 3/8
+   - Herramientas/Lenguajes: 4/8 cada una */
 .cards {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(8, minmax(0, 1fr));
     gap: var(--space-4);
 }
 
@@ -865,7 +869,7 @@ footer {
     max-width: 1040px;
     justify-self: center; /* centra la tarjeta en la grilla */
     margin-inline: auto; /* asegura centrado horizontal */
-    padding-left: var(--space-5); /* padding normal, sin empujar a la izquierda */
+    padding-left: var(--space-5);
 }
 
 /* ============================
@@ -908,10 +912,11 @@ footer {
 /* ============================
    13. HERO CARD PORTAFOLIO
 ============================ */
+/* 🟩 Daniel ocupa 5 de las 8 columnas (≈62.5%) */
 .card--hero {
-    grid-column: 1 / -1;
-    max-width: 880px;
-    justify-self: center;
+    grid-column: 1 / span 5;
+    max-width: none;
+    justify-self: stretch;
 }
 
 .hero-card {
@@ -1017,6 +1022,21 @@ footer {
     gap: var(--space-2);
 }
 
+/* 🟩 Formación / Experiencia: columnas 6,7,8 (≈37.5%) */
+.card--form-exp {
+    grid-column: 6 / span 3;
+    align-self: stretch;
+}
+
+/* 🟩 Herramientas y Lenguajes 50/50 en la segunda fila (4/8 cada una) */
+.card--tools {
+    grid-column: 1 / span 4;
+}
+
+.card--languages {
+    grid-column: 5 / span 4;
+}
+
 .tag {
     padding: 4px 10px;
     border-radius: var(--radius-pill);
@@ -1038,7 +1058,6 @@ footer {
 
 .card--tools .icon-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-
 }
 
 /* 2 filas x 5 columnas */
@@ -1211,7 +1230,52 @@ footer {
 }
 
 /* ============================
-   19. MEDIA QUERIES
+   19. SLIDER FORMACIÓN / EXPERIENCIA
+============================ */
+.slider-header {
+    display: flex;
+    gap: var(--space-2);
+    margin-bottom: var(--space-3);
+}
+
+.slider-tab {
+    flex: 1;
+    padding: 6px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--card-border);
+    background: #020617;
+    color: var(--text-soft);
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease;
+}
+
+    .slider-tab.is-active {
+        background: #000;
+        border-color: var(--accent-green);
+        color: var(--text-main);
+        box-shadow: 0 0 0 1px rgba(0, 192, 71, 0.35);
+    }
+
+.slider-body {
+    position: relative;
+}
+
+.slider-panel {
+    display: none;
+}
+
+    .slider-panel.is-active {
+        display: block;
+    }
+
+/* ============================
+   20. MEDIA QUERIES
 ============================ */
 @media (max-width: 960px) {
     .hero-content {
@@ -1225,15 +1289,19 @@ footer {
     #hero {
         padding-top: var(--space-4);
     }
-
-    .card--hero {
-        grid-column: 1 / -1;
-    }
 }
 
 @media (max-width: 840px) {
     .cards {
         grid-template-columns: 1fr;
+    }
+
+    /* En móviles/tablet todos los bloques del portafolio a ancho completo */
+    .card--hero,
+    .card--form-exp,
+    .card--tools,
+    .card--languages {
+        grid-column: 1 / -1;
     }
 
     .card--hero {
@@ -1286,3 +1354,17 @@ footer {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
+/* Agrandar textos dentro de la tarjeta Formación / Experiencia */
+.card--form-exp .list__title {
+    font-size: var(--fs-md); /* títulos: PRÁCTICA, COLABORACIONES */
+}
+
+.card--form-exp .list__text {
+    font-size: var(--fs-sm); /* párrafos debajo */
+    line-height: 1.6;
+}
+
+    /* Hacer más grande las líneas en negrita */
+    .card--form-exp .list__text strong {
+        font-size: var(--fs-md); /* Puente Lo Gallardo..., Colaboraciones en estudios */
+    }
