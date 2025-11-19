@@ -90,7 +90,7 @@
                 <p class="hero-sub">────────────────────────────────────</p>
 
                 <p class="hero-sub">
-                    Automatizaciones, generación y documentación para nuestros trabajos ⚒️ 🏗️
+                    Conjunto de automatizaciones, generación y documentación para nuestros trabajos ⚒️ 🏗️
                 </p>
                 <p class="hero-sub">
                     Obtén acceso a servicios para cada etapa de tu proyecto. Reduce tiempo y esfuerzo de jornada 💻 🐈‍
@@ -120,7 +120,7 @@
                     Obtén un único instalador para todos los programas.
                 </p>
                 <p class="max-w">
-                    Cuentan con licencia activada e igualmente puedes volver
+                    Vienen con licencia activada. Igualmente puedes volver
                     a descargar licencias para ti y tus colegas.
                 </p>
                 <p class="max-w">
@@ -167,16 +167,14 @@
                 <details>
                     <summary>¿Cómo instalo los complementos?</summary>
                     <p>
-                        Descarga el instalador o copia el <code>.addin</code> en
-                        <code>%AppData%/Autodesk/Revit/Addins/20XX</code> o
-                        <code>%ProgramData%/Autodesk/Revit/Addins/20XX</code>. Reinicia Revit.
+                        Descarga el instalador. Vienen con licencias y puedes tener más licencia aquí (7 días):
                     </p>
                 </details>
                 <details>
-                    <summary>¿Funcionan con Revit 2025?</summary>
+                    <summary>¿Compatibilidad?</summary>
                     <p>
-                        Sí. Revisa la compatibilidad en la tarjeta del complemento
-                        (badge “Revit 20XX”).
+                        Revit en todas sus versiones. Desarrollando: Archicad, .EXE ejecutable 
+
                     </p>
                 </details>
             </div>
@@ -222,7 +220,7 @@
             <section class="cards">
 
                 <!-- 1. TARJETA DE PRESENTACIÓN / HERO -->
-                <article class="card card--hero">
+                <article class="card card--hero" style="justify-self: start;">
                     <div class="hero-card">
                         <div class="hero-card__top">
                             <div class="hero-card__avatar">
@@ -253,32 +251,108 @@
                                     <span class="tag">Papá de Cleopatra</span>
                                     <span class="tag">Fútbol </span>
                                     <span class="tag">Café</span>
-                                    <span class="tag">Antimasonería </span>
-
-
+                                    <span class="tag">Antiocultismo</span>
                                 </div>
-
-                                <div class="hero-card__chips">
-                                    <span class="tag">Ludwig Wittgenstein</span>
-                                    <span class="tag">Immanuel Kant</span>
-                                    <span class="tag">Dostoyevski</span>
-                                </div>
-
                                 <div class="hero-card__chips">
                                     <span class="tag">Soda Stereo</span>
                                     <span class="tag">Kino - Кино </span>
                                     <span class="tag">TNBH, MenAW, tøp, TameIm</span>
                                 </div>
+
+                                <div class="hero-card__chips">
+                                    <span class="tag">Dostoyevski</span>
+
+                                    <span class="tag">Immanuel Kant</span>
+                                    <span class="tag">Ludwig Wittgenstein</span>
+
+                                </div>
+
+
                             </div>
                         </div>
                     </div>
                 </article>
 
-                <!-- 4. HERRAMIENTAS -->
+                <!-- 2. TARJETA COMBINADA: FORMACIÓN / EXPERIENCIA (DESLIZABLE) -->
+                <article class="card card--form-exp" id="formacion-experiencia">
+                    <div class="slider-header">
+                        <button class="slider-tab is-active" type="button" data-slide="formacion">
+                            Formación
+                        </button>
+                        <button class="slider-tab" type="button" data-slide="experiencia">
+                            Experiencia
+                        </button>
+                    </div>
+
+                    <div class="slider-body">
+                        <!-- Panel Formación -->
+                        <div class="slider-panel is-active" data-panel="formacion" id="formacion">
+                            <h2 class="card__title">Formación</h2>
+                            <p class="card__text">
+                                Estudios y cursos que conectan la arquitectura con la programación.
+                            </p>
+
+                            <ul class="list">
+                                <li>
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="list__title">UNIVERSIDAD</div>
+                                        <div class="list__text">
+                                            <strong>Arquitectura · USACH</strong>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="list__title">LICEO</div>
+                                        <div class="list__text">
+                                            <strong>Instituto Nacional · IN · A-0</strong>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Panel Experiencia -->
+                        <div class="slider-panel" data-panel="experiencia" id="experiencia">
+                            <h2 class="card__title">Experiencia</h2>
+                            <p class="card__text">
+                            </p>
+
+                            <ul class="list">
+                                <li>
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="list__title">PRÁCTICA</div>
+                                        <div class="list__text">
+                                            <strong>Puente Lo Gallardo · Ampliación · Valparaíso</strong><br>
+                                            Desarrollo de utilidades para modelos cooperativos.
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="list__title">COLABORACIONES</div>
+                                        <div class="list__text">
+                                            <strong>Oficina</strong><br>
+                                            
+                                            Implementación de aplicaciones que desarrollan tareas de modelado,
+                                            documentación, metrajes, presupuestos, personal.
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3. HERRAMIENTAS -->
                 <article class="card card--tools" id="herramientas">
                     <h2 class="card__title">Herramientas</h2>
                     <p class="card__text">
-                        Software y entornos que uso día a día para modelar, documentar y programar.
+                        Software y entornos que uso día a día para modelar, documentar o programar.
                     </p>
 
                     <div class="icon-grid">
@@ -322,27 +396,27 @@
                             </div>
                             <p class="icon-card__label">Excel</p>
                             <p class="icon-card__note">
-                                Tablas de metrajes, presupuestos y base de datos.
+                                Tablas de presupuestos y base de datos.
                             </p>
                         </div>
 
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/lumion.png" alt="ETABS 2022">
+                                <img src="assets/etabs.png" alt="ETABS 2022">
                             </div>
-                            <p class="icon-card__label">Lumion</p>
+                            <p class="icon-card__label">ETABS 2022</p>
                             <p class="icon-card__note">
-                                Renderizado.
+                                Análisis estructural integrado al flujo de diseño.
                             </p>
                         </div>
                     </div>
                 </article>
 
-                <!-- 5. LENGUAJES DE PROGRAMACIÓN (ahora con XAML) -->
+                <!-- 4. LENGUAJES DE PROGRAMACIÓN (ahora con XAML) -->
                 <article class="card card--languages" id="lenguajes">
                     <h2 class="card__title">Lenguajes de programación</h2>
                     <p class="card__text">
-                        Que utilizo para crear scripts, paneles web y complementos
+                        Que utilizo para crear scripts, interfaces, webs y complementos
                         que apoyan proyectos de arquitectura.
                     </p>
 
@@ -401,7 +475,7 @@
                     </div>
                 </article>
 
-                <!-- 6. SERVICIOS, LIBRERÍAS Y APIS -->
+                <!-- 5. SERVICIOS, LIBRERÍAS Y APIS -->
                 <article class="card card--libraries" id="librerias-apis">
                     <h2 class="card__title">Servicios, APIs y librerías</h2>
                     <p class="card__text">
@@ -410,28 +484,6 @@
                     </p>
 
                     <div class="icon-grid">
-
-                        <!-- ChatGPT con icono correcto -->
-                        <div class="icon-card">
-                            <div class="icon-card__circle">
-                                <img src="assets/ai.jpg" alt="ChatGPT">
-                            </div>
-                            <p class="icon-card__label">ChatGPT</p>
-                            <p class="icon-card__note">
-                                Código y lógica que conecto a las aplicaciones.
-                            </p>
-                        </div>
-
-                        <!-- DeepSeek con su icono -->
-                        <div class="icon-card">
-                            <div class="icon-card__circle">
-                                <img src="assets/deepseek.jpg" alt="DeepSeek">
-                            </div>
-                            <p class="icon-card__label">DeepSeek</p>
-                            <p class="icon-card__note">
-                                Asistente personal dentro de aplicaciones para lectura y conclusiones de base de datos.
-                            </p>
-                        </div>
                         <!-- fila 1 -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
@@ -509,7 +561,7 @@
 
                         <div class="icon-card">
                             <div class="icon-card__circle">
-                                <img src="assets/render.jpg" alt="Render servidor">
+                                <img src="assets/render.svg" alt="Render servidor">
                             </div>
                             <p class="icon-card__label">Render</p>
                             <p class="icon-card__note">
@@ -517,11 +569,31 @@
                             </p>
                         </div>
 
+                        <!-- ChatGPT con icono correcto -->
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/chatgpt.png" alt="ChatGPT">
+                            </div>
+                            <p class="icon-card__label">ChatGPT</p>
+                            <p class="icon-card__note">
+                                Código y lógica que conecto a las aplicaciones.
+                            </p>
+                        </div>
 
+                        <!-- DeepSeek con su icono -->
+                        <div class="icon-card">
+                            <div class="icon-card__circle">
+                                <img src="assets/deepseek.png" alt="DeepSeek">
+                            </div>
+                            <p class="icon-card__label">DeepSeek</p>
+                            <p class="icon-card__note">
+                                Asistente personal dentro de aplicaciones para lectura y conclusiones de base de datos.
+                            </p>
+                        </div>
                     </div>
                 </article>
 
-                <!-- 7. CONTACTO (pequeño, centrado bajo Librerías) -->
+                <!-- 6. CONTACTO (pequeño, centrado bajo Librerías) -->
                 <article class="card card--contact" id="contacto">
                     <h2 class="card__title">Contacto</h2>
                     <p class="card__text">
