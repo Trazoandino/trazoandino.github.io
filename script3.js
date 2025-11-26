@@ -37,10 +37,10 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
         },
         {
             slug: "coordina-views",
-            title: "Pilares automáticos",
+            title: "Generación automática de pilares",
             blurb:
-                "Genera pilares por perímetro, grilla o modo mixto desde un polígono dibujado; vista previa 3D y exportación a columnas.",
-            tags: ["Estructura", "Ing"],
+                "Dibuja el contorno, elige la densidad y el modo (perímetro, grilla o mixto) y exporta columnas estructurales listas para tu modelo.",
+            tags: ["Estructura", "Ing", "Arq"],
             ytBgUrl: "https://www.youtube.com/watch?v=eb_sCt3lYzg",
             poster: "media/coordina-views.jpg",
             videoUrl: "https://www.youtube.com/watch?v=eb_sCt3lYzg",
@@ -662,9 +662,42 @@ function setupAvatarCarousel() {
     }, INTERVAL);
 }
 
+/* ============================================================
+   9) PORTAFOLIO: slider Formación / Experiencia
+============================================================ */
+function setupFormExpSlider() {
+    const tabs = document.querySelectorAll(".slider-tab");
+    const panels = document.querySelectorAll(".slider-panel");
+
+    if (!tabs.length || !panels.length) return;
+
+    tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+            const target = tab.dataset.slide;
+            if (!target) return;
+
+            // Quitar estado activo de todos los tabs y paneles
+            tabs.forEach((t) => t.classList.remove("is-active"));
+            panels.forEach((p) => p.classList.remove("is-active"));
+
+            // Activar tab clicado
+            tab.classList.add("is-active");
+
+            // Activar panel correspondiente
+            const panel = document.querySelector(
+                `.slider-panel[data-panel="${target}"]`
+            );
+            if (panel) {
+                panel.classList.add("is-active");
+            }
+        });
+    });
+}
+
 // Segundo listener de DOMContentLoaded solo para el portafolio
 document.addEventListener("DOMContentLoaded", () => {
     setupCopyEmail();
     setupYears();
     setupAvatarCarousel();
+    setupFormExpSlider();
 });
