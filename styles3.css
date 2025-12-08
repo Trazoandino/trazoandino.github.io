@@ -48,7 +48,7 @@ html {
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     font-size: var(--fs-base);
     line-height: 1.5;
     color: var(--text-main);
@@ -301,7 +301,7 @@ a {
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow-soft);
     padding: var(--space-5);
-    max-width: min(530px, 50vw);
+    max-width: min(420px, 50vw);
 }
 
 #hero .hero-content > div:last-child {
@@ -362,13 +362,14 @@ a {
     text-decoration: none;
     background: #020617;
     color: var(--text-soft);
-    transition: background .15s, border-color .15s, color .15s, box-shadow .15s;
+    transition: background .15s, border-color .15s, color .15s, box-shadow .15s, transform .15s;
 }
 
     .btn:hover {
         background: #020617;
         border-color: #1f2937;
         color: var(--text-main);
+        transform: translateY(-0.5px);
     }
 
 .btn--primary,
@@ -471,19 +472,22 @@ a {
         gap: var(--space-2);
     }
 
-    /* SOLO estos tres botones: fondo negro con granulado moderno */
+    /* BOTONES PRINCIPALES: validar / descargar instalador / descargar licencia */
     #plugins .apps-actions__btn {
         position: relative;
         overflow: hidden;
-        font-size: var(--fs-md);
-        padding: 8px 16px;
+        font-size: calc(var(--fs-md) + 1px);
+        padding: 10px 22px;
         border-radius: var(--radius-pill);
-        background: #000;
-        border: 1px solid #1f2937;
-        color: var(--text-soft);
-        box-shadow: var(--shadow-soft);
+        background: #020617;
+        border: 1px solid rgba(34, 197, 94, 0.7);
+        color: var(--text-main);
+        box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4), 0 18px 40px rgba(0, 0, 0, 0.95);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
     }
 
+        /* Ruido/granulado encima del fondo */
         #plugins .apps-actions__btn::before {
             content: "";
             position: absolute;
@@ -491,23 +495,32 @@ a {
             background-image: var(--card-noise);
             background-size: 260px 260px;
             background-repeat: repeat;
-            opacity: 0.6; /* intensidad del grano */
-            mix-blend-mode: soft-light; /* se integra con el color base del botón */
+            opacity: 0.65;
+            mix-blend-mode: soft-light;
             pointer-events: none;
         }
 
+        /* Botón principal: Validar Licencia PRO (tiene .btn--primary) */
         #plugins .apps-actions__btn.btn--primary {
-            background: #000;
-            color: var(--text-main);
-            border-color: #27272a;
-            box-shadow: 0 0 0 1px rgba(0, 192, 71, 0.35);
+            background: linear-gradient(110deg, #22c55e, #4ade80);
+            color: #020617;
+            border-color: rgba(22, 163, 74, 0.95);
+            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.85), 0 22px 48px rgba(22, 163, 74, 0.45);
         }
 
+        /* Hover general */
         #plugins .apps-actions__btn:hover {
-            background: #020617;
-            border-color: var(--accent-green);
+            transform: translateY(-1px);
+            background: #022c22;
+            border-color: rgba(34, 197, 94, 1);
             color: var(--text-main);
-            box-shadow: 0 0 0 1px rgba(0, 192, 71, 0.45);
+            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.9), 0 24px 55px rgba(0, 0, 0, 1);
+        }
+
+        /* Hover del principal */
+        #plugins .apps-actions__btn.btn--primary:hover {
+            background: linear-gradient(110deg, #4ade80, #22c55e);
+            color: #020617;
         }
 
 @media (max-width: 720px) {
@@ -535,6 +548,9 @@ a {
     }
 }
 
+/* ============================
+   Tarjetas de video / plugins
+============================ */
 .card-media {
     position: relative;
     border-radius: 16px;
@@ -596,62 +612,99 @@ a {
         overflow: hidden;
     }
 
+        /* Media (poster / video) siempre arriba */
         #plugins .card.has-yt .card-media,
         #plugins .card.has-media .card-media,
         #plugins .card.has-video .card-media {
-            position: absolute;
-            inset: -2px;
+            position: relative;
+            inset: auto;
             z-index: 0;
-            border-radius: inherit;
+            border-radius: 16px;
             overflow: hidden;
+            margin-bottom: var(--space-3);
         }
 
+            /* Imagen de portada */
             #plugins .card.has-media .card-media .poster,
             #plugins .card.has-yt .card-media .poster {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
                 display: block;
-                filter: saturate(1.02) contrast(1.02);
+                filter: none;
             }
 
+            /* Video HTML5 (si usas alguno) */
             #plugins .card.has-video .card-media video {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
-                opacity: 0.35;
-                filter: saturate(1.05) contrast(1.05);
+                opacity: 1;
+                filter: none;
             }
 
+        /* Sin overlay oscuro encima */
         #plugins .card.has-yt::after,
         #plugins .card.has-media::after,
         #plugins .card.has-video::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            background: rgba(0, 0, 0, 0.75);
+            content: none;
         }
 
+        /* Layout: texto a la izquierda, botones a la derecha */
         #plugins .card.has-yt .card-body,
         #plugins .card.has-media .card-body,
         #plugins .card.has-video .card-body {
-            position: relative;
-            z-index: 2;
-            display: inline-block;
-            max-width: 60%;
-            background: rgba(0,0,0,0.4);
-            padding: 12px 14px;
-            border-radius: 14px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-            backdrop-filter: blur(2px);
+            position: static;
+            z-index: auto;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            column-gap: var(--space-3);
+            row-gap: 4px;
+            align-items: flex-start;
+            max-width: 100%;
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+            backdrop-filter: none;
         }
 
-    #plugins .card .card-body p {
-        color: var(--text-main);
-        text-shadow: 0 1px 2px rgba(0,0,0,0.45);
-    }
+            /* Texto en la columna izquierda */
+            #plugins .card.has-yt .card-body .kicker,
+            #plugins .card.has-media .card-body .kicker,
+            #plugins .card.has-video .card-body .kicker,
+            #plugins .card.has-yt .card-body h3,
+            #plugins .card.has-media .card-body h3,
+            #plugins .card.has-video .card-body h3,
+            #plugins .card.has-yt .card-body > p,
+            #plugins .card.has-media .card-body > p,
+            #plugins .card.has-video .card-body > p,
+            #plugins .card.has-yt .card-body .badges,
+            #plugins .card.has-media .card-body .badges,
+            #plugins .card.has-video .card-body .badges {
+                grid-column: 1;
+            }
 
+        /* Botones en la columna derecha */
+        #plugins .card.has-yt .card-actions,
+        #plugins .card.has-media .card-actions,
+        #plugins .card.has-video .card-actions {
+            grid-column: 2;
+            grid-row: 1 / span 4;
+            margin-top: 0;
+            align-self: flex-start;
+            justify-content: flex-start;
+        }
+
+        /* Texto limpio (sin sombra) en estas tarjetas */
+        #plugins .card.has-yt .card-body p,
+        #plugins .card.has-media .card-body p,
+        #plugins .card.has-video .card-body p {
+            color: var(--text-main);
+            text-shadow: none;
+        }
+
+/* Texto genérico de card-body */
 .card-body .kicker {
     font-size: var(--fs-xs);
     letter-spacing: .14em;
@@ -853,10 +906,7 @@ footer {
     font-size: var(--fs-sm);
 }
 
-/* 🟩 Nueva grilla 8 columnas:
-   - Daniel: 5/8
-   - Formación/Experiencia: 3/8
-   - Herramientas/Lenguajes: 4/8 cada una */
+/* Grilla 8 columnas */
 .cards {
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -867,8 +917,8 @@ footer {
 .card--libraries {
     grid-column: 1 / -1;
     max-width: 1040px;
-    justify-self: center; /* centra la tarjeta en la grilla */
-    margin-inline: auto; /* asegura centrado horizontal */
+    justify-self: center;
+    margin-inline: auto;
     padding-left: var(--space-5);
 }
 
@@ -912,7 +962,7 @@ footer {
 /* ============================
    13. HERO CARD PORTAFOLIO
 ============================ */
-/* 🟩 Daniel ocupa 5 de las 8 columnas (≈62.5%) */
+/* Daniel ocupa 5 columnas */
 .card--hero {
     grid-column: 1 / span 5;
     max-width: none;
@@ -1022,13 +1072,13 @@ footer {
     gap: var(--space-2);
 }
 
-/* 🟩 Formación / Experiencia: columnas 6,7,8 (≈37.5%) */
+/* Formación / Experiencia */
 .card--form-exp {
     grid-column: 6 / span 3;
     align-self: stretch;
 }
 
-/* 🟩 Herramientas y Lenguajes 50/50 en la segunda fila (4/8 cada una) */
+/* Herramientas y Lenguajes 50/50 segunda fila */
 .card--tools {
     grid-column: 1 / span 4;
 }
@@ -1047,59 +1097,151 @@ footer {
 }
 
 /* ============================
-   14. LENGUAJES / HERRAMIENTAS
+   14. LENGUAJES / HERRAMIENTAS / SERVICIOS
 ============================ */
-.icon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: var(--space-4);
-    margin-top: var(--space-4);
+
+/* Que estas tarjetas ocupen el ancho de su columna sin límites raros */
+.card--tools,
+.card--languages,
+.card--libraries {
+    max-width: none;
+    margin-inline: 0;
 }
 
-.card--tools .icon-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
+    /* Grilla interna: varias tarjetas por fila en desktop, 1 en móvil si falta espacio */
+    .card--tools .icon-grid,
+    .card--languages .icon-grid,
+    .card--libraries .icon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--space-3);
+        margin-top: var(--space-3);
+    }
 
-/* 2 filas x 5 columnas */
-.card--libraries .icon-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-
-.card--languages .icon-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
+/* Tarjeta de cada herramienta / lenguaje / servicio
+   Texto a la izquierda, icono a la derecha */
 .icon-card {
-    text-align: left;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: var(--space-3);
+    row-gap: 2px;
+    align-items: center;
+    padding: 10px 12px;
+    border-radius: 14px;
+    background: rgba(15, 23, 42, 0.86);
+    border: 1px solid rgba(15, 23, 42, 0.95);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
 }
 
+/* “Versión ligera” para Servicios/APIs cuando usa icon-card */
+.card--libraries .icon-card {
+    background: rgba(15, 23, 42, 0.7);
+    border-style: dashed;
+}
+
+/* Icono circular a la derecha */
 .icon-card__circle {
-    width: 112px;
-    height: 112px;
-    border-radius: 32px;
-    background: var(--card-bg-soft);
-    border: 1px solid var(--card-border);
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    justify-self: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    background: #020617;
+    border: 1px solid rgba(31, 41, 55, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 0 var(--space-2);
 }
 
     .icon-card__circle img {
-        width: 80px;
-        height: 80px;
+        width: 28px;
+        height: 28px;
         object-fit: contain;
     }
 
+/* Texto en columna izquierda: se lee de arriba hacia abajo */
 .icon-card__label {
-    font-size: var(--fs-md);
+    grid-column: 1;
+    align-self: end;
+    font-size: var(--fs-sm);
     font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 2px;
 }
 
 .icon-card__note {
-    font-size: var(--fs-sm);
+    grid-column: 1;
+    align-self: start;
+    font-size: var(--fs-xs);
     color: var(--text-soft);
-    margin-top: 2px;
+    opacity: 0.9;
+}
+
+/* ---------- Servicios, APIs y librerías en dos filas ordenadas ---------- */
+
+.card--libraries .libs-rows {
+    margin-top: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+/* Cada fila: etiqueta a la izquierda, chips a la derecha */
+.libs-row {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+}
+
+/* Texto de la izquierda (se lee primero) */
+.libs-row__label {
+    flex: 0 0 220px;
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+/* Contenedor de chips a la derecha */
+.libs-row__items {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* Cada servicio / librería como chip */
+.libs-pill {
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--card-border);
+    background: var(--card-bg-soft);
+    font-size: var(--fs-xs);
+    color: var(--text-soft);
+    white-space: nowrap;
+}
+
+/* Ajustes responsivos: en pantallas pequeñas, 1 por fila */
+@media (max-width: 720px) {
+    .card--tools .icon-grid,
+    .card--languages .icon-grid,
+    .card--libraries .icon-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .icon-card {
+        padding: 10px;
+    }
+
+    .libs-row {
+        flex-direction: column;
+    }
+
+    .libs-row__label {
+        flex: initial;
+    }
 }
 
 /* ============================
@@ -1137,6 +1279,20 @@ footer {
     color: var(--text-soft);
     margin-top: 2px;
 }
+
+/* Ajustes extra para Formación / Experiencia */
+.card--form-exp .list__title {
+    font-size: var(--fs-md);
+}
+
+.card--form-exp .list__text {
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+}
+
+    .card--form-exp .list__text strong {
+        font-size: var(--fs-md);
+    }
 
 .timeline {
     list-style: none;
@@ -1296,7 +1452,6 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    /* En móviles/tablet todos los bloques del portafolio a ancho completo */
     .card--hero,
     .card--form-exp,
     .card--tools,
@@ -1329,11 +1484,8 @@ footer {
     .card--libraries {
         max-width: 100%;
         justify-self: stretch;
+        padding-left: var(--space-4);
     }
-
-        .card--libraries .icon-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
 }
 
 @media (max-width: 720px) {
@@ -1344,27 +1496,4 @@ footer {
     .card {
         padding: var(--space-4);
     }
-
-    .card--tools .icon-grid,
-    .card--languages .icon-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .card--libraries .icon-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
 }
-/* Agrandar textos dentro de la tarjeta Formación / Experiencia */
-.card--form-exp .list__title {
-    font-size: var(--fs-md); /* títulos: PRÁCTICA, COLABORACIONES */
-}
-
-.card--form-exp .list__text {
-    font-size: var(--fs-sm); /* párrafos debajo */
-    line-height: 1.6;
-}
-
-    /* Hacer más grande las líneas en negrita */
-    .card--form-exp .list__text strong {
-        font-size: var(--fs-md); /* Puente Lo Gallardo..., Colaboraciones en estudios */
-    }
