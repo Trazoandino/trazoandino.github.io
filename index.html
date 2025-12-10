@@ -145,11 +145,9 @@
                         Descargar instalador (Licencia activada hasta 29/11)
                     </a>
 
-                    <a class="btn apps-actions__btn"
-                       href="https://earth-lic-server.onrender.com/trial"
-                       target="_blank" rel="noopener">
-                        Descargar licencia de prueba (7 días)
-                    </a>
+                  <button class="btn apps-actions__btn" type="button" onclick="descargarPrueba(this)">
+                            Descargar licencia de prueba (14 días)
+                </button>
                 </div>
             </header>
 
@@ -630,5 +628,57 @@
 
     <!-- JS unificado -->
     <script src="script3.js" defer></script>
+
+
+    <script>
+    // ⚠️ REEMPLAZA ESTO CON TU URL EXACTA DE RENDER NUEVO
+    // Si lograste cambiar el nombre, será algo como 'https://trazo-andino.onrender.com'
+    const API_URL = "https://trazo-andino-chile.onrender.com"; 
+
+    // 1. DESPERTAR AL SERVIDOR (WAKE UP)
+    // Esto hace una llamada silenciosa apenas carga la página para que el servidor
+    // vaya arrancando si estaba dormido (Plan Free).
+    fetch(`${API_URL}/wake`, { mode: 'no-cors' }).catch(() => {});
+
+    // 2. FUNCIÓN DE DESCARGA DE PRUEBA
+    async function descargarPrueba(btn) {
+        const textoOriginal = btn.innerText;
+        btn.innerText = "Generando..."; // Feedback visual
+        btn.disabled = true; // Evitar doble clic
+
+        try {
+            const response = await fetch(`${API_URL}/trial`);
+
+            if (!response.ok) {
+                // Si el servidor dice "Too Many Requests" (429)
+                if (response.status === 429) {
+                    alert("⚠️ Límite alcanzado: Ya se ha generado una licencia de prueba para esta conexión recientemente. Inténtalo nuevamente en unos días.");
+                } else {
+                    alert("Hubo un problema al conectar con el servidor de licencias. Por favor intenta más tarde.");
+                }
+                return;
+            }
+
+            // Si todo sale bien, convertimos la respuesta en archivo descargable
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "license.lic"; // Nombre del archivo
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            
+        } catch (error) {
+            console.error(error);
+            alert("Error de conexión. Verifica tu internet o intenta más tarde.");
+        } finally {
+            // Restaurar botón
+            btn.innerText = textoOriginal;
+            btn.disabled = false;
+        }
+    }
+</script>
 </body>
 </html>
+
