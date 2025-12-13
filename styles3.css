@@ -301,7 +301,7 @@ a {
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow-soft);
     padding: var(--space-5);
-    max-width: min(420px, 50vw);
+    max-width: min(520px, 50vw);
 }
 
 #hero .hero-content > div:last-child {
@@ -1497,3 +1497,4 @@ footer {
         padding: var(--space-4);
     }
 }
+
