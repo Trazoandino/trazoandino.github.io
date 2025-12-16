@@ -51,9 +51,9 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
             blurb:
                 "Visualiza incidencia solar en tu modelo y genera datos de radiación relativa para tu proyecto.",
             tags: ["Clima", "Visual", "EnergyPlus", "Python"],
-            ytBgUrl: "https://youtu.be/dQw4w9WgXcQ",
+            ytBgUrl: "https://www.youtube.com/watch?v=8VbwCOk8lzQ",
             poster: "media/analisis-solar.jpg",
-            videoUrl: "https://youtu.be/dQw4w9WgXcQ",
+            videoUrl: "https://www.youtube.com/watch?v=8VbwCOk8lzQ",
         },
     ];
 
@@ -701,3 +701,4 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAvatarCarousel();
     setupFormExpSlider();
 });
+
