@@ -37,9 +37,9 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
         },
         {
             slug: "coordina-views",
-            title: "Generación automática de pilares. 5.2",
+            title: "Generación automática de PIlares y Vigas. v.5.2",
             blurb:
-                "Dibuja el contorno, elige la densidad y el modo (perímetro, grilla o mixto) y exporta columnas estructurales listas para tu modelo.",
+                "Dibuja el contorno, elige la densidad y el modo (perímetro, grilla o mixto) y exporta columnas estructurales listas para tu modelo. Complementa con vigas.",
             tags: ["Estructura", "Ing", "Arq"],
             ytBgUrl: "https://www.youtube.com/watch?v=eb_sCt3lYzg",
             poster: "media/coordina-views.jpg",
@@ -701,6 +701,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAvatarCarousel();
     setupFormExpSlider();
 });
+
 
 
 
