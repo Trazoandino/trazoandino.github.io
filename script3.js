@@ -60,11 +60,11 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
 // Añadir nuevas cartas al FINAL (pinceles + libreta)
 PRODUCTS.push(
     {
-        slug: "",
+        slug: "pinceles",
         title: "Bim-Net",
         blurb:
             "Colaboración sin límites: Conecta a tu equipo en un mismo modelo central y visualiza los cambios al instante. Tu alternativa libre a BIM 360.",
-        tags: ["", "", ""],
+        tags: ["BIM libre"],
         poster: "media/pinceles.jpg",
         badges: ["Revit 2021–2025"],
     },
@@ -701,6 +701,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAvatarCarousel();
     setupFormExpSlider();
 });
+
 
 
 
