@@ -37,7 +37,7 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
         },
         {
             slug: "coordina-views",
-            title: "Generación automática de pilares",
+            title: "Generación automática de pilares. 5.2",
             blurb:
                 "Dibuja el contorno, elige la densidad y el modo (perímetro, grilla o mixto) y exporta columnas estructurales listas para tu modelo.",
             tags: ["Estructura", "Ing", "Arq"],
@@ -60,11 +60,11 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
 // Añadir nuevas cartas al FINAL (pinceles + libreta)
 PRODUCTS.push(
     {
-        slug: "pinceles",
-        title: "Pinceles",
+        slug: "",
+        title: "Bim-Net",
         blurb:
-            "Presets de visualización (líneas, grosores, colores) para vistas 2D/3D. Aplica y guarda estilos con un clic.",
-        tags: ["Visualización", "Gráficos", "Revit"],
+            "Colaboración sin límites: Conecta a tu equipo en un mismo modelo central y visualiza los cambios al instante. Tu alternativa libre a BIM 360.",
+        tags: ["", "", ""],
         poster: "media/pinceles.jpg",
         badges: ["Revit 2021–2025"],
     },
@@ -701,4 +701,5 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAvatarCarousel();
     setupFormExpSlider();
 });
+
 
