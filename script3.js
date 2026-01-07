@@ -63,7 +63,7 @@ PRODUCTS.push(
         slug: "pinceles",
         title: "Bim-Net",
         blurb:
-            "Colaboración sin límites: Conecta a tu equipo en un mismo modelo central y visualiza los cambios al instante. Tu alternativa libre a BIM 360.",
+            "Colaboración sin límites: Conecta a tu equipo en un mismo modelo central y visualiza los cambios al instante. Tu alternativa libre a BIM 360. Usamos alternativas libres: una red local auspiciada por Radmin VPN y un archivo de texto configurado RSN.ini en: C:\ProgramData\Autodesk\Revit Server 2023\Config\RSN.ini",
         tags: ["BIM libre"],
         poster: "media/pinceles.jpg",
         badges: ["Revit 2021–2025"],
@@ -88,7 +88,7 @@ const DOCS = {
             "Conecta tu modelo de Revit con el contexto real usando imágenes satelitales. Úsalo para ubicar proyectos, calcar vialidad y entender medianeros.",
         usage: [
             "Abre una vista 3D o de planta en Revit donde quieras trabajar con el contexto.",
-            "En la pestaña \"Complementos\" o \"│ Estuche │\", ejecuta \"Earth en Revit\".",
+            "En la pestaña \"│ Earth │\", ejecuta \"Earth 2D\".",
             "Busca la ubicación de tu proyecto y ajusta la escala usando una medida conocida (por ejemplo el ancho de una calle).",
             "Bloquea la imagen y úsala como base para calcar topografía, platabandas, veredas y edificaciones vecinas."
         ],
@@ -141,16 +141,15 @@ const DOCS = {
     },
     "pinceles": {
         overview:
-            "Guarda combinaciones de estilos de vista (colores, grosores, patrones) como pinceles y aplícalas a otras vistas con un clic.",
+            "BIM360 opción comunitaria.",
         usage: [
-            "En una vista base, ajusta gráficos, grosores de línea y colores hasta lograr el estilo que quieres.",
-            "Abre \"Pinceles\" y crea un nuevo pincel a partir de esa vista.",
-            "En otras vistas 2D o 3D, selecciona el pincel guardado y aplícalo para unificar el estilo.",
-            "Ajusta y guarda variaciones para láminas de presentación, coordinación y revisión técnica."
+          
+            ".",
+            "."
         ],
         tips: [
-            "Crea pinceles diferentes para cada fase (estudio preliminar, anteproyecto, ejecución).",
-            "Evita aplicar demasiados filtros en un solo pincel para mantener los tiempos de regeneración razonables."
+            "RadminVPN.",
+            "Configuramos Windows Server 2022 para el alojo de la comunicación del modelo central."
         ]
     },
     "libreta": {
@@ -253,10 +252,7 @@ function openDetails(slug) {
         : "";
 
     const defaultInstallSteps = [
-        "Descarga el archivo .zip desde el botón “Obtener”.",
-        "Descomprime la carpeta en una ubicación accesible.",
-        "Sigue el archivo README incluido para copiar los archivos a la carpeta de complementos (Addins) de Revit.",
-        "Reinicia Revit y verifica que aparezca la pestaña correspondiente."
+
     ];
     const installSteps =
         Array.isArray(docs.install) && docs.install.length
@@ -701,6 +697,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAvatarCarousel();
     setupFormExpSlider();
 });
+
 
 
 
