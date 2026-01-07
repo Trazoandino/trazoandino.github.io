@@ -63,7 +63,7 @@ PRODUCTS.push(
         slug: "pinceles",
         title: "Bim-Net",
         blurb:
-            "Colaboración sin límites: Conecta a tu equipo en un mismo modelo central y visualiza los cambios al instante. Tu alternativa libre a BIM 360. Red local auspiciada por Radmin VPN y un archivo de texto configurado RSN.ini en: C:\.ProgramData\Autodesk\Revit Server 2023\Config\RSN.ini",
+            "Colaboración sin límites: Conecta a tu equipo en un mismo modelo central y visualiza los cambios al instante. Tu alternativa libre a BIM 360. Red local auspiciada por Radmin VPN y un archivo de texto configurado RSN.ini ",
         tags: ["BIM libre"],
         poster: "media/pinceles.jpg",
         badges: ["Revit 2021–2025"],
@@ -141,10 +141,10 @@ const DOCS = {
     },
     "pinceles": {
         overview:
-            "BIM360 opción comunitaria.",
+            "BIM360 opción comunitaria. ",
         usage: [
           
-            ".",
+            "Archivo de servidor local en: C:\ProgramData\Autodesk\Revit Server 2023\Config\RSN.ini.",
             "."
         ],
         tips: [
@@ -697,6 +697,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setupAvatarCarousel();
     setupFormExpSlider();
 });
+
 
 
 
