@@ -1,9 +1,8 @@
-﻿
 <!doctype html>
 <html lang="es">
 <head>
     <meta charset="utf-8">
-    <title>Estuche Andino — Complementos para Revit + Portafolio</title>
+    <title>Trazo Andino — Arquitectura y automatización</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
@@ -16,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
           rel="stylesheet">
 
-
     <!-- CSS unificado -->
     <link rel="stylesheet" href="styles3.css">
 
@@ -25,11 +23,11 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Trazo Andino">
     <meta property="og:title" content="Trazo Andino — Complementos para Revit">
-    <meta property="og:description" content="Plugins para Revit: Earth, métricas, coordinación y más.">
+    <meta property="og:description" content="Complementos: Earth, métricas, coordinación y más.">
     <meta property="og:url" content="https://trazoandino.github.io/">
     <meta property="og:image" content="https://trazoandino.github.io/og-image.png">
-    <meta name="twitter:title" content="Estuche Andino — Complementos para Revit">
-    <meta name="twitter:description" content="Plugins para Revit: Earth, métricas, coordinación y más.">
+    <meta name="twitter:title" content="Trazo Andino">
+    <meta name="twitter:description" content="Complementos: Earth, métricas, coordinación y más.">
     <meta name="twitter:image" content="https://tu-dominio.example/og-image.png">
 
     <!-- Schema.org: SoftwareApplication (colección) -->
@@ -37,7 +35,7 @@
         {
           "@context":"https://schema.org",
           "@type":"SoftwareApplication",
-          "name":"Estuche Andino — Complementos para Revit",
+          "name":"Trazo Andino — Arquitectura y automatización",
           "applicationCategory":"CAD/CAE",
           "operatingSystem":"Windows",
           "softwareVersion":"2025",
@@ -80,15 +78,19 @@
         </div>
     </header>
 
-    <!-- Hero (dos columnas: texto izq. / imagen der.) -->
+    <!-- Hero (3 columnas: intro / banner / servicios) -->
     <section id="hero">
         <div class="container hero-content">
-            <div>
+
+            <!-- Columna izquierda: Intro -->
+            <div class="hero-panel hero-panel--intro">
                 <h1 class="hero-title">Arquitectura</h1>
                 <h1 class="hero-title">Estructura</h1>
                 <h1 class="hero-title">Construcción</h1>
+                <h1 class="hero-title">Programación</h1>
 
-                <p class="hero-sub">────────────────────────────────────</p>
+                <p class="hero-sub">──────────────────────────────────────────────────</p>
+     
 
                 <p class="hero-sub">
                     ⚒️ 🏗️ Conjunto de automatizaciones, estudios y documentación para proyectos.
@@ -97,18 +99,60 @@
                     🐈‍ Obtén acceso a servicios para cada etapa de tu trabajo. Reduce tiempo de jornada.
                 </p>
                 <p class="hero-sub">
-                    💻 Programas libres, desarrollado por arquitectos y arquitectas que escriben código. 
+                    💻 Programas libres, desarrollado por arquitectos y arquitectas que escriben código.
                 </p>
 
-                <p class="hero-sub"></p>
+               
             </div>
 
-            <div>
-                <!-- Imagen del banner (misma área que el video) -->
+            <!-- Columna central: banner -->
+            <div class="hero-banner">
                 <figure class="media-box" aria-hidden="true">
                     <img src="banner-hero.png" alt="" loading="eager" decoding="async">
                 </figure>
             </div>
+
+            <!-- Columna derecha: Servicios (NUEVA TARJETA A LA DERECHA DEL BANNER) -->
+            <aside class="hero-panel hero-panel--services" aria-label="Servicios">
+                <h2 class="services-title">Servicios</h2>
+                <p class="services-tagline">Arquitectura que diseña; complementos que producen.</p>
+                <p class="services-note">
+                    Para estudios, oficinas y particulares: diseño + planimetrías + automatización BIM/CAD.
+                </p>
+
+                <h3 class="services-section-title">Arquitectura</h3>
+                <ul class="services-list">
+                    <li>Diseño de espacios y desarrollo de proyecto</li>
+                    <li>Planimetrías: plantas, cortes, detalles y láminas</li>
+                    <li>Modelado 3D y coordinación BIM</li>
+                </ul>
+
+                <h3 class="services-section-title">Programación (BIM/CAD)</h3>
+                <ul class="services-list">
+                    <li>Complementos en Revit / Archicad / AutoCAD (C#, XAML, Python)</li>
+                    <li>Automatizaciones y análisis (metrados, reportes, control BIM; solar/térmico/acústico según requerimiento)</li>
+                    <li>Páginas web de soporte (HTML/CSS/JS: dashboards, documentación)</li>
+                </ul>
+
+                <h3 class="services-section-title">Trabajos típicos</h3>
+                <ul class="services-list">
+                    <li>Planimetrías y láminas listas para revisión/obra</li>
+                    <li>Metrados automáticos y planillas (Excel/CSV)</li>
+                    <li>Desarrollo y programación de complementos</li>
+                </ul>
+
+                <h3 class="services-section-title">Entregables</h3>
+                <ul class="services-list">
+                    <li>Planos + modelo 3D/BIM + planillas </li>
+                    <li>Complementos/scripts instalable + guía de uso</li>
+                    <li>Ajustes y soporte post-entrega </li>
+                </ul>
+
+                <p class="services-cta">
+                    <strong>Escríbeme y conversemos su proyecto:</strong> Sugiero una solución y un alcance.
+                </p>
+            </aside>
+
         </div>
     </section>
 
@@ -118,31 +162,48 @@
             <header>
                 <h2 id="plugins-title">Aplicaciones</h2>
                 <p class="max-w">
-                    Accede a servicios para tus proyectos. Único instalador para todos los programas.
+                    Para cada etapa de su proyecto. Único instalador para todos los programas.
                 </p>
                 <p class="max-w">
                     Vienen con licencia activada. Puede volver
                     a descargar licencias para usted y sus colegas.
                 </p>
                 <p class="max-w">
-                  
                 </p>
 
                 <!-- BOTONES DE ACCIÓN -->
                 <div class="apps-actions">
-                    <!-- Cambia los href por tus enlaces reales -->
-               
-
                     <a class="btn apps-actions__btn"
                        href="https://github.com/Trazoandino/trazoandino.github.io/releases/download/Arq/Estuche_Revit_2023_2025_Setup.exe"
                        target="_blank" rel="noopener">
                         Descargar Aplicaciones (Instalador para Revit 2023 y 2025)
                     </a>
 
-                  <button class="btn apps-actions__btn" type="button" onclick="descargarPrueba(this)">
-                            Descargar licencia de prueba por 14 días (Pegue el archivo license.lic en: C:\ProgramData \ Estuche \ license.lic)
-                </button>
+                    <button class="btn apps-actions__btn" type="button" onclick="descargarPrueba(this)">
+                        Descargar licencia de prueba (14 días)
+                    </button>
                 </div>
+                <!-- Instrucciones licencia -->
+                <details class="license-instructions">
+                    <summary>¿Cómo activar la licencia?</summary>
+
+                    <ol>
+                        <li>Descarga el archivo <strong>license.lic</strong>.</li>
+                        <li>Copia el archivo en la siguiente ruta:</li>
+                    </ol>
+
+                    <div class="license-path">
+                        <code>C:\ProgramData\Estuche\license.lic</code>
+                       
+                    </div>
+
+                    <p class="license-note">
+                        Si no ves la carpeta <strong>ProgramData</strong>, activa
+                        <em>Vista → Elementos ocultos</em> en el Explorador de archivos.
+                       
+                    </p>
+                </details>
+
             </header>
 
             <div class="grid" role="list" aria-live="polite" aria-busy="false"></div>
@@ -169,7 +230,6 @@
                     <summary>¿Compatibilidad?</summary>
                     <p>
                         Revit 2023 y 2025
-
                     </p>
                 </details>
             </div>
@@ -228,8 +288,6 @@
                             <div class="hero-card__info">
                                 <h2 class="hero-card__name">ARQ;DED</h2>
 
-                              
-
                                 <div class="hero-card__info">
                                     <div class="hero-card__meta">
                                         <strong>Antártica, Chile</strong>
@@ -242,7 +300,6 @@
                                 </p>
 
                                 <div class="hero-card__chips">
-                                  
                                     <span class="tag">Fútbol </span>
                                     <span class="tag">Café</span>
                                     <span class="tag">Antiocultismo</span>
@@ -250,18 +307,13 @@
                                 <div class="hero-card__chips">
                                     <span class="tag">Soda Stereo</span>
                                     <span class="tag">Kino - Кино </span>
-
                                 </div>
 
                                 <div class="hero-card__chips">
                                     <span class="tag">Dostoyevski</span>
-
                                     <span class="tag">Immanuel Kant</span>
                                     <span class="tag">Ludwig Wittgenstein</span>
-
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -296,15 +348,15 @@
                                         </div>
                                     </div>
                                 </li>
-                               <li>
-                            <span class="dot"></span>
-                                <div>
-                                    <div class="list__title">LICEO</div>
-                                    <div class="list__text">
-                            <strong>Instituto Nacional José Miguel Carrera</strong>
+                                <li>
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="list__title">LICEO</div>
+                                        <div class="list__text">
+                                            <strong>Instituto Nacional José Miguel Carrera</strong>
                                         </div>
-                                </div>
-                           </li>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
 
@@ -325,16 +377,16 @@
                                         </div>
                                     </div>
                                 </li>
-                               <li>
-                              <span class="dot"></span>
-                          <div>
-                <div class="list__title">COLABORACIONES</div>
-                <div class="list__text">
-                      <strong>Equipo de Arquitectos programadores</strong><br>
-                    Desarrollo de aplicaciones y su integración a plataformas BIM: Earth en Revit, en Blender, Archicad.
-                    </div>
-                      </div>
-                        </li>
+                                <li>
+                                    <span class="dot"></span>
+                                    <div>
+                                        <div class="list__title">COLABORACIONES</div>
+                                        <div class="list__text">
+                                            <strong>Equipo de Arquitectos programadores</strong><br>
+                                            Desarrollo de aplicaciones y su integración a plataformas BIM: Earth en Revit, en Blender, Archicad.
+                                        </div>
+                                    </div>
+                                </li>
 
                             </ul>
                         </div>
@@ -382,7 +434,6 @@
                             <p class="icon-card__note">Detalles 2D y planos de apoyo.</p>
                         </div>
 
-                        <!-- Excel movido desde Librerías a Herramientas -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/excel.png" alt="Excel">
@@ -414,7 +465,6 @@
                     </p>
 
                     <div class="icon-grid">
-                        <!-- Fila 1 (3 ítems): Python, C#, XAML -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/python.png" alt="Python">
@@ -445,7 +495,6 @@
                             </p>
                         </div>
 
-                        <!-- Fila 2 (2 ítems): HTML+CSS, JavaScript -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/html5css.png" alt="HTML5 + CSS">
@@ -477,7 +526,6 @@
                     </p>
 
                     <div class="icon-grid">
-                        <!-- fila 1 -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/revitapi.png" alt="API Revit">
@@ -488,7 +536,6 @@
                             </p>
                         </div>
 
-                        <!-- NumPy como librería científica -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/Numpy.png" alt="NumPy">
@@ -509,7 +556,6 @@
                             </p>
                         </div>
 
-                        <!-- Simulación fotovoltaica -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/plv.png" alt="pvlib">
@@ -530,7 +576,6 @@
                             </p>
                         </div>
 
-                        <!-- fila 2 -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/pandas.png" alt="Pandas">
@@ -541,7 +586,6 @@
                             </p>
                         </div>
 
-                        <!-- GitHub movido aquí desde Herramientas -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/github.png" alt="GitHub">
@@ -562,18 +606,16 @@
                             </p>
                         </div>
 
-                        <!-- ChatGPT con icono correcto -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/chatgpt.png" alt="ChatGPT">
                             </div>
-                            <p class="icon-card__label">ChatGPT</p>
+                            <p class="icon-card__label">ChatGPT, DeepSeek, Gemini</p>
                             <p class="icon-card__note">
                                 Código y lógica que conecto a las aplicaciones.
                             </p>
                         </div>
-                        
-                         <!-- NumPy como librería científica -->
+
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/Numpy.png" alt="NumPy">
@@ -584,7 +626,6 @@
                             </p>
                         </div>
 
-                         <!-- NumPy como librería científica -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/Numpy.png" alt="NumPy">
@@ -595,20 +636,17 @@
                             </p>
                         </div>
 
-                        <!-- DeepSeek con su icono -->
                         <div class="icon-card">
                             <div class="icon-card__circle">
                                 <img src="assets/deepseek.png" alt="DeepSeek">
                             </div>
-                            <p class="icon-card__label">DeepSeek</p>
+                            <p class="icon-card__label">Kali Linux</p>
                             <p class="icon-card__note">
-                                Asistente personal dentro de aplicaciones para lectura y conclusiones de base de datos.
+                                Programación y seguridad informática.
                             </p>
                         </div>
                     </div>
                 </article>
-
-               
 
             </section>
         </div>
@@ -626,79 +664,51 @@
     <!-- JS unificado -->
     <script src="script3.js" defer></script>
 
-
     <script>
-    // ⚠️ REEMPLAZA ESTO CON TU URL EXACTA DE RENDER NUEVO
-    // Si lograste cambiar el nombre, será algo como 'https://trazo-andino.onrender.com'
-    const API_URL = "https://trazo-andino-chile.onrender.com"; 
+        // ⚠️ REEMPLAZA ESTO CON TU URL EXACTA DE RENDER NUEVO
+        // Si lograste cambiar el nombre, será algo como 'https://trazo-andino.onrender.com'
+        const API_URL = "https://trazo-andino-chile.onrender.com";
 
-    // 1. DESPERTAR AL SERVIDOR (WAKE UP)
-    // Esto hace una llamada silenciosa apenas carga la página para que el servidor
-    // vaya arrancando si estaba dormido (Plan Free).
-    fetch(`${API_URL}/wake`, { mode: 'no-cors' }).catch(() => {});
+        // 1. DESPERTAR AL SERVIDOR (WAKE UP)
+        // Esto hace una llamada silenciosa apenas carga la página para que el servidor
+        // vaya arrancando si estaba dormido (Plan Free).
+        fetch(`${API_URL}/wake`, { mode: 'no-cors' }).catch(() => { });
 
-    // 2. FUNCIÓN DE DESCARGA DE PRUEBA
-    async function descargarPrueba(btn) {
-        const textoOriginal = btn.innerText;
-        btn.innerText = "Generando..."; // Feedback visual
-        btn.disabled = true; // Evitar doble clic
+        // 2. FUNCIÓN DE DESCARGA DE PRUEBA
+        async function descargarPrueba(btn) {
+            const textoOriginal = btn.innerText;
+            btn.innerText = "Generando...";
+            btn.disabled = true;
 
-        try {
-            const response = await fetch(`${API_URL}/trial`);
+            try {
+                const response = await fetch(`${API_URL}/trial`);
 
-            if (!response.ok) {
-                // Si el servidor dice "Too Many Requests" (429)
-                if (response.status === 429) {
-                    alert("⚠️ Límite alcanzado: Ya se ha generado una licencia de prueba para esta conexión recientemente. Inténtalo nuevamente en unos días.");
-                } else {
-                    alert("Hubo un problema al conectar con el servidor de licencias. Por favor intenta más tarde.");
+                if (!response.ok) {
+                    if (response.status === 429) {
+                        alert("⚠️ Límite alcanzado: Ya se ha generado una licencia de prueba para esta conexión recientemente. Inténtalo nuevamente en unos días.");
+                    } else {
+                        alert("Hubo un problema al conectar con el servidor de licencias. Por favor intenta más tarde.");
+                    }
+                    return;
                 }
-                return;
-            }
 
-            // Si todo sale bien, convertimos la respuesta en archivo descargable
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = "license.lic"; // Nombre del archivo
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-            
-        } catch (error) {
-            console.error(error);
-            alert("Error de conexión. Verifica tu internet o intenta más tarde.");
-        } finally {
-            // Restaurar botón
-            btn.innerText = textoOriginal;
-            btn.disabled = false;
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = "license.lic";
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+
+            } catch (error) {
+                console.error(error);
+                alert("Error de conexión. Verifica tu internet o intenta más tarde.");
+            } finally {
+                btn.innerText = textoOriginal;
+                btn.disabled = false;
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
