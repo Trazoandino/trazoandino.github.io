@@ -379,7 +379,7 @@ a {
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: rgb(175, 181, 193, 0,85); /* gris frío, no quema */
+    color: rgba(175, 181, 193, 0,85); /* gris frío, no quema */
 }
 
 .services-list {
@@ -1231,8 +1231,8 @@ footer {
     align-items: center;
     padding: 10px 12px;
     border-radius: 14px;
-    background: rgba(15, 23, 42, 0.86);
-    border: 1px solid rgba(15, 23, 42, 0.95);
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid rgba(31, 31, 31, 0.95);
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
 }
 
@@ -1704,4 +1704,59 @@ footer {
 .license-note {
     font-size: var(--fs-xs);
     color: var(--text-muted);
+}
+/* === Ajuste tarjetas Servicios / APIs / Librerías === */
+.card--libraries .icon-card {
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid rgba(31, 31, 31, 0.95);
+}
+/* === Servicios / APIs / Librerías en 4 columnas === */
+@media (min-width: 1024px) {
+    .card--libraries .icon-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+/* ===== HERO: móvil limpio (banner estable) ===== */
+@media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: var(--space-4);
+    }
+
+    /* orden lógico: Intro -> Banner -> Servicios (si quieres otro orden te lo dejo abajo) */
+    .hero-panel--intro {
+        order: 1;
+    }
+
+    .hero-banner {
+        order: 2;
+    }
+
+    .hero-panel--services {
+        order: 3;
+    }
+
+    /* banner centrado y con “forma” fija */
+    .hero-banner {
+        justify-content: center;
+    }
+
+    .media-box {
+        width: 100%;
+        max-width: 520px;
+        margin-inline: auto;
+        aspect-ratio: 16 / 9; /* clave: evita que se deforme */
+    }
+
+        .media-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* llena la caja sin verse raro */
+            object-position: center;
+        }
+
+    /* títulos grandes no deben desbordar */
+    .hero-title {
+        font-size: clamp(28px, 8vw, 42px);
+    }
 }
