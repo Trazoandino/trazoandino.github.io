@@ -10,8 +10,8 @@
     --accent: #00b741;
     --accent-soft: rgba(37, 99, 235, 0.15);
     --accent-green: #00c047;
-    --text-main: #f9fafb;
-    --text-soft: #e5e7eb;
+    --text-main: #a9a9a9;
+    --text-soft: #b7b7c3;
     --text-muted: #9ca3af;
     --radius-card: 24px;
     --radius-pill: 999px;
@@ -284,15 +284,17 @@ a {
     padding: var(--space-5) 0 var(--space-3);
 }
 
+/* 3 columnas: Intro / Banner / Servicios */
 .hero-content {
     display: grid;
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1.6fr);    
     gap: var(--space-5);
-    align-items: center;
+    align-items: start;
 }
 
-/* Tarjeta de texto del banner con granulado */
-#hero .hero-content > div:first-child {
+
+/* Tarjetas (Intro + Servicios) */
+.hero-panel {
     background-color: #000;
     background-image: var(--card-noise);
     background-repeat: repeat;
@@ -301,14 +303,25 @@ a {
     border: 1px solid var(--card-border);
     box-shadow: var(--shadow-soft);
     padding: var(--space-5);
-    max-width: min(520px, 50vw);
 }
 
-#hero .hero-content > div:last-child {
+/* Anchos razonables en escritorio */
+.hero-panel--intro {
+    max-width: 280px;
+}
+
+.hero-panel--services {
+    max-width: none;
+    width: 100%;
+}
+
+/* Columna central: banner */
+.hero-banner {
     display: flex;
     justify-content: center;
 }
 
+/* Caja del banner (igual que antes, pero dentro de .hero-banner) */
 .media-box {
     width: 100%;
     max-width: 520px;
@@ -325,6 +338,7 @@ a {
         display: block;
     }
 
+/* Tipografías del intro */
 .hero-title {
     font-size: 46px;
     margin: 0;
@@ -336,15 +350,104 @@ a {
     margin-top: 4px;
 }
 
-#hero .hero-content > div:first-child p.hero-sub:nth-of-type(2),
-#hero .hero-content > div:first-child p.hero-sub:nth-of-type(3),
-#hero .hero-content > div:first-child p.hero-sub:nth-of-type(4) {
+/* Agranda todo el texto del intro excepto la primera línea (la “regla”) */
+#hero .hero-panel--intro p.hero-sub:not(:first-of-type) {
     font-size: var(--fs-md);
 }
 
+/* --- Estilos internos de la tarjeta Servicios --- */
+.services-title {
+    margin: 0 0 6px;
+    font-size: 18px;
+    letter-spacing: 0.02em;
+}
+
+.services-tagline {
+    margin: 0 0 8px;
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+.services-note {
+    margin: 0 0 14px;
+    color: var(--text-soft);
+    font-size: var(--fs-sm);
+}
+
+.services-section-title {
+    margin: 14px 0 8px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgb(175, 181, 193, 0,85); /* gris frío, no quema */
+}
+
+.services-list {
+    margin: 0 0 10px;
+    padding-left: 18px;
+    color: var(--text-soft);
+    font-size: 12.5px;
+}
+
+    .services-list li {
+        margin: 6px 0;
+    }
+
+.services-cta {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(148, 163, 184, 0.25);
+    color: var(--text-main);
+    font-size: var(--fs-sm);
+}
+
+/* Reutilizado en otras secciones */
 .max-w {
     max-width: 600px;
 }
+
+/* ============================
+   Responsive
+============================ */
+
+/* En pantallas medianas: 2 columnas y Servicios abajo ocupando todo */
+@media (max-width: 1100px) {
+    .hero-content {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .hero-panel--intro {
+        max-width: 210px; /* en vez de none */
+        justify-self: start;
+    }
+}
+
+    .hero-panel--services {
+        grid-column: 1 / -1;
+        max-width: none;
+    }
+}
+
+/* En móvil: 1 columna (Intro, Banner, Servicios) */
+@media (max-width: 768px) {
+    .hero-content {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-banner {
+        justify-content: start;
+    }
+
+    .media-box {
+        max-width: 100%;
+    }
+
+    .hero-panel--intro,
+    .hero-panel--services {
+        max-width: 100%;
+    }
+}
+
 
 /* ============================
    6. BOTONES + CHIPS
@@ -1434,9 +1537,12 @@ footer {
    20. MEDIA QUERIES
 ============================ */
 @media (max-width: 960px) {
-    .hero-content {
-        grid-template-columns: minmax(0, 1fr);
-    }
+    .hero-content{
+  display:grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.6fr);
+  gap: var(--space-5);
+  align-items: start;
+}
 
     #hero .hero-content > div:first-child {
         max-width: 100%;
@@ -1498,3 +1604,104 @@ footer {
     }
 }
 
+/* ============================
+   OVERRIDE: HERO más ancho
+   (pegar al final de styles3.css)
+============================ */
+
+/* Haz el contenedor del HERO más ancho (sin afectar el resto del sitio) */
+#hero .container {
+    width: min(1600px, 100%);
+}
+
+/* Dale más espacio a las 2 tarjetas y achica la columna del banner central */
+.hero-content {
+    grid-template-columns: minmax(0, 10.5fr) minmax(0, 1fr) minmax(0, 10.5fr);
+}
+
+/* Quita el tope de 520px y deja que llenen su columna */
+.hero-panel--intro,
+.hero-panel--services {
+    max-width: none;
+    width: 100%;
+}
+
+/* (Opcional) si el banner central también se siente chico/rarito */
+.media-box {
+    max-width: none;
+    width: 100%;
+}
+
+/* OVERRIDE: agrandar tipografía tarjeta Servicios */
+.hero-panel--services{
+  font-size: 15.5px;            /* base dentro de la tarjeta */
+  line-height: 1.55;
+}
+
+.hero-panel--services .services-title{
+  font-size: 29px;
+}
+
+.hero-panel--services .services-tagline{
+  font-size: 22px;
+}
+
+.hero-panel--services .services-note,
+.hero-panel--services .services-cta{
+  font-size: 17.5px;
+}
+
+.hero-panel--services .services-section-title{
+  font-size: 16px;
+  letter-spacing: 0.12em;       /* opcional: deja el “look” */
+}
+
+.hero-panel--services .services-list{
+  font-size: 14.5px;
+}
+
+.hero-panel--services .services-list li{
+  margin: 8px 0;
+}
+
+/* Instrucciones de licencia */
+.license-instructions {
+    margin-top: var(--space-4);
+    max-width: 42rem;
+}
+
+    .license-instructions summary {
+        cursor: pointer;
+        font-size: var(--fs-sm);
+        font-weight: 600;
+        color: var(--text-main);
+        margin-bottom: var(--space-2);
+    }
+
+    .license-instructions ol {
+        padding-left: 1.2rem;
+        font-size: var(--fs-sm);
+        color: var(--text-soft);
+    }
+
+.license-path {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: center;
+    margin: var(--space-2) 0;
+}
+
+    .license-path code {
+        padding: 6px 10px;
+        border-radius: 10px;
+        background: var(--card-bg-soft);
+        border: 1px solid var(--card-border);
+        font-size: 13px;
+        color: var(--text-main);
+    }
+
+.license-note {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+}
