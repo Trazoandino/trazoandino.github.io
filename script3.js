@@ -28,16 +28,16 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
         },
         {
             slug: "metrados-express",
-            title: "Presupuestos Automáticos",
-            blurb: "Mide elementos y exporta a Excel con un clic.",
-            tags: ["Cubicación", "Productividad"],
+            title: "Visualización Astronómica",
+            blurb: "Motor de cálculo para posicionamiento estelar y lunar en tiempo real dentro del entorno BIM.",
+            tags: ["Estrellas", "Luna", "Planetas"],
             ytBgUrl: "https://www.youtube.com/watch?v=nls5JuhYhN4",
             poster: "media/metrados-express.jpg",
             videoUrl: "https://www.youtube.com/watch?v=nls5JuhYhN4",
         },
         {
             slug: "coordina-views",
-            title: "Generación automática de PIlares y Vigas. v.5.2",
+            title: "Generación automática de Pilares y Vigas. v.5.2",
             blurb:
                 "Dibuja el contorno, elige la densidad y el modo (perímetro, grilla o mixto) y exporta columnas estructurales listas para tu modelo. Complementa con vigas.",
             tags: ["Estructura", "Ing", "Arq"],
@@ -47,10 +47,10 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
         },
         {
             slug: "analisis-solar",
-            title: "Análisis Solar + Térmico",
+            title: "Arquitectura Generativa",
             blurb:
-                "Visualiza incidencia solar en tu modelo y genera datos de radiación relativa para tu proyecto.",
-            tags: ["Clima", "Visual", "EnergyPlus", "Python"],
+                "Genera paramétricamente arquitectura basada en la naturaleza o morfologías complejas.",
+            tags: ["BioGen", "Fachadas"],
             ytBgUrl: "https://www.youtube.com/watch?v=8VbwCOk8lzQ",
             poster: "media/analisis-solar.jpg",
             videoUrl: "https://www.youtube.com/watch?v=8VbwCOk8lzQ",
@@ -61,21 +61,31 @@ const PRODUCTS = (window.PRODUCTS && Array.isArray(window.PRODUCTS))
 PRODUCTS.push(
     {
         slug: "pinceles",
-        title: "Bim-Net",
+        title: "Paleta de Colores y pinceles",
         blurb:
-            "Colaboración sin límites: Conecta a tu equipo en un mismo modelo central y visualiza los cambios al instante. Tu alternativa libre a BIM 360. Red local auspiciada por Radmin VPN y un archivo de texto configurado RSN.ini ",
-        tags: ["BIM libre"],
+            "Selecciona un color y genera su paleta de colores.",
+        tags: ["Color"],
         poster: "media/pinceles.jpg",
-        badges: ["Revit 2021–2025"],
+        badges: ["Revit 2021–2025", "App de escritorio"],
     },
     {
         slug: "libreta",
         title: "Libreta",
         blurb:
-            "Libreta asistente para cada una de las vistas del proyecto.",
+            "Tome notas y guárdelas en su libreta.",
         tags: ["IA", "Asistente", "Productividad"],
         poster: "media/deep-seek.jpg",
         badges: ["Beta", "Windows"],
+    },
+
+     {
+         slug: "metrados-express",
+         title: "Presupuestos Automáticos",
+         blurb: "Mide elementos y exporta a Excel con un clic.",
+         tags: ["Cubicación", "Productividad"],
+         ytBgUrl: "https://www.youtube.com/watch?v=nls5JuhYhN4",
+         poster: "media/metrados-express.jpg",
+         videoUrl: "https://www.youtube.com/watch?v=nls5JuhYhN4",
     }
 );
 
